@@ -1,20 +1,43 @@
-import QtQuick 2.3
-import QtQuick.Window 2.2
 
-Window {
-    visible: true
-    width: 360
-    height: 360
+import QtQuick 2.1
+import QtQuick.Window 2.1
+import Deepin.Locale 1.0
+import Deepin.Widgets 1.0
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
+QtObject {
+    id: root
+
+    property var feedbackType: 0
+    property string reportTitle: ""
+    property string email: ""
+    property bool helpDeepin: true
+    property string reportContent: ""
+    property var adjunctsPathList: []
+
+    function initReportContent(value){
+        reportContent = value
     }
 
-    Text {
-        text: qsTr("Hello Deepin")
-        anchors.centerIn: parent
+    function initAdjunctsPathList(list){
+        adjunctsPathList = list
     }
+
+    function initSimpleEntries(_feedbackType,_reportTitle,_email,_helpDeepin){
+        feedbackType = _feedbackType
+        reportTitle = _reportTitle
+        email = _email
+        helpDeepin = _helpDeepin
+    }
+
+    function showMainWindow(){
+        mainWindow.show()
+    }
+
+    function hideMainWindow(){
+        mainWindow.hide()
+    }
+
+    property var dconstants: DConstants{}
+
+    property var mainWindow: MainWindow {}
 }

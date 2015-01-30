@@ -6,6 +6,8 @@ QmlLoader::QmlLoader(QObject *parent)
     engine = new QQmlEngine(this);
     component = new QQmlComponent(engine, this);
     rootContext = new QQmlContext(engine, this);
+
+    init();
 }
 
 QmlLoader::~QmlLoader()
@@ -30,16 +32,6 @@ void QmlLoader::load(QUrl url)
     }
 }
 
-void QmlLoader::show()
-{
-    QVariant second = QVariant(0);
-    QMetaObject::invokeMethod(
-                this->rootObject,
-                "showDss",
-                Q_ARG(QVariant, second)
-                );
-}
-
 void QmlLoader::showHelpTip()
 {
 
@@ -52,15 +44,260 @@ void QmlLoader::showVersion()
 
 void QmlLoader::reportBug()
 {
-
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "showMainWindow"
+                );
 }
 
 void QmlLoader::reportBug(const QString &target)
 {
+    //get draft
+    Draft draft = getDraft(target);
 
+    //init value
+    QVariant contentValue = QVariant(draft.content);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "initReportContent",
+                Q_ARG(QVariant, contentValue)
+                );
+
+    QVariant listValue = QVariant(draft.adjunctPathList);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "initAdjunctsPathList",
+                Q_ARG(QVariant, listValue)
+                );
+
+    QVariant feedbackTypeValue = QVariant(draft.feedbackType);
+    QVariant reportTitleValue = QVariant(draft.title);
+    QVariant emailValue = QVariant(draft.email);
+    QVariant helpDeepinValue = QVariant(draft.helpDeepin);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "initSimpleEntries",
+                Q_ARG(QVariant,feedbackTypeValue),
+                Q_ARG(QVariant,reportTitleValue),
+                Q_ARG(QVariant,emailValue),
+                Q_ARG(QVariant,helpDeepinValue)
+                );
+
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "showMainWindow"
+                );
+}
+
+
+void QmlLoader::init()
+{
+    //makesure path exist
+    QDir configDir;
+    if (!configDir.exists(DRAFT_SAVE_PATH_NARMAL))
+    {
+        configDir.mkpath(DRAFT_SAVE_PATH_NARMAL);
+    }
 }
 
 QStringList QmlLoader::getSupportAppList()
 {
 
+}
+
+bool QmlLoader::saveDraft(const QString &targetApp,
+                          const FeedbackType &type,
+                          const QString &title,
+                          const QString &email,
+                          const bool &helpDeepin,
+                          const QString &content)
+{
+    QString targetPath = DRAFT_SAVE_PATH_NARMAL + targetApp;
+    QDir tmpDir;
+    if (!tmpDir.exists(targetPath))
+        tmpDir.mkpath(targetPath);
+
+    //write simple entries file
+    QJsonObject jsonObj;
+    jsonObj.insert("FeedbackType", int(type));
+    jsonObj.insert("Title", title);
+    jsonObj.insert("Email", email);
+    jsonObj.insert("HelpDeepin",helpDeepin);
+
+    QJsonDocument jsonDocument;
+    jsonDocument.setObject(jsonObj);
+
+    QFile simpleEntriesFile(targetPath + "/" + SIMPLE_ENTRIES_FILE_NAME);
+    if (simpleEntriesFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        simpleEntriesFile.write(jsonDocument.toJson(QJsonDocument::Compact));
+        simpleEntriesFile.close();
+    }
+    else
+    {
+        qDebug() << "Open simple entries file error!";
+        return false;
+    }
+
+    //write content file
+    QFile contentFile(targetPath + "/" + CONTENT_FILE_NAME);
+    if (contentFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        contentFile.write(content.toLatin1());
+        contentFile.close();
+    }
+    else
+    {
+        qDebug() << "Open content file error!";
+        return false;
+    }
+
+    return true;
+}
+
+void QmlLoader::clearAllDraft()
+{
+    removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL);
+    QDir tmpDir;
+    tmpDir.mkpath(DRAFT_SAVE_PATH_NARMAL);
+}
+
+void QmlLoader::clearDraft(const QString &targetApp)
+{
+    removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL + targetApp);
+}
+
+Draft QmlLoader::getDraft(const QString &targetApp)
+{
+    Draft tmpDraft;
+    QDir configDir;
+    if (!configDir.exists(DRAFT_SAVE_PATH_NARMAL + targetApp))
+    {
+        //not exist,return empty value
+        return tmpDraft;
+    }
+    else
+    {
+        //get content
+        if (QFile::exists(DRAFT_SAVE_PATH_NARMAL + targetApp + "/" + CONTENT_FILE_NAME))
+        {
+            QFile contentFile(DRAFT_SAVE_PATH_NARMAL + targetApp + "/" + CONTENT_FILE_NAME);
+            if (contentFile.open(QIODevice::ReadOnly))
+            {
+                tmpDraft.content = QString(contentFile.readAll());
+                contentFile.close();
+            }
+        }
+
+        //get simple entries from json file
+        if (QFile::exists(DRAFT_SAVE_PATH_NARMAL + targetApp + "/" + SIMPLE_ENTRIES_FILE_NAME))
+        {
+            QFile entriesFile(DRAFT_SAVE_PATH_NARMAL + targetApp + "/" + SIMPLE_ENTRIES_FILE_NAME);
+            if (entriesFile.open(QIODevice::ReadOnly))
+            {
+                QByteArray tmpByteArry = entriesFile.readAll();
+                parseJsonData(tmpByteArry,&tmpDraft);
+                entriesFile.close();
+            }
+        }
+
+        //get adjuncts path's list
+        if (QFile::exists(DRAFT_SAVE_PATH_NARMAL + targetApp + "/" + ADJUNCT_DIR_NAME))
+        {
+            QDir tmpDir(DRAFT_SAVE_PATH_NARMAL + targetApp + "/" + ADJUNCT_DIR_NAME);
+            QFileInfoList infoList = tmpDir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot ,QDir::Name);
+            for (int i = 0; i < infoList.length(); i ++)
+            {
+                if (infoList.at(i).isFile())
+                    tmpDraft.adjunctPathList.append(infoList.at(i).filePath());
+            }
+        }
+    }
+}
+
+void QmlLoader::parseJsonData(const QByteArray &byteArray, Draft *draft)
+{
+    QJsonParseError jsonError;
+    QJsonDocument parseDoucment = QJsonDocument::fromJson(byteArray, &jsonError);
+    if(jsonError.error == QJsonParseError::NoError)
+    {
+        if(parseDoucment.isObject())
+        {
+            QJsonObject obj = parseDoucment.object();
+            if(obj.contains("FeedbackType"))
+            {
+                QJsonValue feedbackTypeValue = obj.take("FeedbackType");
+                if(feedbackTypeValue.isDouble())
+                    draft->feedbackType = FeedbackType(feedbackTypeValue.toVariant().toInt());
+            }
+            if(obj.contains("Title"))
+            {
+                QJsonValue titleValue = obj.take("Title");
+                if(titleValue.isString())
+                    draft->title = titleValue.toString();
+            }
+            if(obj.contains("Email"))
+            {
+                QJsonValue emailValue = obj.take("Email");
+                if(emailValue.isString())
+                    draft->email = emailValue.toString();
+            }
+            if (obj.contains("HelpDeepin"))
+            {
+                QJsonValue helpDeepinValue = obj.take("HelpDeepin");
+                if (helpDeepinValue.isBool())
+                    draft->helpDeepin = helpDeepinValue.toBool();
+            }
+        }
+    }
+}
+
+bool QmlLoader::removeDirWidthContent(const QString &dirName)
+{
+    QStringList dirNames;
+    QDir tmpDir;
+    QFileInfoList infoList;
+    QFileInfoList::iterator currentFile;
+
+    dirNames.clear();
+    if(tmpDir.exists())
+        dirNames<<dirName;
+    else
+        return true;
+
+
+    for(int i=0;i<dirNames.size();++i)
+    {
+        tmpDir.setPath(dirNames[i]);
+        infoList = tmpDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot ,QDir::Name);
+        if(infoList.size()>0)
+        {
+            currentFile = infoList.begin();
+            while(currentFile != infoList.end())
+            {
+                //dir, appent to dirNames
+                if(currentFile->isDir())
+                {
+                    dirNames.append(currentFile->filePath());
+                }
+                else if(currentFile->isFile())
+                {
+                    if(!tmpDir.remove(currentFile->fileName()))
+                    {
+                        return false;
+                    }
+                }
+                currentFile++;
+            }//end of while
+        }
+    }
+    //delete dir
+    for(int i = dirNames.size()-1; i >= 0; --i)
+    {
+        if(!tmpDir.rmdir(dirNames[i]))
+        {
+            return false;
+        }
+    }
+    return true;
 }

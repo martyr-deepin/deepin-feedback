@@ -5,7 +5,35 @@
 #include <QQmlEngine>
 #include <QQmlComponent>
 #include <QQmlContext>
+#include <QStandardPaths>
+#include <QJsonParseError>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QDir>
+#include <QFile>
 #include <QDebug>
+
+enum FeedbackType{
+    DFeedback_Bug,
+    DFeedback_Proposal
+};
+
+struct Draft{
+    FeedbackType feedbackType;
+    QString title;
+    QString content;
+    QString email;
+    bool helpDeepin;
+    QStringList adjunctPathList;
+
+    Draft(FeedbackType _feedbackType = DFeedback_Bug,
+          QString _title="",
+          QString _content = "",
+          QString _email = "",
+          bool _helpDeepin = true,
+          QStringList _adjunctPathList = QStringList(""))
+        :feedbackType(_feedbackType),title(_title),content(_content),email(_email),helpDeepin(_helpDeepin),adjunctPathList(_adjunctPathList){}
+};
 
 class QmlLoader : public QObject
 {
@@ -21,33 +49,36 @@ public:
 
     void load(QUrl url);
 
-    void show();
+    //call by main
     void showHelpTip();
     void showVersion();
-    void reportBug();
-    void reportBug(const QString &target);
+    void reportBug();   //Unselected target
+    void reportBug(const QString &target); //specity the target
+
+    //call by UI
     QStringList getSupportAppList();
+    bool saveDraft(const QString &targetApp,
+                   const FeedbackType &type,
+                   const QString &title,
+                   const QString &email,
+                   const bool &helpDeepin,
+                   const QString &content);
+    void clearAllDraft();
+    void clearDraft(const QString &targetApp);
 
-public slots:
-//    void installPackage(QString packageName);
+private:
+    void init();
 
-//    QString getGplBodyTextPath(QString language);
+    Draft getDraft(const QString &targetApp);
+    void parseJsonData(const QByteArray &byteArray, Draft * draft);
+    bool removeDirWidthContent(const QString &dirName);
 
-//    void setCustomCursor(QString path);
-//    void clearCustomCursor();
-//    void setCursorFlashTime(int time);
-//    QString getDefaultMask(QString ipAddress);
-//    QString getHomeDir();
-
-//    QString toHumanShortcutLabel(QString sequence);
-
-//    //Bugfix: qt5 double screen switch case screen distory
-//    //if you do not patch Qt, only restart DockApplet is OK
-//    void restart(QString moduleName);
-
-signals:
-
-public slots:
+private:
+    const QString DRAFT_SAVE_PATH_NARMAL =
+            QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0) + "/.cache/deepin-feedback/draft/";
+    const QString CONTENT_FILE_NAME = "Content.txt";
+    const QString SIMPLE_ENTRIES_FILE_NAME = "SimpleEntries.json";
+    const QString ADJUNCT_DIR_NAME = "Adjunct"; //inclue image, log file etc.
 };
 
 #endif // QMLLOADER_H
