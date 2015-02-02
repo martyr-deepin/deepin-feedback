@@ -3,6 +3,7 @@ import QtQuick 2.1
 import QtQuick.Window 2.1
 import Deepin.Locale 1.0
 import Deepin.Widgets 1.0
+import DBus.Com.Deepin.Daemon.Search 1.0
 
 QtObject {
     id: root
@@ -13,6 +14,25 @@ QtObject {
     property bool helpDeepin: true
     property string reportContent: ""
     property var adjunctsPathList: []
+
+    property color textActivedColor: dconstants.hoverColor
+    property color textNormalColor: dconstants.bgColor
+    property color bgActivedColor: dconstants.activeColor
+    property color bgNormalColor: dconstants.hoverColor
+    property color buttonBorderColor: dconstants.fgColor
+
+    property int mainItemWidth: 416
+
+    property var supportAppList:[
+        qsTr("deepin-movie"),
+        qsTr("deepin-music-player"),
+        qsTr("deepin-screenshot"),
+        qsTr("deepin-boot-maker"),
+        qsTr("deepin-bug-reporter"),
+        qsTr("deepin-software-center"),
+        qsTr("deepin-terminal"),
+        qsTr("deepin-translator")
+    ]
 
     function initReportContent(value){
         reportContent = value
@@ -40,4 +60,6 @@ QtObject {
     property var dconstants: DConstants{}
 
     property var mainWindow: MainWindow {}
+
+    property var dbusSearch: Search {}
 }

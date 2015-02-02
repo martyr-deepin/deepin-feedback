@@ -2,5 +2,19 @@
     <qresource prefix="/">
         <file>views/main.qml</file>
         <file>views/MainWindow.qml</file>
+        <file>views/Widgets/AppComboBox.qml</file>
+        <file>views/Widgets/AppComboBoxMenu.qml</file>
+        <file>views/Widgets/AppComboBoxMenuItem.qml</file>
+        <file>views/Widgets/images/arrow_down_hover.png</file>
+        <file>views/Widgets/images/arrow_down_normal.png</file>
+        <file>views/Widgets/images/arrow_down_press.png</file>
+        <file>views/Widgets/images/close_normal.png</file>
+        <file>views/Widgets/images/close_press.png</file>
+        <file>views/Widgets/images/delete_hover.png</file>
+        <file>views/Widgets/images/delete_normal.png</file>
+        <file>views/Widgets/images/delete_press.png</file>
+        <file>views/Widgets/images/preview.png</file>
+        <file>views/Widgets/AppTextInput.qml</file>
+        <file>views/Widgets/ReportTypeButton.qml</file>
     </qresource>
 </RCC>
