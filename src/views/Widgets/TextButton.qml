@@ -1,21 +1,20 @@
 /*************************************************************
-*File Name: ReportTypeButton.qml
+*File Name: TextButton.qml
 *Author: Match
 *Email: Match.YangWanQing@gmail.com
-*Created Time: Fri 30 Jan 2015 05:45:35 PM CST
+*Created Time: Tue 03 Feb 2015 10:26:21 AM CST
 *Description:
 *
 *************************************************************/
 import QtQuick 2.1
 
 Rectangle {
-    id:reportTypeButton
-    width: 202
-    height: 33
-    radius: 4
-    state: actived ? "actived" : "normal"
+    width: 60
+    height: 30
+    radius: 2
+    color: bgNormalColor
+    border.color: buttonBorderColor
 
-    property bool actived: false
     property alias textItem: text_item
     property alias text: text_item.text
 
@@ -29,10 +28,12 @@ Rectangle {
         width: parent.width
         height: parent.height
         wrapMode: Text.Wrap
+        color: textNormalColor
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 13
         clip: true
+
     }
 
     MouseArea {
@@ -51,17 +52,5 @@ Rectangle {
             parent.clicked()
         }
     }
-
-    states:[
-        State {
-            name: "normal"
-            PropertyChanges {target: reportTypeButton; color:bgNormalColor; border.color: buttonBorderColor}
-            PropertyChanges {target: text_item; color: textNormalColor}
-        },
-        State {
-            name: "actived"
-            PropertyChanges {target: reportTypeButton; color: bgActivedColor; border.color: bgActivedColor}
-            PropertyChanges {target: text_item; color: textActivedColor}
-        }
-    ]
 }
+

@@ -16,8 +16,8 @@ QtObject {
     property var adjunctsPathList: []
 
     property color textActivedColor: dconstants.hoverColor
-    property color textNormalColor: dconstants.bgColor
-    property color bgActivedColor: dconstants.activeColor
+    property color textNormalColor: "#333333"
+    property color bgActivedColor: "#5498ec"
     property color bgNormalColor: dconstants.hoverColor
     property color buttonBorderColor: dconstants.fgColor
 
