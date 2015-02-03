@@ -7,15 +7,16 @@
 *
 *************************************************************/
 import QtQuick 2.1
+import Deepin.Widgets 1.0
 
-Rectangle {
+Item {
     id:reportTypeButton
     width: 202
-    height: 33
-    radius: 4
+    height: 40
     state: actived ? "actived" : "normal"
 
     property bool actived: false
+    property url iconPath: ""
     property alias textItem: text_item
     property alias text: text_item.text
 
@@ -23,44 +24,63 @@ Rectangle {
     signal exited()
     signal clicked()
 
-    Text {
-        id:text_item
-        anchors.centerIn: parent
+    Rectangle {
+        id: contentRec
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
         width: parent.width
-        height: parent.height
-        wrapMode: Text.Wrap
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 13
-        clip: true
-    }
+        height: 30
+        radius: 3
 
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onEntered: {
-            parent.entered()
+        Image {
+            id: typeIcon
+            visible: reportTypeButton.actived
+            source: iconPath
+            width: 40
+            height: 40
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.leftMargin: 25
         }
 
-        onExited: {
-            parent.exited()
+        Text {
+            id:text_item
+            anchors.left: typeIcon.right
+            width: parent.width
+            height: parent.height
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: 13
+            clip: true
         }
 
-        onClicked: {
-            parent.clicked()
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+
+            onEntered: {
+                reportTypeButton.entered()
+            }
+
+            onExited: {
+                reportTypeButton.exited()
+            }
+
+            onClicked: {
+                reportTypeButton.clicked()
+            }
         }
     }
 
     states:[
         State {
             name: "normal"
-            PropertyChanges {target: reportTypeButton; color:bgNormalColor; border.color: buttonBorderColor}
+            PropertyChanges {target: contentRec; color:bgNormalColor; border.color: buttonBorderColor}
             PropertyChanges {target: text_item; color: textNormalColor}
         },
         State {
             name: "actived"
-            PropertyChanges {target: reportTypeButton; color: bgActivedColor; border.color: bgActivedColor}
+            PropertyChanges {target: contentRec; color: bgActivedColor; border.color: bgActivedColor}
             PropertyChanges {target: text_item; color: textActivedColor}
         }
     ]

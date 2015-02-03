@@ -9,8 +9,8 @@ CheckBox {
     style: CheckBoxStyle {
         background: Item {}
         indicator: Image {
-            source: control.checked ? control.hovered ? "images/checkbox_checked_hover.png" : "images/checkbox_checked.png" 
-                                    : control.hovered ? "images/checkbox_unchecked_hover.png" : "images/checkbox_unchecked.png"
+            source: control.checked ? control.hovered ? "images/checkbox_checked_hover.png" : "images/checkbox_checked_normal.png"
+                                    : control.hovered ? "images/checkbox_unchecked_hover.png" : "images/checkbox_unchecked_normal.png"
         }
         label: Text {
             color: Qt.rgba(1, 1, 1, 0.5)

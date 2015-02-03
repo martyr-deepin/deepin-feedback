@@ -31,7 +31,8 @@ QtObject {
         qsTr("deepin-bug-reporter"),
         qsTr("deepin-software-center"),
         qsTr("deepin-terminal"),
-        qsTr("deepin-translator")
+        qsTr("deepin-translator"),
+        qsTr("other")
     ]
 
     function initReportContent(value){

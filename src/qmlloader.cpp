@@ -100,6 +100,11 @@ void QmlLoader::init()
     }
 }
 
+QString QmlLoader::getHomeDir()
+{
+    return QDir::homePath();
+}
+
 QStringList QmlLoader::getSupportAppList()
 {
 
@@ -165,6 +170,20 @@ void QmlLoader::clearAllDraft()
 void QmlLoader::clearDraft(const QString &targetApp)
 {
     removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL + targetApp);
+}
+
+QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
+{
+    //copy file from target path to draft location
+    if (QFile::copy(filePath, DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath)))
+        return DRAFT_SAVE_PATH_NARMAL + target + "/"  + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    else
+        return "";
+}
+
+void QmlLoader::removeAdjunct(const QString &filePath)
+{
+    QFile::remove(filePath);
 }
 
 Draft QmlLoader::getDraft(const QString &targetApp)
@@ -300,4 +319,13 @@ bool QmlLoader::removeDirWidthContent(const QString &dirName)
         }
     }
     return true;
+}
+
+QString QmlLoader::getFileNameFromPath(const QString &filePath)
+{
+    int tmpIndex = filePath.lastIndexOf("/");
+    if (tmpIndex == -1)
+        return "";
+    else
+        return filePath.mid(tmpIndex + 1, filePath.length() - tmpIndex - 1);
 }

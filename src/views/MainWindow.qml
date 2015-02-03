@@ -92,6 +92,7 @@ Window {
             ReportTypeButton {
                 id: bugReportButton
                 actived: true
+                iconPath: "qrc:/views/Widgets/images/reporttype_bug.png"
                 text: qsTr("I got problem")
                 onClicked: {
                     actived = !actived
@@ -102,6 +103,7 @@ Window {
             ReportTypeButton {
                 id: proposalReportButton
                 actived: false
+                iconPath: "qrc:/views/Widgets/images/reporttype_proposal.png"
                 text: qsTr("I got a good idea")
                 onClicked: {
                     actived = !actived
@@ -134,10 +136,11 @@ Window {
             id:adjunctPanel
 
             width: reportTypeButtonRow.width
-            height: 222 + 6
+            height: 222 + 22 + 6
             anchors.top: appComboBox.bottom
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
+
         }
 
         AppTextInput {

@@ -17,12 +17,6 @@
         <file>views/Widgets/AppTextInput.qml</file>
         <file>views/Widgets/ReportTypeButton.qml</file>
         <file>views/AdjunctPanel.qml</file>
-        <file>views/Widgets/images/checkbox_checked_hover.png</file>
-        <file>views/Widgets/images/checkbox_checked_insensitive.png</file>
-        <file>views/Widgets/images/checkbox_checked.png</file>
-        <file>views/Widgets/images/checkbox_unchecked_hover.png</file>
-        <file>views/Widgets/images/checkbox_unchecked_insensitive.png</file>
-        <file>views/Widgets/images/checkbox_unchecked.png</file>
         <file>views/Widgets/AppCheckBox.qml</file>
         <file>views/Widgets/images/unmaximize_disabled.png</file>
         <file>views/Widgets/images/unmaximize_hover.png</file>
@@ -39,5 +33,18 @@
         <file>views/Widgets/images/minimise_normal.png</file>
         <file>views/Widgets/images/minimise_press.png</file>
         <file>views/Widgets/TextButton.qml</file>
+        <file>views/Widgets/AdjunctTray.qml</file>
+        <file>views/Widgets/AdjunctItem.qml</file>
+        <file>views/Widgets/PercentCircle.qml</file>
+        <file>views/Widgets/images/reporttype_bug.png</file>
+        <file>views/Widgets/images/reporttype_proposal.png</file>
+        <file>views/Widgets/images/adjunct_press.png</file>
+        <file>views/Widgets/images/screenshot_press.png</file>
+        <file>views/Widgets/images/adjunct_normal.png</file>
+        <file>views/Widgets/images/screenshot_normal.png</file>
+        <file>views/Widgets/images/checkbox_checked_hover.png</file>
+        <file>views/Widgets/images/checkbox_checked_normal.png</file>
+        <file>views/Widgets/images/checkbox_unchecked_hover.png</file>
+        <file>views/Widgets/images/checkbox_unchecked_normal.png</file>
     </qresource>
 </RCC>
