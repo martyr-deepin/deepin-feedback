@@ -9,6 +9,7 @@
 import QtQuick 2.1
 import QtQuick.Window 2.0
 import Deepin.Widgets 1.0
+import DataConverter 1.0
 import "Widgets"
 
 Window {
@@ -20,6 +21,37 @@ Window {
     height: 592
     x: 650
     y: 50
+
+    property string lastTarget: "other"
+
+    function updateReportContentText(value){
+        adjunctPanel.setContentText(value)
+    }
+
+    function updateAdjunctsPathList(list){
+        for (var i = 0; i < list.length; i ++){
+            adjunctPanel.addAdjunct(list[i])
+        }
+    }
+
+    function updateSimpleEntries(feedbackType, reportTitle, email, helpDeepin){
+        reportTypeButtonRow.reportType = feedbackType
+
+        titleTextinput.text = reportTitle
+
+        emailTextinput.text = email
+
+        helpCheck.checked = helpDeepin
+    }
+
+    function saveDraft(){
+        mainObject.saveDraft(lastTarget,
+                             reportTypeButtonRow.reportType,
+                             titleTextinput.text,
+                             emailTextinput.text,
+                             helpCheck.checked,
+                             adjunctPanel.contentText)
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -88,26 +120,25 @@ Window {
             anchors.topMargin: 10
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 12
+            property var reportType: DataConverter.DFeedback_Bug
 
             ReportTypeButton {
                 id: bugReportButton
-                actived: true
+                actived: parent.reportType == DataConverter.DFeedback_Bug
                 iconPath: "qrc:/views/Widgets/images/reporttype_bug.png"
                 text: qsTr("I got problem")
                 onClicked: {
-                    actived = !actived
-                    proposalReportButton.actived = !proposalReportButton.actived
+                    parent.reportType = DataConverter.DFeedback_Bug
                 }
             }
 
             ReportTypeButton {
                 id: proposalReportButton
-                actived: false
+                actived: parent.reportType == DataConverter.DFeedback_Proposal
                 iconPath: "qrc:/views/Widgets/images/reporttype_proposal.png"
                 text: qsTr("I got a good idea")
                 onClicked: {
-                    actived = !actived
-                    bugReportButton.actived = !bugReportButton.actived
+                    parent.reportType = DataConverter.DFeedback_Proposal
                 }
             }
         }
@@ -130,6 +161,21 @@ Window {
             anchors.top: titleTextinput.bottom
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
+            onMenuSelect: {
+                //target exist, try to load draft
+                if (mainObject.draftTargetExist(supportAppList[index])){
+                    saveDraft()
+                    //clear adjunct
+                    adjunctPanel.clearAllAdjunct()
+                    //load new target data
+                    mainObject.updateUiDraftData(supportAppList[index])
+                    lastTarget = supportAppList[index]
+                }
+                //target not exist, create default draft
+                else{
+                    mainObject.saveDraft(supportAppList[index], DataConverter.DFeedback_Proposal, "", "", true, "")
+                }
+            }
         }
 
         AdjunctPanel {

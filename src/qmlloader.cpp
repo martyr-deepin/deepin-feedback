@@ -52,36 +52,7 @@ void QmlLoader::reportBug()
 
 void QmlLoader::reportBug(const QString &target)
 {
-    //get draft
-    Draft draft = getDraft(target);
-
-    //init value
-    QVariant contentValue = QVariant(draft.content);
-    QMetaObject::invokeMethod(
-                this->rootObject,
-                "initReportContent",
-                Q_ARG(QVariant, contentValue)
-                );
-
-    QVariant listValue = QVariant(draft.adjunctPathList);
-    QMetaObject::invokeMethod(
-                this->rootObject,
-                "initAdjunctsPathList",
-                Q_ARG(QVariant, listValue)
-                );
-
-    QVariant feedbackTypeValue = QVariant(draft.feedbackType);
-    QVariant reportTitleValue = QVariant(draft.title);
-    QVariant emailValue = QVariant(draft.email);
-    QVariant helpDeepinValue = QVariant(draft.helpDeepin);
-    QMetaObject::invokeMethod(
-                this->rootObject,
-                "initSimpleEntries",
-                Q_ARG(QVariant,feedbackTypeValue),
-                Q_ARG(QVariant,reportTitleValue),
-                Q_ARG(QVariant,emailValue),
-                Q_ARG(QVariant,helpDeepinValue)
-                );
+    updateUiDraftData(target);
 
     QMetaObject::invokeMethod(
                 this->rootObject,
@@ -111,7 +82,7 @@ QStringList QmlLoader::getSupportAppList()
 }
 
 bool QmlLoader::saveDraft(const QString &targetApp,
-                          const FeedbackType &type,
+                          const DataConverter::FeedbackType type,
                           const QString &title,
                           const QString &email,
                           const bool &helpDeepin,
@@ -121,6 +92,9 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     QDir tmpDir;
     if (!tmpDir.exists(targetPath))
         tmpDir.mkpath(targetPath);
+
+    if (!tmpDir.exists(targetPath + "/" + ADJUNCT_DIR_NAME))
+        tmpDir.mkdir(targetPath + "/" + ADJUNCT_DIR_NAME);
 
     //write simple entries file
     QJsonObject jsonObj;
@@ -174,9 +148,20 @@ void QmlLoader::clearDraft(const QString &targetApp)
 
 QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 {
+    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    if (QFile::exists(target))
+        return "";
+
+    QFileInfo tmpFileInfo(targetFileName);
+    if (tmpFileInfo.size() + getAdjunctsSize(target) >= ADJUNCTS_MAX_SIZE)
+    {
+        qDebug() << "File too large!";
+        return "";
+    }
+
     //copy file from target path to draft location
-    if (QFile::copy(filePath, DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath)))
-        return DRAFT_SAVE_PATH_NARMAL + target + "/"  + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    if (QFile::copy(filePath, targetFileName))
+        return targetFileName;
     else
         return "";
 }
@@ -184,6 +169,45 @@ QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 void QmlLoader::removeAdjunct(const QString &filePath)
 {
     QFile::remove(filePath);
+}
+
+bool QmlLoader::draftTargetExist(const QString &target)
+{
+    return QFile::exists(DRAFT_SAVE_PATH_NARMAL + target);
+}
+
+void QmlLoader::updateUiDraftData(const QString &target)
+{
+    //get draft
+    Draft draft = getDraft(target);
+
+    //init value
+    QVariant contentValue = QVariant(draft.content);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "setReportContent",
+                Q_ARG(QVariant, contentValue)
+                );
+
+    QVariant listValue = QVariant(draft.adjunctPathList);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "setAdjunctsPathList",
+                Q_ARG(QVariant, listValue)
+                );
+
+    QVariant feedbackTypeValue = QVariant(draft.feedbackType);
+    QVariant reportTitleValue = QVariant(draft.title);
+    QVariant emailValue = QVariant(draft.email);
+    QVariant helpDeepinValue = QVariant(draft.helpDeepin);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "setSimpleEntries",
+                Q_ARG(QVariant,feedbackTypeValue),
+                Q_ARG(QVariant,reportTitleValue),
+                Q_ARG(QVariant,emailValue),
+                Q_ARG(QVariant,helpDeepinValue)
+                );
 }
 
 Draft QmlLoader::getDraft(const QString &targetApp)
@@ -247,7 +271,7 @@ void QmlLoader::parseJsonData(const QByteArray &byteArray, Draft *draft)
             {
                 QJsonValue feedbackTypeValue = obj.take("FeedbackType");
                 if(feedbackTypeValue.isDouble())
-                    draft->feedbackType = FeedbackType(feedbackTypeValue.toVariant().toInt());
+                    draft->feedbackType = DataConverter::FeedbackType(feedbackTypeValue.toVariant().toInt());
             }
             if(obj.contains("Title"))
             {
@@ -328,4 +352,24 @@ QString QmlLoader::getFileNameFromPath(const QString &filePath)
         return "";
     else
         return filePath.mid(tmpIndex + 1, filePath.length() - tmpIndex - 1);
+}
+
+qint64 QmlLoader::getAdjunctsSize(const QString &target)
+{
+    qint64 tmpSize = 0;
+    if (QFile::exists(DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME))
+    {
+        QDir tmpDir(DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME);
+        QFileInfoList infoList = tmpDir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot ,QDir::Name);
+        for (int i = 0; i < infoList.length(); i ++)
+        {
+            if (infoList.at(i).isFile()){
+                tmpSize += infoList.at(i).size();
+            }
+        }
+
+        return tmpSize;
+    }
+    else
+        return 0;
 }

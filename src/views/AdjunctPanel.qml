@@ -13,12 +13,35 @@ import "Widgets"
 Item {
     id: adjunctPanel
 
+    property alias contentText: contentTextEdit.text
+
+    function clearAllAdjunct(){
+        adjunctTray.clearAllAdjunct()
+    }
+
+    function addAdjunct(filePath){
+        adjunctTray.addAdjunct(filePath)
+    }
+
+    function setContentText(value){
+        contentTextEdit.text = value
+    }
+
+    function updateLoadPercent(filePath, percent){
+        adjunctTray.updateLoadPercent(filePath, percent)
+    }
 
     DFileChooseDialog {
         id: adjunctPickDialog
         currentFolder: mainObject.getHomeDir()
         onSelectAction: {
-            adjunctTray.addAdjunct(mainObject.addAdjunct(fileUrl.toString(), appComboBox.text.trim()))
+            var targetPath = mainObject.addAdjunct(fileUrl.toString(), appComboBox.text.trim())
+            if (targetPath == ""){
+                print ("==>[Info] Adjunct already exist or got adjunct error")
+                return
+            }
+
+            adjunctTray.addAdjunct()
             adjunctPickDialog.hideWindow()
         }
     }
@@ -29,6 +52,7 @@ Item {
         anchors.top: parent.top
         width: childrenRect.width
         height: 22
+        enabled: adjunctTray.adjunctModel.count < maxAdjunctCount
 
         spacing: 3
 
@@ -66,6 +90,13 @@ Item {
         height: parent.height - buttonRow.height
         anchors.top: buttonRow.bottom
         anchors.topMargin: 6
+
+        TextEdit {
+            id: contentTextEdit
+            width: parent.width
+            height: parent.height - adjunctTray.height
+            anchors.top: parent.top
+        }
 
         AdjunctTray {
             id: adjunctTray

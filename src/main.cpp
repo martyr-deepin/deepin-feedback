@@ -1,10 +1,14 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QtQml>
 #include "qmlloader.h"
+#include "dataconverter.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
 
     QmlLoader* qmlLoader = new QmlLoader();
     qmlLoader->rootContext->setContextProperty("mainObject", qmlLoader);

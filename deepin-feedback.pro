@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick widgets gui
 
 SOURCES += src/main.cpp \
-    src/qmlloader.cpp
+    src/qmlloader.cpp \
+    src/dataconverter.cpp
 
 RESOURCES += src/views.qrc
 
@@ -11,4 +12,5 @@ RESOURCES += src/views.qrc
 QML_IMPORT_PATH =
 
 HEADERS += \
-    src/qmlloader.h
+    src/qmlloader.h \
+    src/dataconverter.h

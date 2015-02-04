@@ -14,7 +14,7 @@ Rectangle {
     height: 52
     width: parent.width
 
-    property var adjunctModel: ListModel {}
+    property alias adjunctModel: adjunctView.model
 
     DFileChooseDialogAide {id:dfcdAide}
 
@@ -48,6 +48,10 @@ Rectangle {
             }
         }
         return -1
+    }
+
+    function clearAllAdjunct(){
+        adjunctView.model.clear()
     }
 
     GridView {

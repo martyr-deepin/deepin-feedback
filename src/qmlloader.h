@@ -12,28 +12,27 @@
 #include <QDir>
 #include <QFile>
 #include <QDebug>
+#include "dataconverter.h"
 
-enum FeedbackType{
-    DFeedback_Bug,
-    DFeedback_Proposal
-};
 
 struct Draft{
-    FeedbackType feedbackType;
+    DataConverter::FeedbackType feedbackType;
     QString title;
     QString content;
     QString email;
     bool helpDeepin;
     QStringList adjunctPathList;
 
-    Draft(FeedbackType _feedbackType = DFeedback_Bug,
+    Draft(DataConverter::FeedbackType _feedbackType = DataConverter::DFeedback_Bug,
           QString _title="",
           QString _content = "",
           QString _email = "",
           bool _helpDeepin = true,
-          QStringList _adjunctPathList = QStringList(""))
+          QStringList _adjunctPathList = QStringList())
         :feedbackType(_feedbackType),title(_title),content(_content),email(_email),helpDeepin(_helpDeepin),adjunctPathList(_adjunctPathList){}
 };
+
+Q_DECLARE_METATYPE(DataConverter::FeedbackType)
 
 class QmlLoader : public QObject
 {
@@ -59,7 +58,7 @@ public:
     Q_SLOT QString getHomeDir();
     Q_SLOT QStringList getSupportAppList();
     Q_SLOT bool saveDraft(const QString &targetApp,
-                   const FeedbackType &type,
+                   const DataConverter::FeedbackType type,
                    const QString &title,
                    const QString &email,
                    const bool &helpDeepin,
@@ -68,6 +67,8 @@ public:
     Q_SLOT void clearDraft(const QString &targetApp);
     Q_SLOT QString addAdjunct(const QString &filePath, const QString &target);
     Q_SLOT void removeAdjunct(const QString &filePath);
+    Q_SLOT bool draftTargetExist(const QString &target);
+    Q_SLOT void updateUiDraftData(const QString &target);
 
 private:
     void init();
@@ -76,6 +77,7 @@ private:
     void parseJsonData(const QByteArray &byteArray, Draft * draft);
     bool removeDirWidthContent(const QString &dirName);
     QString getFileNameFromPath(const QString &filePath);
+    qint64 getAdjunctsSize(const QString &target);
 
 private:
     const QString DRAFT_SAVE_PATH_NARMAL =
@@ -83,6 +85,7 @@ private:
     const QString CONTENT_FILE_NAME = "Content.txt";
     const QString SIMPLE_ENTRIES_FILE_NAME = "SimpleEntries.json";
     const QString ADJUNCT_DIR_NAME = "Adjunct/"; //inclue image, log file etc.
+    const qint64 ADJUNCTS_MAX_SIZE = 10 * 1024 * 1024;   //byte
 };
 
 #endif // QMLLOADER_H
