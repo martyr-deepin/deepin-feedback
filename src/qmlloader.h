@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QDebug>
 #include "dataconverter.h"
+#include "adjunctaide.h"
 
 
 struct Draft{
@@ -75,17 +76,8 @@ private:
 
     Draft getDraft(const QString &targetApp);
     void parseJsonData(const QByteArray &byteArray, Draft * draft);
-    bool removeDirWidthContent(const QString &dirName);
     QString getFileNameFromPath(const QString &filePath);
     qint64 getAdjunctsSize(const QString &target);
-
-private:
-    const QString DRAFT_SAVE_PATH_NARMAL =
-            QStandardPaths::standardLocations(QStandardPaths::HomeLocation).at(0) + "/.cache/deepin-feedback/draft/";
-    const QString CONTENT_FILE_NAME = "Content.txt";
-    const QString SIMPLE_ENTRIES_FILE_NAME = "SimpleEntries.json";
-    const QString ADJUNCT_DIR_NAME = "Adjunct/"; //inclue image, log file etc.
-    const qint64 ADJUNCTS_MAX_SIZE = 10 * 1024 * 1024;   //byte
 };
 
 #endif // QMLLOADER_H

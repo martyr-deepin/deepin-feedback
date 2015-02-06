@@ -41,7 +41,7 @@ Item {
                 return
             }
 
-            adjunctTray.addAdjunct()
+            adjunctTray.addAdjunct(targetPath)
             adjunctPickDialog.hideWindow()
         }
     }
@@ -93,6 +93,10 @@ Item {
 
         TextEdit {
             id: contentTextEdit
+            color: textNormalColor
+            selectionColor: "#31536e"
+            selectByMouse: true
+            font.pixelSize: 13
             width: parent.width
             height: parent.height - adjunctTray.height
             anchors.top: parent.top

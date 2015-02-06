@@ -122,7 +122,7 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     QFile contentFile(targetPath + "/" + CONTENT_FILE_NAME);
     if (contentFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
-        contentFile.write(content.toLatin1());
+        contentFile.write(content.toUtf8());
         contentFile.close();
     }
     else
@@ -136,29 +136,29 @@ bool QmlLoader::saveDraft(const QString &targetApp,
 
 void QmlLoader::clearAllDraft()
 {
-    removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL);
+    AdjunctAide::removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL);
     QDir tmpDir;
     tmpDir.mkpath(DRAFT_SAVE_PATH_NARMAL);
 }
 
 void QmlLoader::clearDraft(const QString &targetApp)
 {
-    removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL + targetApp);
+    AdjunctAide::removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL + targetApp);
 }
 
 QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 {
-    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
     if (QFile::exists(target))
         return "";
 
-    QFileInfo tmpFileInfo(targetFileName);
+    QFileInfo tmpFileInfo(filePath);
     if (tmpFileInfo.size() + getAdjunctsSize(target) >= ADJUNCTS_MAX_SIZE)
     {
-        qDebug() << "File too large!";
+        qDebug() << "Warning: File too large!";
         return "";
     }
 
+    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
     //copy file from target path to draft location
     if (QFile::copy(filePath, targetFileName))
         return targetFileName;
@@ -178,6 +178,9 @@ bool QmlLoader::draftTargetExist(const QString &target)
 
 void QmlLoader::updateUiDraftData(const QString &target)
 {
+    AdjunctAide tmpAide;
+    tmpAide.collectBugReporterInfo(target);
+
     //get draft
     Draft draft = getDraft(target);
 
@@ -293,56 +296,6 @@ void QmlLoader::parseJsonData(const QByteArray &byteArray, Draft *draft)
             }
         }
     }
-}
-
-bool QmlLoader::removeDirWidthContent(const QString &dirName)
-{
-    QStringList dirNames;
-    QDir tmpDir;
-    QFileInfoList infoList;
-    QFileInfoList::iterator currentFile;
-
-    dirNames.clear();
-    if(tmpDir.exists())
-        dirNames<<dirName;
-    else
-        return true;
-
-
-    for(int i=0;i<dirNames.size();++i)
-    {
-        tmpDir.setPath(dirNames[i]);
-        infoList = tmpDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot ,QDir::Name);
-        if(infoList.size()>0)
-        {
-            currentFile = infoList.begin();
-            while(currentFile != infoList.end())
-            {
-                //dir, appent to dirNames
-                if(currentFile->isDir())
-                {
-                    dirNames.append(currentFile->filePath());
-                }
-                else if(currentFile->isFile())
-                {
-                    if(!tmpDir.remove(currentFile->fileName()))
-                    {
-                        return false;
-                    }
-                }
-                currentFile++;
-            }//end of while
-        }
-    }
-    //delete dir
-    for(int i = dirNames.size()-1; i >= 0; --i)
-    {
-        if(!tmpDir.rmdir(dirNames[i]))
-        {
-            return false;
-        }
-    }
-    return true;
 }
 
 QString QmlLoader::getFileNameFromPath(const QString &filePath)
