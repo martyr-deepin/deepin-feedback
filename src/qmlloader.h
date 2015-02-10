@@ -55,21 +55,26 @@ public:
     void reportBug();   //Unselected target
     void reportBug(const QString &target); //specity the target
 
+public Q_SLOTS:
     //call by UI
-    Q_SLOT QString getHomeDir();
-    Q_SLOT QStringList getSupportAppList();
-    Q_SLOT bool saveDraft(const QString &targetApp,
+    QString getHomeDir();
+    QStringList getSupportAppList();
+    bool saveDraft(const QString &targetApp,
                    const DataConverter::FeedbackType type,
                    const QString &title,
                    const QString &email,
                    const bool &helpDeepin,
                    const QString &content);
-    Q_SLOT void clearAllDraft();
-    Q_SLOT void clearDraft(const QString &targetApp);
-    Q_SLOT QString addAdjunct(const QString &filePath, const QString &target);
-    Q_SLOT void removeAdjunct(const QString &filePath);
-    Q_SLOT bool draftTargetExist(const QString &target);
-    Q_SLOT void updateUiDraftData(const QString &target);
+    void clearAllDraft();
+    void clearDraft(const QString &targetApp);
+    QString addAdjunct(const QString &filePath, const QString &target);
+    void removeAdjunct(const QString &filePath);
+    bool draftTargetExist(const QString &target);
+    void updateUiDraftData(const QString &target);
+    void getScreenShot(const QString &target);
+
+Q_SIGNALS:
+    void getScreenshotFinish(QString fileName);
 
 private:
     void init();
@@ -78,6 +83,8 @@ private:
     void parseJsonData(const QByteArray &byteArray, Draft * draft);
     QString getFileNameFromPath(const QString &filePath);
     qint64 getAdjunctsSize(const QString &target);
+private:
+    AdjunctAide * adjunctAide;
 };
 
 #endif // QMLLOADER_H

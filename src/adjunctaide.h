@@ -15,23 +15,26 @@ public:
     explicit AdjunctAide(QObject *parent = 0);
     ~AdjunctAide();
 
-    Q_SLOT void getScreenShot();
-    Q_SLOT void collectBugReporterInfo(const QString &target);
+    void getScreenShot(const QString &target);
 
     static bool removeDirWidthContent(const QString &dirName);
 
 signals:
+    void getScreenshotFinish(QString fileName);
 
-public slots:
 private slots:
-    void finishCollectBugReporterInfo();
-    void errorCollectBugReporterInfo();
+    void finishGetScreenShot();
 
 private:
-    void cleanUpBugReporterInfo(const QString &targetPath);
+    QString getFileNameFromFeedback(const QString &result);
+    bool getScreenShotStateFromFeedback(const QString &result);
 
 private:
-    QProcess * collectProcess;
+    QProcess * screenShotProcess;
+    const QString FILENAME_FLAG = "file:";
+    const QString SCREENSHOT_STATE_HEAD_FLAG = "State:";
+    const QString SCREENSHOT_STATE_SUCCESS_FLAG = "finish";
+    const QString TMP_SCREENSHOT_FILENAME = "-deepin-feedback-screenshot.png";
 };
 
 #endif // ADJUNCTAIDE_H

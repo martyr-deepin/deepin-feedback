@@ -19,6 +19,16 @@ Item {
         adjunctTray.clearAllAdjunct()
     }
 
+    function getAdjunct(filePath){
+        var targetPath = mainObject.addAdjunct(filePath, appComboBox.text.trim())
+        if (targetPath == ""){
+            print ("==>[Info] Adjunct already exist or got adjunct error")
+            return
+        }
+
+        adjunctTray.addAdjunct(targetPath)
+    }
+
     function addAdjunct(filePath){
         adjunctTray.addAdjunct(filePath)
     }
@@ -35,13 +45,8 @@ Item {
         id: adjunctPickDialog
         currentFolder: mainObject.getHomeDir()
         onSelectAction: {
-            var targetPath = mainObject.addAdjunct(fileUrl.toString(), appComboBox.text.trim())
-            if (targetPath == ""){
-                print ("==>[Info] Adjunct already exist or got adjunct error")
-                return
-            }
+            getAdjunct(fileUrl.toString())
 
-            adjunctTray.addAdjunct(targetPath)
             adjunctPickDialog.hideWindow()
         }
     }
@@ -63,6 +68,10 @@ Item {
             normal_image: "qrc:/views/Widgets/images/screenshot_normal.png"
             hover_image: "qrc:/views/Widgets/images/screenshot_normal.png"
             press_image: "qrc:/views/Widgets/images/screenshot_press.png"
+            onClicked: {
+                if (appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1)
+                    mainObject.getScreenShot(appComboBox.text.trim())
+            }
         }
 
         DImageButton {
@@ -109,6 +118,13 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 2
             height: 52
+        }
+    }
+
+    Connections {
+        target: mainObject
+        onGetScreenshotFinish: {
+            getAdjunct(fileName)
         }
     }
 }

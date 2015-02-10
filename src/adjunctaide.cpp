@@ -10,25 +10,17 @@ AdjunctAide::~AdjunctAide()
 
 }
 
-void AdjunctAide::getScreenShot()
+void AdjunctAide::getScreenShot(const QString &target)
 {
+    QString targetFileName = "/tmp/" + target + TMP_SCREENSHOT_FILENAME;
+    screenShotProcess = new QProcess(this);
+    connect(screenShotProcess, SIGNAL(finished(int)), this, SLOT(finishGetScreenShot()));
+    connect(screenShotProcess, SIGNAL(finished(int)), screenShotProcess, SLOT(deleteLater()));
 
-}
+    QStringList arguments;
 
-void AdjunctAide::collectBugReporterInfo(const QString &target)
-{
-//    QString adjunctDir =DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME;
-//    cleanUpBugReporterInfo(adjunctDir);
-
-//    collectProcess = new QProcess(0);
-//    connect(collectProcess, SIGNAL(finished(int)), this, SLOT(finishCollectBugReporterInfo()));
-//    connect(collectProcess, SIGNAL(readyReadStandardError()), this, SLOT(errorCollectBugReporterInfo()));
-
-//    collectProcess->setWorkingDirectory(adjunctDir);
-//    QStringList arguments;
-
-//    arguments << "deepin-bug-reporter";
-//    collectProcess->start("gksudo", arguments);
+    arguments << "-s" << targetFileName;
+    screenShotProcess->start("/tmp/deepin-screenshot.sh", arguments);
 }
 
 bool AdjunctAide::removeDirWidthContent(const QString &dirName)
@@ -81,38 +73,34 @@ bool AdjunctAide::removeDirWidthContent(const QString &dirName)
     return true;
 }
 
-void AdjunctAide::finishCollectBugReporterInfo()
+void AdjunctAide::finishGetScreenShot()
 {
-    qDebug() << "Collect info finish!";
-    collectProcess->deleteLater();
+    QString outPut = QString(screenShotProcess->readAllStandardOutput());
+
+    emit getScreenshotFinish(getFileNameFromFeedback(outPut));
+    qDebug() << "Get screenshot process finish!";
 }
 
-void AdjunctAide::errorCollectBugReporterInfo()
+QString AdjunctAide::getFileNameFromFeedback(const QString &result)
 {
+    int startIndex = result.indexOf(FILENAME_FLAG);
+    if (startIndex == -1)
+        return "";
+    int endIndex = result.indexOf("\n",startIndex);
+    startIndex += FILENAME_FLAG.length();
+    int subStrLength = endIndex - startIndex;
 
+    return result.mid(startIndex,subStrLength).trimmed();
 }
 
-void AdjunctAide::cleanUpBugReporterInfo(const QString &targetPath)
+bool AdjunctAide::getScreenShotStateFromFeedback(const QString &result)
 {
-    //get file name list
-    if (QFile::exists(targetPath))
-    {
-        QDir tmpDir(targetPath);
-        QStringList nameFilter("deepin-bug-reporter-results-all*");
-        QFileInfoList infoList = tmpDir.entryInfoList(nameFilter, QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot ,QDir::Name);
-        for (int i = 0; i < infoList.length(); i ++)
-        {
-            if (infoList.at(i).isDir()){
-                //remove dir
-//                qDebug() << "removing dir: " << infoList.at(i).filePath();
-                removeDirWidthContent(infoList.at(i).filePath());
-            }
-            else
-            {
-                //remove file
-//                qDebug() << "removing file: " << infoList.at(i).filePath();
-                tmpDir.remove(infoList.at(i).filePath());
-            }
-        }
-    }
+    int startIndex = result.indexOf(SCREENSHOT_STATE_HEAD_FLAG);
+    if (startIndex == -1)
+        return false;
+    int endIndex = result.indexOf("\n",startIndex);
+    startIndex += SCREENSHOT_STATE_HEAD_FLAG.length();
+    int subStrLength = endIndex - startIndex;
+
+    return result.mid(startIndex,subStrLength).trimmed() == SCREENSHOT_STATE_SUCCESS_FLAG ? true : false;
 }

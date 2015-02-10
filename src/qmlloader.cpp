@@ -15,6 +15,7 @@ QmlLoader::~QmlLoader()
     delete this->rootContext;
     delete this->component;
     delete this->engine;
+    delete this->adjunctAide;
 }
 
 
@@ -69,6 +70,9 @@ void QmlLoader::init()
     {
         configDir.mkpath(DRAFT_SAVE_PATH_NARMAL);
     }
+
+    adjunctAide = new AdjunctAide();
+    connect(adjunctAide, SIGNAL(getScreenshotFinish(QString)), this, SIGNAL(getScreenshotFinish(QString)));
 }
 
 QString QmlLoader::getHomeDir()
@@ -178,9 +182,6 @@ bool QmlLoader::draftTargetExist(const QString &target)
 
 void QmlLoader::updateUiDraftData(const QString &target)
 {
-    AdjunctAide tmpAide;
-    tmpAide.collectBugReporterInfo(target);
-
     //get draft
     Draft draft = getDraft(target);
 
@@ -211,6 +212,11 @@ void QmlLoader::updateUiDraftData(const QString &target)
                 Q_ARG(QVariant,emailValue),
                 Q_ARG(QVariant,helpDeepinValue)
                 );
+}
+
+void QmlLoader::getScreenShot(const QString &target)
+{
+    adjunctAide->getScreenShot(target);
 }
 
 Draft QmlLoader::getDraft(const QString &targetApp)
