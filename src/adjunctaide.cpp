@@ -20,7 +20,7 @@ void AdjunctAide::getScreenShot(const QString &target)
     QStringList arguments;
 
     arguments << "-s" << targetFileName;
-    screenShotProcess->start("/tmp/deepin-screenshot.sh", arguments);
+    screenShotProcess->start("deepin-screenshot", arguments);
 }
 
 bool AdjunctAide::removeDirWidthContent(const QString &dirName)

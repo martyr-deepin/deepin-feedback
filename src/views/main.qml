@@ -3,6 +3,7 @@ import QtQuick 2.1
 import QtQuick.Window 2.1
 import Deepin.Locale 1.0
 import Deepin.Widgets 1.0
+import DBus.Com.Deepin.Daemon.Display 1.0
 import DBus.Com.Deepin.Daemon.Search 1.0
 
 QtObject {
@@ -14,7 +15,6 @@ QtObject {
     property color bgNormalColor: dconstants.hoverColor
     property color buttonBorderColor: dconstants.fgColor
 
-    property int mainItemWidth: 416
     property int maxAdjunctCount: 6
 
     property var supportAppList:[
@@ -28,6 +28,14 @@ QtObject {
         qsTr("deepin-translator"),
         qsTr("other")
     ]
+
+    property var displayId: Display {}
+    property var screenSize: QtObject {
+        property int x: displayId.primaryRect[0]
+        property int y: displayId.primaryRect[1]
+        property int width: displayId.primaryRect[2]
+        property int height: displayId.primaryRect[3]
+    }
 
     function setReportContent(value){
         mainWindow.updateReportContentText(value)

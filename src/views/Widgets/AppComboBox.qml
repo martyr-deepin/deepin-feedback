@@ -5,7 +5,6 @@ import Deepin.Widgets 1.0
 
 Item {
     id: combobox
-    width: mainItemWidth
     height: 40
 
     property bool hovered: false

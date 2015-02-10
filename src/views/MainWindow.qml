@@ -17,12 +17,17 @@ Window {
 
     flags: Qt.FramelessWindowHint
 
-    width: 460
-    height: 592
+    width: normalWidth
+    height: normalHeight
     x: 650
     y: 50
 
+    property int normalWidth: 460
+    property int normalHeight: 592
+    property int maxWidth: screenSize.width * 9 / 20
+    property int maxHeight: screenSize.height * 5 / 6
     property string lastTarget: "other"
+    property int animationDuration: 200
 
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
@@ -83,6 +88,7 @@ Window {
             id:windowButtonRow
             anchors.top:parent.top
             anchors.right: parent.right
+            state: "zoomin"
 
             DImageButton {
                 id:minimizeButton
@@ -96,9 +102,12 @@ Window {
 
             DImageButton {
                 id:maximizeButton
-                normal_image: "qrc:/views/Widgets/images/maximize_normal.png"
-                hover_image: "qrc:/views/Widgets/images/maximize_hover.png"
-                press_image: "qrc:/views/Widgets/images/maximize_press.png"
+                normal_image: "qrc:/views/Widgets/images/%1_normal.png".arg(windowButtonRow.state)
+                hover_image: "qrc:/views/Widgets/images/%1_hover.png".arg(windowButtonRow.state)
+                press_image: "qrc:/views/Widgets/images/%1_press.png".arg(windowButtonRow.state)
+                onClicked: {
+                    windowButtonRow.state = windowButtonRow.state == "zoomin" ? "zoomout" : "zoomin"
+                }
             }
 
             DImageButton {
@@ -111,11 +120,41 @@ Window {
                     Qt.quit()
                 }
             }
+
+            states: [
+                State {
+                    name: "zoomout"
+                    PropertyChanges {target: mainWindow; width: maxWidth; height: maxHeight}
+                },
+                State {
+                    name: "zoomin"
+                    PropertyChanges {target: mainWindow; width: normalWidth; height: normalHeight}
+                }
+            ]
+
+            transitions:[
+                Transition {
+                    from: "zoomout"
+                    to: "zoomin"
+                     SequentialAnimation {
+                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
+                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
+                    }
+                },
+                Transition {
+                    from: "zoomin"
+                    to: "zoomout"
+                     SequentialAnimation {
+                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
+                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
+                    }
+                }
+            ]
         }
 
         Row {
             id: reportTypeButtonRow
-            width: mainItemWidth
+            width: mainWindow.width - 22 * 2
             anchors.top: windowButtonRow.bottom
             anchors.topMargin: 10
             anchors.horizontalCenter: parent.horizontalCenter
@@ -124,6 +163,7 @@ Window {
 
             ReportTypeButton {
                 id: bugReportButton
+                width: (mainWindow.width - 12 - 22 * 2) / 2
                 actived: parent.reportType == DataConverter.DFeedback_Bug
                 iconPath: "qrc:/views/Widgets/images/reporttype_bug.png"
                 text: qsTr("I got problem")
@@ -134,6 +174,7 @@ Window {
 
             ReportTypeButton {
                 id: proposalReportButton
+                width: (mainWindow.width - 12 - 22 * 2) / 2
                 actived: parent.reportType == DataConverter.DFeedback_Proposal
                 iconPath: "qrc:/views/Widgets/images/reporttype_proposal.png"
                 text: qsTr("I got a good idea")
@@ -182,11 +223,18 @@ Window {
             id:adjunctPanel
 
             width: reportTypeButtonRow.width
-            height: 222 + 22 + 6
+            height: (mainWindow.height - windowButtonRow.height
+                     - reportTypeButtonRow.height - 10
+                     - titleTextinput.height - 26
+                     - appComboBox.height - 16
+                     - 16
+                     - emailTextinput.height - 16
+                     - helpTextItem.height - 16
+                     - 16
+                     - controlButtonRow.height - 16)
             anchors.top: appComboBox.bottom
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
-
         }
 
         AppTextInput {
@@ -205,6 +253,7 @@ Window {
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             width: reportTypeButtonRow.width
+            height: childrenRect.height
 
             AppCheckBox {
                 id: helpCheck
@@ -227,6 +276,7 @@ Window {
         }
 
         Row {
+            id: controlButtonRow
             anchors.right: reportTypeButtonRow.right
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 16

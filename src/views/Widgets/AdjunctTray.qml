@@ -59,7 +59,7 @@ Rectangle {
         anchors.fill: parent
         width: parent.width
         height: parent.height
-        cellWidth: width / 6
+        cellWidth: 416 / 6
         cellHeight: 52
 
         model: ListModel {}
