@@ -26,7 +26,7 @@ Window {
     property int normalHeight: 592
     property int maxWidth: screenSize.width * 9 / 20
     property int maxHeight: screenSize.height * 5 / 6
-    property string lastTarget: "other"
+    property string lastTarget: "other" //lastTarget = currentTarget if combobox menu item not change
     property int animationDuration: 200
 
     function updateReportContentText(value){
@@ -58,15 +58,47 @@ Window {
                              adjunctPanel.contentText)
     }
 
+    function isLegitEmail(email){
+        var reMail =/^(?:[a-zA-Z0-9]+[_\-\+\.]?)*[a-zA-Z0-9]+@(?:([a-zA-Z0-9]+[_\-]?)*[a-zA-Z0-9]+\.)+([a-zA-Z]{2,})+$/;
+        var tmpRegExp = new RegExp(reMail);
+
+        if(tmpRegExp.test(email)){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
+    Connections {
+        target: mainObject
+        onSubmitCompleted: {
+            if (succeeded){
+                mainObject.clearDraft(lastTarget)
+                adjunctPanel.clearAllAdjunct()
+                Qt.quit()
+            }
+            else{
+                saveDraft()
+            }
+        }
+    }
+
+    Timer {
+        id: autoSaveDraftTimer
+        running: true
+        repeat: true
+        interval: 60000
+        onTriggered: {
+            saveDraft()
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
 
         MouseArea {
-            anchors.top: parent.top
-            anchors.left: parent.left
-            width: parent.width - (minimizeButton.width + maximizeButton.width + closeWindowButton.width)
-            height: windowButtonRow.height
-
+            anchors.fill: parent
             property int startX
             property int startY
             property bool holdFlag
@@ -116,6 +148,7 @@ Window {
                 hover_image: "qrc:/views/Widgets/images/close_hover.png"
                 press_image: "qrc:/views/Widgets/images/close_press.png"
                 onClicked: {
+                    saveDraft()
                     mainWindow.close()
                     Qt.quit()
                 }
@@ -286,6 +319,7 @@ Window {
                 id:closeButton
                 text: qsTr("Close")
                 onClicked: {
+                    saveDraft()
                     mainWindow.close()
                     Qt.quit()
                 }
@@ -294,6 +328,13 @@ Window {
             TextButton {
                 id: sendButton
                 text: qsTr("Send")
+                textItem.color: enabled ? textNormalColor : "#b9b6ba"
+                enabled: {
+                    if (titleTextinput.text != "" && appComboBox.text != "" && isLegitEmail(emailTextinput.text))
+                        return true
+                    else
+                        return false
+                }
                 onClicked: {
 
                 }

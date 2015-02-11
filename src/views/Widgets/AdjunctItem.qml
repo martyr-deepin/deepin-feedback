@@ -18,6 +18,13 @@ Item {
 
     signal deleteAdjunct(string filePath)
 
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onEntered: deleteButton.visible = true
+        onExited: deleteButton.visible = false
+    }
+
     DIcon {
         id:fileIcon
         anchors.centerIn: parent
@@ -38,6 +45,8 @@ Item {
 
 
     DImageButton {
+        id: deleteButton
+        visible: false
         normal_image: "qrc:/views/Widgets/images/delete_normal.png"
         hover_image: "qrc:/views/Widgets/images/delete_hover.png"
         press_image: "qrc:/views/Widgets/images/delete_press.png"
@@ -47,6 +56,9 @@ Item {
         anchors.rightMargin: width / 2
 
         onClicked: adjunctItem.deleteAdjunct(file_path)
+
+        onEntered: visible = true
+        onExited: visible = false
     }
 
     PercentCircle {

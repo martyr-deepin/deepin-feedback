@@ -72,9 +72,11 @@ public Q_SLOTS:
     bool draftTargetExist(const QString &target);
     void updateUiDraftData(const QString &target);
     void getScreenShot(const QString &target);
+    bool canAddAdjunct(const QString &target);
 
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);
+    void submitCompleted(bool succeeded);
 
 private:
     void init();

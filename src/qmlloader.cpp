@@ -219,6 +219,11 @@ void QmlLoader::getScreenShot(const QString &target)
     adjunctAide->getScreenShot(target);
 }
 
+bool QmlLoader::canAddAdjunct(const QString &target)
+{
+    return getAdjunctsSize(target) < ADJUNCTS_MAX_SIZE;
+}
+
 Draft QmlLoader::getDraft(const QString &targetApp)
 {
     Draft tmpDraft;

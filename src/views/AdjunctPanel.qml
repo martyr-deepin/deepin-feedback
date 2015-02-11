@@ -69,8 +69,10 @@ Item {
             hover_image: "qrc:/views/Widgets/images/screenshot_normal.png"
             press_image: "qrc:/views/Widgets/images/screenshot_press.png"
             onClicked: {
-                if (appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1)
+                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
+                    mainWindow.hide()
                     mainObject.getScreenShot(appComboBox.text.trim())
+                }
             }
         }
 
@@ -82,7 +84,7 @@ Item {
             hover_image: "qrc:/views/Widgets/images/adjunct_normal.png"
             press_image: "qrc:/views/Widgets/images/adjunct_press.png"
             onClicked: {
-                if (appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
+                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
                     adjunctPickDialog.showWindow()
                 }
             }
@@ -100,16 +102,35 @@ Item {
         anchors.top: buttonRow.bottom
         anchors.topMargin: 6
 
-        TextEdit {
-            id: contentTextEdit
-            color: textNormalColor
-            selectionColor: "#31536e"
-            selectByMouse: true
-            font.pixelSize: 13
+        ListView {
+            id: textEditView
             width: parent.width
             height: parent.height - adjunctTray.height
             anchors.top: parent.top
+            model: itemModel
+            clip: true
+
+            DScrollBar {
+                flickable: textEditView
+            }
         }
+
+        VisualItemModel
+        {
+            id: itemModel
+
+            TextEdit {
+                id: contentTextEdit
+                color: textNormalColor
+                selectionColor: "#31536e"
+                selectByMouse: true
+                font.pixelSize: 13
+                width: adjunctRec.width
+                height: contentHeight > textEditView.height ? contentHeight : textEditView.height
+                wrapMode: TextEdit.Wrap
+            }
+        }
+
 
         AdjunctTray {
             id: adjunctTray
@@ -125,6 +146,7 @@ Item {
         target: mainObject
         onGetScreenshotFinish: {
             getAdjunct(fileName)
+            mainWindow.show()
         }
     }
 }

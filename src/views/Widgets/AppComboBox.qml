@@ -64,7 +64,7 @@ Item {
             width: combobox.width - downArrow.width
             height: parent.height
             anchors.left: parent.left
-            tip: "Write down where the probleam occur"
+            tip: qsTr("Write down where the probleam occur")
 
             onTextChange: {
                 if(text == ""){
