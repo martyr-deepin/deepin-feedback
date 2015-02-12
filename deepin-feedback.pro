@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets gui
+QT += qml quick widgets gui dbus
 
 SOURCES += src/main.cpp \
     src/qmlloader.cpp \

@@ -37,6 +37,10 @@ QtObject {
         property int height: displayId.primaryRect[3]
     }
 
+    function getSupportAppList(){
+        return supportAppList
+    }
+
     function setReportContent(value){
         mainWindow.updateReportContentText(value)
     }
@@ -47,6 +51,10 @@ QtObject {
 
     function setSimpleEntries(_feedbackType,_reportTitle,_email,_helpDeepin){
         mainWindow.updateSimpleEntries(_feedbackType,_reportTitle,_email,_helpDeepin)
+    }
+
+    function setTarget(target){
+        mainWindow.setTarget(target)
     }
 
     function showMainWindow(){

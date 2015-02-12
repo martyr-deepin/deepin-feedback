@@ -29,6 +29,14 @@ Window {
     property string lastTarget: "other" //lastTarget = currentTarget if combobox menu item not change
     property int animationDuration: 200
 
+    function setTarget(target){
+        //only use in main.cpp,Report specified target bug
+        //If this function is called,hide appComboBox
+        appComboBox.visible = false
+        appComboBox.text = target
+        lastTarget = target
+    }
+
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
     }
@@ -230,10 +238,10 @@ Window {
         AppComboBox {
             id:appComboBox
             parentWindow: mainWindow
-            height: 30
+            height: visible ? 30 : 0
             width: reportTypeButtonRow.width
             anchors.top: titleTextinput.bottom
-            anchors.topMargin: 16
+            anchors.topMargin: visible ? 16 : 0
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
                 //target exist, try to load draft

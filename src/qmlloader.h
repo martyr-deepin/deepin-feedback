@@ -50,15 +50,13 @@ public:
     void load(QUrl url);
 
     //call by main
-    void showHelpTip();
-    void showVersion();
     void reportBug();   //Unselected target
     void reportBug(const QString &target); //specity the target
+    QStringList getSupportAppList();
 
 public Q_SLOTS:
     //call by UI
     QString getHomeDir();
-    QStringList getSupportAppList();
     bool saveDraft(const QString &targetApp,
                    const DataConverter::FeedbackType type,
                    const QString &title,

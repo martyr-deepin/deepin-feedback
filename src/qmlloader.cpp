@@ -33,16 +33,6 @@ void QmlLoader::load(QUrl url)
     }
 }
 
-void QmlLoader::showHelpTip()
-{
-
-}
-
-void QmlLoader::showVersion()
-{
-
-}
-
 void QmlLoader::reportBug()
 {
     QMetaObject::invokeMethod(
@@ -53,6 +43,15 @@ void QmlLoader::reportBug()
 
 void QmlLoader::reportBug(const QString &target)
 {
+    //set specified target
+    QVariant contentValue = QVariant(target);
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "setTarget",
+                Q_ARG(QVariant, contentValue)
+                );
+
+
     updateUiDraftData(target);
 
     QMetaObject::invokeMethod(
@@ -82,7 +81,13 @@ QString QmlLoader::getHomeDir()
 
 QStringList QmlLoader::getSupportAppList()
 {
-
+    QVariant returnValue;
+    QMetaObject::invokeMethod(
+                this->rootObject,
+                "getSupportAppList",
+                Q_RETURN_ARG(QVariant, returnValue)
+                );
+    return returnValue.toStringList();
 }
 
 bool QmlLoader::saveDraft(const QString &targetApp,
