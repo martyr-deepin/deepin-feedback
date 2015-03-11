@@ -37,4 +37,4 @@ clean:
 	rm -f daemon/deepin-feedback-daemon
 	rm -f misc/com.deepin.Feedback.service
 	rm -f gui/deepin-feedback
-	(cd gui; make clean)
+	(cd gui; make clean || true)

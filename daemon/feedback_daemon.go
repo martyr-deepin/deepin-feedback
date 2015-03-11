@@ -28,7 +28,6 @@ import (
 	"path/filepath"
 	"pkg.linuxdeepin.com/lib/dbus"
 	. "pkg.linuxdeepin.com/lib/gettext"
-	"pkg.linuxdeepin.com/lib/pinyin"
 	"pkg.linuxdeepin.com/lib/utils"
 	"strings"
 	"sync"
@@ -45,35 +44,24 @@ const (
 )
 
 type category struct {
-	Value    string
-	Name     string
-	Keywords []string
+	Value string
+	Name  string
 }
 
 var categories []category
 
 func initCategories() {
 	categories = []category{
-		{Value: "all", Name: Tr("All"), Keywords: []string{"All"}},
-		{Value: "background", Name: Tr("Background"), Keywords: []string{"Background"}},
-		{Value: "bluetooth", Name: Tr("Bluetooth"), Keywords: []string{"Bluetooth"}},
-		{Value: "bootmgr", Name: Tr("Boot Interface"), Keywords: []string{"Boot Interface"}},
-		{Value: "desktop", Name: Tr("Desktop"), Keywords: []string{"Desktop"}},
-		{Value: "display", Name: Tr("Display"), Keywords: []string{"Display"}},
-		{Value: "dock", Name: Tr("Dock"), Keywords: []string{"Dock"}},
-		{Value: "launcher", Name: Tr("Launcher"), Keywords: []string{"Launcher"}},
-		{Value: "login", Name: Tr("User Login Interface"), Keywords: []string{"User Login Interface"}},
-		{Value: "network", Name: Tr("Network"), Keywords: []string{"Network"}},
-	}
-	for i, _ := range categories {
-		// append category name as keyword
-		categories[i].Keywords = append(categories[i].Keywords, categories[i].Name)
-
-		// append pinyin of hans as keyword
-		pinyins := pinyin.HansToPinyin(categories[i].Name)
-		for _, p := range pinyins {
-			categories[i].Keywords = append(categories[i].Keywords, p)
-		}
+		{Value: "all", Name: Tr("All")},
+		{Value: "background", Name: Tr("Background")},
+		{Value: "bluetooth", Name: Tr("Bluetooth")},
+		{Value: "bootmgr", Name: Tr("Boot Interface")},
+		{Value: "desktop", Name: Tr("Desktop")},
+		{Value: "display", Name: Tr("Display")},
+		{Value: "dock", Name: Tr("Dock")},
+		{Value: "launcher", Name: Tr("Launcher")},
+		{Value: "login", Name: Tr("User Login Interface")},
+		{Value: "network", Name: Tr("Network")},
 	}
 }
 
