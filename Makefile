@@ -14,6 +14,9 @@ build: configure
 configure:
 	sed "s=@PREFIX@=${PREFIX}=" misc/com.deepin.Feedback.service.in > misc/com.deepin.Feedback.service
 
+pot:
+	deepin-update-pot locale/locale_config.ini
+
 install:
 	install -dm0755 ${DESTDIR}${PREFIX}/bin/
 	install -m0755 cli/deepin-feedback-cli.sh ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
