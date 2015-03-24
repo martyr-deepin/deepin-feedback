@@ -12,7 +12,7 @@ import Deepin.Widgets 1.0
 import DataConverter 1.0
 import "Widgets"
 
-Window {
+DWindow {
     id:mainWindow
 
     flags: Qt.FramelessWindowHint
@@ -229,10 +229,23 @@ Window {
             id: titleTextinput
             width: reportTypeButtonRow.width
             height: 30
+            maxStrLength: 100
             anchors.top: reportTypeButtonRow.bottom
             anchors.topMargin: 26
             anchors.horizontalCenter: parent.horizontalCenter
             tip: "Write an title"
+
+            onInWarningStateChanged: {
+                if (inWarningState){
+                    //TODO
+                    //Show warning tips
+                    print ("==>[Warning] Title too long...")
+                }
+            }
+
+            Component.onCompleted: {
+                forceActiveFocus()
+            }
         }
 
         AppComboBox {
@@ -336,7 +349,7 @@ Window {
             TextButton {
                 id: sendButton
                 text: qsTr("Send")
-                textItem.color: enabled ? textNormalColor : "#b9b6ba"
+                textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
                     if (titleTextinput.text != "" && appComboBox.text != "" && isLegitEmail(emailTextinput.text))
                         return true

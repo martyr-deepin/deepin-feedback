@@ -10,10 +10,13 @@ QtObject {
     id: root
 
     property color textActivedColor: dconstants.hoverColor
-    property color textNormalColor: "#333333"
+    property color textNormalColor: "#5e5e5e"
     property color bgActivedColor: "#5498ec"
     property color bgNormalColor: dconstants.hoverColor
-    property color buttonBorderColor: dconstants.fgColor
+    property color buttonBorderColor: "#d7d7d7"
+    property color buttonBorderActiveColor: "#7bbefb"
+    property color buttonBorderWarningColor: "#FF8F00"
+    property color warningTipsColor: "#ffa048"
 
     property int maxAdjunctCount: 6
 

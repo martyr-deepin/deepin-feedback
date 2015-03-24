@@ -9,50 +9,126 @@
 import QtQuick 2.1
 import Deepin.Widgets 1.0
 
-Rectangle {
+FocusScope{
     id: root
     width: 200
     height: 40
-    radius: 2
-    color: bgNormalColor
-    border.color: buttonBorderColor
+    state: "normal"
 
     property alias tip: tipText.text
     property alias text: textInput.text
+    property int fontPixeSize: 12
+    property int maxStrLength: 0
+    property bool canChangeState: true
+    property bool inWarningState: false
 
     signal textChange(string text)
 
-    TextInput {
-        id: textInput
+    //Use Unicode Length
+    function getStrLeng(str) {
+        var myLen = 0;
 
-        focus: true
-        color: textNormalColor
-        selectionColor: "#31536e"
-        selectByMouse: true
-        verticalAlignment: TextInput.AlignVCenter
-        font.pixelSize: 13
-        clip: true
-
-        anchors.fill: parent
-        anchors.leftMargin: 5
-
-        onTextChanged: root.textChange(text)
+        for (var i = 0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 0 && str.charCodeAt(i) < 128)
+                myLen++;
+            else
+                myLen += 2;
+        }
+        return myLen;
     }
 
-    Text {
-        id: tipText
-        anchors.fill: parent
-        anchors.leftMargin: 5
-        color: "#b9b6ba"
-        verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 13
-        clip: true
+    function isContentOutOfRange(){
+        return maxStrLength > 0 && getStrLeng(textInput.text) > maxStrLength
+    }
 
-        opacity: textInput.text == "" ? 1 : 0
-
-        Behavior on opacity {
-            NumberAnimation {duration: 150}
+    onInWarningStateChanged: {
+        if (inWarningState)
+            state = "warning"
+        else{
+            if (focus)
+                state = "actived"
+            else
+                state = "normal"
         }
     }
-}
 
+    onFocusChanged: {
+        if (canChangeState && !inWarningState){
+            if (focus)
+                state = "actived"
+            else
+                state = "normal"
+        }
+    }
+
+    Rectangle {
+        id: rootRec
+        radius: 2
+        anchors.fill: parent
+        color: bgNormalColor
+        clip: true
+
+        TextInput {
+            id: textInput
+
+            focus: true
+            color: textNormalColor
+            selectionColor: "#31536e"
+            selectByMouse: true
+            verticalAlignment: TextInput.AlignVCenter
+            font.pixelSize: fontPixeSize
+            clip: true
+
+            width: parent.width - 10
+            height: parent.height
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: 5
+
+            onTextChanged: {
+                if (maxStrLength > 0 && getStrLeng(textInput.text) >= maxStrLength){
+                    textInput.maximumLength = textInput.length
+                    inWarningState = true
+                }
+                else
+                    inWarningState = false
+
+                root.textChange(text)
+            }
+        }
+
+        Text {
+            id: tipText
+            anchors.fill: parent
+            anchors.leftMargin: 5
+            color: "#bebebe"
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: fontPixeSize
+            clip: true
+
+            opacity: textInput.text == "" ? 1 : 0
+
+            Behavior on opacity {
+                NumberAnimation {duration: 150}
+            }
+        }
+    }
+
+
+    states: [
+        State {
+            name: "normal"
+            PropertyChanges {target: rootRec; border.color: buttonBorderColor}
+        },
+        State {
+            name: "actived"
+            PropertyChanges {target: rootRec; border.color: buttonBorderActiveColor}
+        },
+        State {
+            name: "warning"
+            PropertyChanges {target: rootRec; border.color: buttonBorderWarningColor}
+        }
+
+    ]
+
+}
