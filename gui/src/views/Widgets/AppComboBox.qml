@@ -33,6 +33,7 @@ Item {
     }
 
     onClicked: {
+        currentLabel.forceActiveFocus()
         showMenu()
     }
 
@@ -83,6 +84,33 @@ Item {
                     if (!menu.visible){
                         showMenu()
                     }
+                }
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    currentLabel.forceActiveFocus()
+                    showMenu()
+                }
+            }
+            Keys.onPressed: {
+                switch (event.key )
+                {
+                case Qt.Key_Escape:
+                    hideMenu()
+                    break
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                    menu.selectMenu()
+                    break
+                case Qt.Key_Up:
+                    menu.menuUp()
+                    break
+                case Qt.Key_Down:
+                    menu.menuDown()
+                    break
+                default:
+                    break
                 }
             }
         }

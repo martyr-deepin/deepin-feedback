@@ -49,17 +49,33 @@ DPopupWindow {
     signal menuSelect(int index)
     signal menuEnter(int index)
 
+    function menuUp(){
+        if (completeView.selectIndex > 0)
+            completeView.selectIndex --
+    }
+
+    function menuDown(){
+        if (completeView.selectIndex < labels.length - 1)
+            completeView.selectIndex ++
+    }
+
+    function selectMenu(){
+        menuPopupWindow.visible = false
+        menuPopupWindow.menuSelect(completeView.selectIndex)
+    }
+
     DWindowFrame {
         id: menuFrame
         anchors.fill: parent
         frame.color: bgNormalColor
         frame.border.color: buttonBorderColor
+        layer.enabled: true
 
         Item {
             id: completeViewBox
             anchors.centerIn: parent
             width: parent.width - 6
-            height: childrenRect.height
+            height: completeView.height
 
             ListView {
                 id: completeView
@@ -68,7 +84,7 @@ DPopupWindow {
                 maximumFlickVelocity: 1000
                 model: labels
 
-                property int selectIndex: -1
+                property int selectIndex: 0
                 property int childrenHeight: childrenRect.height
 
                 delegate: AppComboBoxMenuItem {

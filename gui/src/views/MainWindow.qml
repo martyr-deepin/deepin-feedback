@@ -6,7 +6,7 @@
 *Description:
 *
 *************************************************************/
-import QtQuick 2.1
+import QtQuick 2.2
 import QtQuick.Window 2.0
 import Deepin.Widgets 1.0
 import DataConverter 1.0
@@ -242,10 +242,6 @@ DWindow {
                     print ("==>[Warning] Title too long...")
                 }
             }
-
-            Component.onCompleted: {
-                forceActiveFocus()
-            }
         }
 
         AppComboBox {
@@ -272,6 +268,7 @@ DWindow {
                 }
             }
         }
+
 
         AdjunctPanel {
             id:adjunctPanel
