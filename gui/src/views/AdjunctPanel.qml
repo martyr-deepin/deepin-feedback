@@ -8,6 +8,7 @@
 *************************************************************/
 import QtQuick 2.1
 import Deepin.Widgets 1.0
+import QtQuick.Dialogs 1.1
 import "Widgets"
 
 Item {
@@ -41,15 +42,26 @@ Item {
         adjunctTray.updateLoadPercent(filePath, percent)
     }
 
-    DFileChooseDialog {
+    FileDialog {
         id: adjunctPickDialog
-        currentFolder: mainObject.getHomeDir()
-        onSelectAction: {
-            getAdjunct(fileUrl.toString())
-
-            adjunctPickDialog.hideWindow()
+        title: qsTr("Please select attachment")
+        onAccepted: {
+            getAdjunct(adjunctPickDialog.fileUrl.toString().replace("file:///","/"))
+            close()
         }
+        nameFilters: [ "All files (*)" ,"Image files (*.jpg *.png *.gif)"]
     }
+
+//    DFileChooseDialog {
+//        id: adjunctPickDialog
+//        currentFolder: mainObject.getHomeDir()
+//        onSelectAction: {
+//            print ("========",fileUrl.toString())
+//            getAdjunct(fileUrl.toString())
+
+//            adjunctPickDialog.hideWindow()
+//        }
+//    }
 
     Row {
         id: buttonRow
@@ -85,7 +97,7 @@ Item {
             press_image: "qrc:/views/Widgets/images/adjunct_press.png"
             onClicked: {
                 if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
-                    adjunctPickDialog.showWindow()
+                    adjunctPickDialog.open()
                 }
             }
         }

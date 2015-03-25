@@ -1,7 +1,7 @@
 nohup.out
 .#*
 *~
-build
+build*
 dist
 daemon/deepin-feedback-daemon
 misc/com.deepin.Feedback.service
@@ -10,4 +10,9 @@ gui/moc_*
 gui/qrc_*
 gui/Makefile
 gui/deepin-feedback
+*.po~
+*.swp
+*.user
+*.old
+*.mo
 .gitreview
