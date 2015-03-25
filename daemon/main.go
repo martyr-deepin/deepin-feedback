@@ -21,6 +21,7 @@
 package main
 
 import (
+	dbusOrigIfc "dbus/org/freedesktop/dbus/system"
 	"os"
 	"pkg.linuxdeepin.com/lib"
 	"pkg.linuxdeepin.com/lib/dbus"
@@ -30,6 +31,7 @@ import (
 )
 
 var logger = log.NewLogger(dbusDest)
+var dbusDaemon, _ = dbusOrigIfc.NewDBusDaemon("org.freedesktop.DBus", "/org/freedesktop/DBus")
 
 func main() {
 	InitI18n()

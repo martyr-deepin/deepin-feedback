@@ -4,6 +4,7 @@ nohup.out
 build*
 dist
 daemon/deepin-feedback-daemon
+daemon/daemon
 misc/com.deepin.Feedback.service
 gui/*.o
 gui/moc_*
