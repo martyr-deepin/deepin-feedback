@@ -17,6 +17,7 @@ QtObject {
     property color buttonBorderActiveColor: "#7bbefb"
     property color buttonBorderWarningColor: "#FF8F00"
     property color warningTipsColor: "#ffa048"
+    property color inputDisableBgColor: "#fbfbfb"
 
     property int maxAdjunctCount: 6
 

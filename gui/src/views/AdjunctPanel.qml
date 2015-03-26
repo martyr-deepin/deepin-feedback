@@ -14,7 +14,9 @@ import "Widgets"
 Item {
     id: adjunctPanel
 
+    property alias backgroundColor: adjunctRec.color
     property alias contentText: contentTextEdit.text
+    property bool canAddAdjunct: adjunctTray.adjunctModel.count < maxAdjunctCount && enableInput
 
     function clearAllAdjunct(){
         adjunctTray.clearAllAdjunct()
@@ -69,7 +71,6 @@ Item {
         anchors.top: parent.top
         width: childrenRect.width
         height: 22
-        enabled: adjunctTray.adjunctModel.count < maxAdjunctCount
 
         spacing: 3
 
@@ -77,9 +78,9 @@ Item {
             id:screenShotButton
             width: 22
             height: 22
-            normal_image: "qrc:/views/Widgets/images/screenshot_normal.png"
-            hover_image: "qrc:/views/Widgets/images/screenshot_normal.png"
-            press_image: "qrc:/views/Widgets/images/screenshot_press.png"
+            normal_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "normal" : "disable")
+            hover_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
+            press_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
             onClicked: {
                 if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
                     mainWindow.hide()
@@ -92,9 +93,9 @@ Item {
             id:adjunctButton
             width: 22
             height: 22
-            normal_image: "qrc:/views/Widgets/images/adjunct_normal.png"
-            hover_image: "qrc:/views/Widgets/images/adjunct_normal.png"
-            press_image: "qrc:/views/Widgets/images/adjunct_press.png"
+            normal_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "normal" : "disable")
+            hover_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
+            press_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
             onClicked: {
                 if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
                     adjunctPickDialog.open()
@@ -150,7 +151,6 @@ Item {
             anchors.bottomMargin: 1
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 2
-            height: 52
         }
     }
 

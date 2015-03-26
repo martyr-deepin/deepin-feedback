@@ -11,7 +11,7 @@ import Deepin.Widgets 1.0
 
 Rectangle {
     color: "#e8e8e8"
-    height: 52
+    height: adjunctView.model.count !=0 ? 52 : 0
     width: parent.width
 
     property alias adjunctModel: adjunctView.model

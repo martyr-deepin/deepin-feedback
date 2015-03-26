@@ -46,5 +46,7 @@
         <file>views/Widgets/images/zoomout_hover.png</file>
         <file>views/Widgets/images/zoomout_normal.png</file>
         <file>views/Widgets/images/zoomout_press.png</file>
+        <file>views/Widgets/images/adjunct_disable.png</file>
+        <file>views/Widgets/images/screenshot_disable.png</file>
     </qresource>
 </RCC>

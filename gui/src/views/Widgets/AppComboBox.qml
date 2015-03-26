@@ -66,7 +66,7 @@ Item {
             height: parent.height
             anchors.left: parent.left
             canChangeState: false
-            tip: qsTr("Write down where the probleam occur")
+            tip: qsTr("Please select feedback project firstly ")
 
             onTextChange: {
                 if(text == ""){

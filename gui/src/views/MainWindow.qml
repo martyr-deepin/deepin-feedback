@@ -28,11 +28,11 @@ DWindow {
     property int maxHeight: screenSize.height * 5 / 6
     property string lastTarget: "other" //lastTarget = currentTarget if combobox menu item not change
     property int animationDuration: 200
+    property bool enableInput: appComboBox.text != "" && appComboBox.labels.indexOf(appComboBox.text) >= 0
 
     function setTarget(target){
         //only use in main.cpp,Report specified target bug
         //If this function is called,hide appComboBox
-        appComboBox.visible = false
         appComboBox.text = target
         lastTarget = target
     }
@@ -225,32 +225,13 @@ DWindow {
             }
         }
 
-        AppTextInput {
-            id: titleTextinput
-            width: reportTypeButtonRow.width
-            height: 30
-            maxStrLength: 100
-            anchors.top: reportTypeButtonRow.bottom
-            anchors.topMargin: 26
-            anchors.horizontalCenter: parent.horizontalCenter
-            tip: "Write an title"
-
-            onInWarningStateChanged: {
-                if (inWarningState){
-                    //TODO
-                    //Show warning tips
-                    print ("==>[Warning] Title too long...")
-                }
-            }
-        }
-
         AppComboBox {
             id:appComboBox
             parentWindow: mainWindow
-            height: visible ? 30 : 0
+            height: 30
             width: reportTypeButtonRow.width
-            anchors.top: titleTextinput.bottom
-            anchors.topMargin: visible ? 16 : 0
+            anchors.top: reportTypeButtonRow.bottom
+            anchors.topMargin: 26
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
                 //target exist, try to load draft
@@ -269,10 +250,33 @@ DWindow {
             }
         }
 
+        AppTextInput {
+            id: titleTextinput
+            enabled: enableInput
+            backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
+            width: reportTypeButtonRow.width
+            height: 30
+            maxStrLength: 100
+            anchors.top: appComboBox.bottom
+            anchors.topMargin: 16
+            anchors.horizontalCenter: parent.horizontalCenter
+            tip: "Write an title"
+
+            onInWarningStateChanged: {
+                if (inWarningState){
+                    //TODO
+                    //Show warning tips
+                    print ("==>[Warning] Title too long...")
+                }
+            }
+        }
+
 
         AdjunctPanel {
             id:adjunctPanel
 
+            enabled: enableInput
+            backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
             height: (mainWindow.height - windowButtonRow.height
                      - reportTypeButtonRow.height - 10
@@ -283,13 +287,15 @@ DWindow {
                      - helpTextItem.height - 16
                      - 16
                      - controlButtonRow.height - 16)
-            anchors.top: appComboBox.bottom
+            anchors.top: titleTextinput.bottom
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         AppTextInput {
             id: emailTextinput
+            enabled: enableInput
+            backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
             height: 30
             anchors.top: adjunctPanel.bottom
@@ -308,8 +314,10 @@ DWindow {
 
             AppCheckBox {
                 id: helpCheck
+                enabled: enableInput
                 width: 15
                 anchors.left: parent.left
+                checked: true
 
             }
 
