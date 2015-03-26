@@ -69,9 +69,19 @@ QtObject {
         mainWindow.hide()
     }
 
+    function dsTr(s){
+        return dsslocale.dsTr(s)
+    }
+
     property var dconstants: DConstants{}
 
     property var mainWindow: MainWindow {}
 
     property var dbusSearch: Search {}
+
+    property var dsslocale: DLocale {
+        domain: "deepin-user-feedback"
+
+        Component.onCompleted: print("==> [info] Language:", dsslocale.lang)
+    }
 }

@@ -73,7 +73,7 @@ Item {
             height: parent.height
             anchors.left: parent.left
             canChangeState: false
-            tip: qsTr("Please select feedback project firstly ")
+            tip: dsTr("Please select feedback project firstly ")
 
             onTextChange: {
                 if (settingText)

@@ -9,6 +9,7 @@
 import QtQuick 2.1
 import Deepin.Widgets 1.0
 import QtQuick.Dialogs 1.1
+import DataConverter 1.0
 import "Widgets"
 
 Item {
@@ -46,7 +47,7 @@ Item {
 
     FileDialog {
         id: adjunctPickDialog
-        title: qsTr("Please select attachment")
+        title: dsTr("Please select attachment")
         onAccepted: {
             getAdjunct(adjunctPickDialog.fileUrl.toString().replace("file:///","/"))
             close()
@@ -132,15 +133,64 @@ Item {
         {
             id: itemModel
 
-            TextEdit {
-                id: contentTextEdit
-                color: textNormalColor
-                selectionColor: "#31536e"
-                selectByMouse: true
-                font.pixelSize: 13
+            Item {
                 width: adjunctRec.width
-                height: contentHeight > textEditView.height ? contentHeight : textEditView.height
-                wrapMode: TextEdit.Wrap
+                height: contentTextEdit.contentHeight > textEditView.height ? contentTextEdit.contentHeight : textEditView.height
+
+                TextEdit {
+                    id: contentTextEdit
+                    color: textNormalColor
+                    selectionColor: "#31536e"
+                    selectByMouse: true
+                    font.pixelSize: 12
+                    width: adjunctRec.width
+                    height: contentHeight > textEditView.height ? contentHeight : textEditView.height
+                    wrapMode: TextEdit.Wrap
+                }
+
+                Text {
+                    id: problemTips
+
+                    color: "#bebebe"
+                    font.pixelSize: 12
+                    width: adjunctRec.width
+                    height: textEditView.height
+                    wrapMode: TextEdit.Wrap
+                    opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? 1 : 0
+                    text: {
+                        var content ="\n    " + dsTr("Please describe your problem in detail") + "\n\n    " +
+                                dsTr("Please upload related screenshots or files")
+                        return content
+                    }
+
+                    Behavior on opacity {
+                        NumberAnimation {duration: 150}
+                    }
+
+                    Component.onCompleted: {
+
+                    }
+                }
+
+                Text {
+                    id: ideaTips
+
+                    color: "#bebebe"
+                    font.pixelSize: 12
+                    width: adjunctRec.width
+                    height: textEditView.height
+                    wrapMode: TextEdit.Wrap
+                    opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ? 1 : 0
+                    text: {
+                        var content = "\n    " + dsTr("Please describe your idea in detail ") + "\n\n    " +
+                                dsTr("Please upload related attachments")
+                        return content
+                    }
+
+                    Behavior on opacity {
+                        NumberAnimation {duration: 150}
+                    }
+                }
             }
         }
 

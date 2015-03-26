@@ -222,7 +222,7 @@ DWindow {
                 width: (mainWindow.width - 12 - 22 * 2) / 2
                 actived: parent.reportType == DataConverter.DFeedback_Bug
                 iconPath: "qrc:/views/Widgets/images/reporttype_bug.png"
-                text: qsTr("I got problem")
+                text: dsTr("I have a problem")
                 onClicked: {
                     parent.reportType = DataConverter.DFeedback_Bug
                 }
@@ -233,7 +233,7 @@ DWindow {
                 width: (mainWindow.width - 12 - 22 * 2) / 2
                 actived: parent.reportType == DataConverter.DFeedback_Proposal
                 iconPath: "qrc:/views/Widgets/images/reporttype_proposal.png"
-                text: qsTr("I got a good idea")
+                text: dsTr("I have a good idea")
                 onClicked: {
                     parent.reportType = DataConverter.DFeedback_Proposal
                 }
@@ -263,7 +263,8 @@ DWindow {
             anchors.top: appComboBox.bottom
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
-            tip: "Write an title"
+            tip:reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? dsTr("Please input the problem title")
+                                                                              : dsTr("Please describe your idea simply")
 
             onInWarningStateChanged: {
                 if (inWarningState){
@@ -304,7 +305,7 @@ DWindow {
             anchors.top: adjunctPanel.bottom
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
-            tip: "Write down your email here."
+            tip: dsTr("Please fill in email to get the feedback progress.")
         }
 
         Item {
@@ -327,13 +328,12 @@ DWindow {
             Text {
                 anchors.left: helpCheck.right
                 width: parent.width - helpCheck.width
-                text: qsTr("我愿意参加深度用户反馈帮助计划，以帮助深度系统快速改进，此过程中将不会收集任何个人信息。")
+                text: dsTr("I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.")
                 wrapMode: Text.Wrap
                 color: textNormalColor
                 horizontalAlignment: Text.AlignLeft
-                font.pixelSize: 13
+                font.pixelSize: 12
                 clip: true
-
             }
         }
 
@@ -346,7 +346,7 @@ DWindow {
 
             TextButton {
                 id:closeButton
-                text: qsTr("Close")
+                text: dsTr("Close")
                 onClicked: {
                     saveDraft()
                     mainWindow.close()
@@ -356,7 +356,7 @@ DWindow {
 
             TextButton {
                 id: sendButton
-                text: qsTr("Send")
+                text: dsTr("Send")
                 textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
                     if (titleTextinput.text != "" && appComboBox.text != "" && isLegitEmail(emailTextinput.text))

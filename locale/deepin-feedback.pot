@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-19 16:50+0800\n"
+"POT-Creation-Date: 2015-03-27 09:56+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,42 +17,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../daemon/feedback_daemon.go:57
-msgid "All"
+#: ../gui/src/views/AdjunctPanel.qml:50
+msgid "Please select attachment"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:58
-msgid "Background"
+#: ../gui/src/views/AdjunctPanel.qml:161
+msgid "Please describe your problem in detail"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:59
-msgid "Bluetooth"
+#: ../gui/src/views/AdjunctPanel.qml:162
+msgid "Please upload related screenshots or files"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:60
-msgid "Boot Interface"
+#: ../gui/src/views/AdjunctPanel.qml:185
+msgid "Please describe your idea in detail "
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:61
-msgid "Desktop"
+#: ../gui/src/views/AdjunctPanel.qml:186
+msgid "Please upload related attachments"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:62
-msgid "Display"
+#: ../gui/src/views/Widgets/AppComboBox.qml:76
+msgid "Please select feedback project firstly "
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:63
-msgid "Dock"
+#: ../gui/src/views/MainWindow.qml:225
+msgid "I have a problem"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:64
-msgid "Launcher"
+#: ../gui/src/views/MainWindow.qml:236
+msgid "I have a good idea"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:65
-msgid "User Login Interface"
+#: ../gui/src/views/MainWindow.qml:266
+msgid "Please input the problem title"
 msgstr ""
 
-#: ../daemon/feedback_daemon.go:66
-msgid "Network"
+#: ../gui/src/views/MainWindow.qml:267
+msgid "Please describe your idea simply"
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:308
+msgid "Please fill in email to get the feedback progress."
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:331
+msgid ""
+"I wish to join in User Feedback Help Plan to quickly improve the system "
+"without any personal information collected."
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:349
+msgid "Close"
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:359
+msgid "Send"
 msgstr ""
