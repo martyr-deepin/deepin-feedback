@@ -6,12 +6,14 @@ QmlLoader::QmlLoader(QObject *parent)
     engine = new QQmlEngine(this);
     component = new QQmlComponent(engine, this);
     rootContext = new QQmlContext(engine, this);
+    this->mDbusProxyer = new QmlLoaderDBus(this);
 
     init();
 }
 
 QmlLoader::~QmlLoader()
 {
+    delete this->mDbusProxyer;
     delete this->rootContext;
     delete this->component;
     delete this->engine;
@@ -47,7 +49,7 @@ void QmlLoader::reportBug(const QString &target)
     QVariant contentValue = QVariant(target);
     QMetaObject::invokeMethod(
                 this->rootObject,
-                "setTarget",
+                "switchProject",
                 Q_ARG(QVariant, contentValue)
                 );
 
@@ -341,4 +343,21 @@ qint64 QmlLoader::getAdjunctsSize(const QString &target)
     }
     else
         return 0;
+}
+
+QmlLoaderDBus::QmlLoaderDBus(QmlLoader *parent):
+    QDBusAbstractAdaptor(parent),
+    m_parent(parent)
+{
+    QDBusConnection::sessionBus().registerObject(DBUS_PATH, parent);
+}
+
+QmlLoaderDBus::~QmlLoaderDBus()
+{
+
+}
+
+void QmlLoaderDBus::switchProject(QString name)
+{
+    m_parent->reportBug(name);
 }

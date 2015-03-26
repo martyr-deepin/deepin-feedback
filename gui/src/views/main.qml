@@ -57,8 +57,8 @@ QtObject {
         mainWindow.updateSimpleEntries(_feedbackType,_reportTitle,_email,_helpDeepin)
     }
 
-    function setTarget(target){
-        mainWindow.setTarget(target)
+    function switchProject(target){
+        mainWindow.switchProject(target)
     }
 
     function showMainWindow(){

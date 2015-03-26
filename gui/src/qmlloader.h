@@ -11,10 +11,19 @@
 #include <QJsonObject>
 #include <QDir>
 #include <QFile>
+#include <QDBusAbstractAdaptor>
+#include <QDBusConnection>
 #include <QDebug>
 #include "dataconverter.h"
 #include "adjunctaide.h"
 
+
+
+#define DBUS_NAME "com.deepin.dde.UserFeedback"
+#define DBUS_PATH "/com/deepin/dde/UserFeedback"
+#define PROPERTY_IFCE "org.freedesktop.DBus.Properties"
+
+class QmlLoaderDBus;
 
 struct Draft{
     DataConverter::FeedbackType feedbackType;
@@ -85,6 +94,21 @@ private:
     qint64 getAdjunctsSize(const QString &target);
 private:
     AdjunctAide * adjunctAide;
+    QmlLoaderDBus * mDbusProxyer;
 };
 
+
+class QmlLoaderDBus : public QDBusAbstractAdaptor {
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", DBUS_NAME)
+
+public:
+    QmlLoaderDBus(QmlLoader* parent);
+    ~QmlLoaderDBus();
+
+    Q_SLOT void switchProject(QString name);
+
+private:
+    QmlLoader* m_parent;
+};
 #endif // QMLLOADER_H

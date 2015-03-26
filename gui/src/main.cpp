@@ -4,6 +4,7 @@
 #include "qmlloader.h"
 #include "dataconverter.h"
 #include <QDBusConnection>
+#include <QDBusInterface>
 #include <QDebug>
 
 void showVersion()
@@ -25,67 +26,58 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    if (argc == 1)
-    {
-        if (!QDBusConnection::sessionBus().registerService("com.deepin.user.feedback"))
+    if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
+
+        qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
+
+        QmlLoader* qmlLoader = new QmlLoader();
+        qmlLoader->rootContext->setContextProperty("mainObject", qmlLoader);
+        qmlLoader->load(QUrl(QStringLiteral("qrc:/views/main.qml")));
+        QObject::connect(qmlLoader->engine, SIGNAL(quit()), QApplication::instance(), SLOT(quit()));
+
+
+        if(argc == 2)
         {
-            qDebug() << "Warning: process is running...";
+            QString order = argv[1];
+            if(order == "-v" || order == "--version")
+            {
+                showVersion();
+            }
+            else
+            {
+                showHelpTip();
+            }
             return 0;
         }
-    }
-    else if(argc == 2)
-    {
-        QString order = argv[1];
-        if(order == "-v" || order == "--version")
+        else if (argc == 1)
         {
-            showVersion();
+            //TODO  clear project
+            qmlLoader->reportBug();
         }
-        else
+        else if (argc == 3 && QString(argv[1]) == "-t")
         {
-            showHelpTip();
-        }
-        return 0;
-    }
-    else if (argc == 3 && QString(argv[1]) == "-t")
-    {
-        QString target = argv[2];
-        if (!QDBusConnection::sessionBus().registerService("com.deepin.user.feedback." + target))
-        {
-            qDebug() << "Warning: process is running...";
-            return 0;
-        }
-    }
-    else
-    {
-        showHelpTip();
-        return 0;
-    }
-
-    qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
-
-    QmlLoader* qmlLoader = new QmlLoader();
-    qmlLoader->rootContext->setContextProperty("mainObject", qmlLoader);
-    qmlLoader->load(QUrl(QStringLiteral("qrc:/views/main.qml")));
-    QObject::connect(qmlLoader->engine, SIGNAL(quit()), QApplication::instance(), SLOT(quit()));
-
-    if (argc == 1)
-    {
-        qmlLoader->reportBug();
-    }
-    else if (argc == 3 && QString(argv[1]) == "-t")
-    {
-        //report bug target
-        QString target = argv[2];
-        QStringList supportList = qmlLoader->getSupportAppList();
-        if (supportList.indexOf(target) != -1)
-        {
+            QString target = argv[2];
+            //TODO change report project
             qmlLoader->reportBug(target);
         }
         else
         {
-            qmlLoader->reportBug("other");
+            showHelpTip();
+            return 0;
         }
-    }
 
-    return app.exec();
+        return app.exec();
+    }
+    else
+    {
+        qWarning() << "DFeedback is running...";
+        if(argc == 3 && QString(argv[1]) == "-t"){
+            QDBusInterface *iface;
+            iface = new QDBusInterface(DBUS_NAME, DBUS_PATH, DBUS_NAME, QDBusConnection::sessionBus());
+            QString target = argv[2];
+            iface->call("switchProject", target);
+        }
+
+        return 0;
+    }
 }

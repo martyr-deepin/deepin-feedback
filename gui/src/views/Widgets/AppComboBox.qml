@@ -9,6 +9,7 @@ Item {
 
     property bool hovered: false
     property bool pressed: false
+    property bool settingText: false
 
     property alias text: currentLabel.text
     property alias menu: menu
@@ -55,6 +56,12 @@ Item {
         combobox.labels = supportAppList
     }
 
+    function setText(value){
+        settingText = true
+        currentLabel.text = value
+        settingText = false
+    }
+
     Item {
         id:background
         height: parent.height
@@ -69,6 +76,9 @@ Item {
             tip: qsTr("Please select feedback project firstly ")
 
             onTextChange: {
+                if (settingText)
+                    return
+
                 if(text == ""){
                     combobox.labels = supportAppList
                 }

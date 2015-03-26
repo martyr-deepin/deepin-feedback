@@ -26,16 +26,9 @@ DWindow {
     property int normalHeight: 592
     property int maxWidth: screenSize.width * 9 / 20
     property int maxHeight: screenSize.height * 5 / 6
-    property string lastTarget: "other" //lastTarget = currentTarget if combobox menu item not change
+    property string lastTarget: "" //lastTarget = currentTarget if combobox menu item not change
     property int animationDuration: 200
     property bool enableInput: appComboBox.text != "" && appComboBox.labels.indexOf(appComboBox.text) >= 0
-
-    function setTarget(target){
-        //only use in main.cpp,Report specified target bug
-        //If this function is called,hide appComboBox
-        appComboBox.text = target
-        lastTarget = target
-    }
 
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
@@ -58,12 +51,34 @@ DWindow {
     }
 
     function saveDraft(){
+        if (lastTarget == "")
+            return
+
         mainObject.saveDraft(lastTarget,
                              reportTypeButtonRow.reportType,
                              titleTextinput.text,
                              emailTextinput.text,
                              helpCheck.checked,
                              adjunctPanel.contentText)
+    }
+
+    function switchProject(project){
+        //project exist, try to load draft
+        if (mainObject.draftTargetExist(project)){
+            saveDraft()
+            //clear adjunct
+            adjunctPanel.clearAllAdjunct()
+            //load new target data
+            mainObject.updateUiDraftData(project)
+            lastTarget = project
+        }
+        //target not exist, create default draft
+        else{
+            mainObject.saveDraft(project, DataConverter.DFeedback_Proposal, "", "", true, "")
+        }
+
+        appComboBox.setText(project)
+        lastTarget = project
     }
 
     function isLegitEmail(email){
@@ -234,19 +249,7 @@ DWindow {
             anchors.topMargin: 26
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
-                //target exist, try to load draft
-                if (mainObject.draftTargetExist(supportAppList[index])){
-                    saveDraft()
-                    //clear adjunct
-                    adjunctPanel.clearAllAdjunct()
-                    //load new target data
-                    mainObject.updateUiDraftData(supportAppList[index])
-                    lastTarget = supportAppList[index]
-                }
-                //target not exist, create default draft
-                else{
-                    mainObject.saveDraft(supportAppList[index], DataConverter.DFeedback_Proposal, "", "", true, "")
-                }
+                switchProject(supportAppList[index])
             }
         }
 
