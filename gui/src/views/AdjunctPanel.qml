@@ -83,7 +83,7 @@ Item {
             hover_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
             press_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
             onClicked: {
-                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
+                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && projectNameList.indexOf(appComboBox.text) != -1){
                     mainWindow.hide()
                     mainObject.getScreenShot(appComboBox.text.trim())
                 }
@@ -98,7 +98,7 @@ Item {
             hover_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
             press_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
             onClicked: {
-                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && supportAppList.indexOf(appComboBox.text) != -1){
+                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && projectNameList.indexOf(appComboBox.text) != -1){
                     adjunctPickDialog.open()
                 }
             }

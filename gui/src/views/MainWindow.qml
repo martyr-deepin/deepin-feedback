@@ -107,6 +107,14 @@ DWindow {
         }
     }
 
+    Connections {
+        target:feedbackContent
+        onGenerateReportFinished: {
+            //TODO add result file to draft system
+            print ("===++++++++++++++++++",arg0,arg1)
+        }
+    }
+
     Timer {
         id: autoSaveDraftTimer
         running: true
@@ -249,7 +257,7 @@ DWindow {
             anchors.topMargin: 26
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
-                switchProject(supportAppList[index])
+                switchProject(projectList[index])
             }
         }
 
@@ -365,7 +373,9 @@ DWindow {
                         return false
                 }
                 onClicked: {
-
+                    print ("Reporting...")
+                    print (projectList[projectNameList.indexOf(appComboBox.text.trim())], helpCheck.checked)
+                    print (feedbackContent.GenerateReport(projectList[projectNameList.indexOf(appComboBox.text.trim())], helpCheck.checked))
                 }
             }
         }

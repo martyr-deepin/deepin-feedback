@@ -5,6 +5,7 @@ import Deepin.Locale 1.0
 import Deepin.Widgets 1.0
 import DBus.Com.Deepin.Daemon.Display 1.0
 import DBus.Com.Deepin.Daemon.Search 1.0
+import DBus.Com.Deepin.Feedback 1.0
 
 QtObject {
     id: root
@@ -21,17 +22,34 @@ QtObject {
 
     property int maxAdjunctCount: 6
 
-    property var supportAppList:[
-        qsTr("deepin-movie"),
-        qsTr("deepin-music-player"),
-        qsTr("deepin-screenshot"),
-        qsTr("deepin-boot-maker"),
-        qsTr("deepin-bug-reporter"),
-        qsTr("deepin-software-center"),
-        qsTr("deepin-terminal"),
-        qsTr("deepin-translator"),
-        qsTr("other")
-    ]
+    property var projectList: projectListModel.getValueList()
+    property var projectNameList:projectListModel.getNameList()
+    property var projectListModel: ListModel {
+        function getValueList(){
+            var tmpValueList = new Array()
+            for (var i = 0; i < count; i ++){
+                tmpValueList.push(get(i).Value)
+            }
+
+            return tmpValueList
+        }
+
+        function getNameList(){
+            var tmpNameList = new Array()
+            for (var i = 0; i < count; i ++){
+                tmpNameList.push(get(i).Name)
+            }
+
+            return tmpNameList
+        }
+
+        Component.onCompleted: {
+            var tmpValue = unmarshalJSON(feedbackContent.GetCategories())
+            for (var key in tmpValue){
+                append(tmpValue[key])
+            }
+        }
+    }
 
     property var displayId: Display {}
     property var screenSize: QtObject {
@@ -40,9 +58,18 @@ QtObject {
         property int width: displayId.primaryRect[2]
         property int height: displayId.primaryRect[3]
     }
+    property var feedbackContent: Feedback {}
+    property var dconstants: DConstants{}
+    property var mainWindow: MainWindow {}
+    property var dbusSearch: Search {}
+    property var dsslocale: DLocale {
+        domain: "deepin-user-feedback"
+
+        Component.onCompleted: print("==> [info] Language:", dsslocale.lang)
+    }
 
     function getSupportAppList(){
-        return supportAppList
+        return projectListModel.getValueList()
     }
 
     function setReportContent(value){
@@ -73,15 +100,14 @@ QtObject {
         return dsslocale.dsTr(s)
     }
 
-    property var dconstants: DConstants{}
-
-    property var mainWindow: MainWindow {}
-
-    property var dbusSearch: Search {}
-
-    property var dsslocale: DLocale {
-        domain: "deepin-user-feedback"
-
-        Component.onCompleted: print("==> [info] Language:", dsslocale.lang)
+    function marshalJSON(value) {
+        var valueJSON = JSON.stringify(value);
+        return valueJSON
     }
+
+    function unmarshalJSON(valueJSON) {
+        var value = JSON.parse(valueJSON)
+        return value
+    }
+
 }

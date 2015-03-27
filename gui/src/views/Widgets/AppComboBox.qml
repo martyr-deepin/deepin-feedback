@@ -15,7 +15,7 @@ Item {
     property alias menu: menu
 
     property var parentWindow
-    property var labels:supportAppList
+    property var labels:projectNameList
     property int selectIndex: -1
 
     property string searchMd5: ""
@@ -30,7 +30,7 @@ Item {
             menu.currentIndex = selectIndex
         }
 
-        searchMd5 = dbusSearch.NewSearchWithStrList(supportAppList)[0]
+        searchMd5 = dbusSearch.NewSearchWithStrList(projectNameList)[0]
     }
 
     onClicked: {
@@ -53,7 +53,7 @@ Item {
 
     function hideMenu(){
         menu.visible = false
-        combobox.labels = supportAppList
+        combobox.labels = projectNameList
     }
 
     function setText(value){
@@ -80,7 +80,7 @@ Item {
                     return
 
                 if(text == ""){
-                    combobox.labels = supportAppList
+                    combobox.labels = projectNameList
                 }
                 else{
                     var searchResult = dbusSearch.SearchString(text, searchMd5)
