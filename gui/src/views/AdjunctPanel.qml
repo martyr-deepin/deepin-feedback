@@ -18,13 +18,16 @@ Item {
     property alias backgroundColor: adjunctRec.color
     property alias contentText: contentTextEdit.text
     property bool canAddAdjunct: adjunctTray.adjunctModel.count < maxAdjunctCount && enableInput
+    property bool showAddAdjunct: false
+    property int addingCount: 0
+    property bool warning: false
 
     function clearAllAdjunct(){
         adjunctTray.clearAllAdjunct()
     }
 
     function getAdjunct(filePath){
-        var targetPath = mainObject.addAdjunct(filePath, appComboBox.text.trim())
+        var targetPath = mainObject.addAdjunct(filePath, getProjectIDByName(appComboBox.text.trim()))
         if (targetPath == ""){
             print ("==>[Info] Adjunct already exist or got adjunct error")
             return
@@ -43,6 +46,18 @@ Item {
 
     function updateLoadPercent(filePath, percent){
         adjunctTray.updateLoadPercent(filePath, percent)
+    }
+
+    function showAddAdjunctIcon(count){
+        showAddAdjunct = true
+        adjunctTray.showAddIcon(count)
+        addingCount = count
+    }
+
+    function hideAddAdjunctIcon(){
+        showAddAdjunct = false
+        adjunctTray.hideAddIcon(addingCount)
+        addingCount = 0
     }
 
     FileDialog {
@@ -110,7 +125,7 @@ Item {
 
         radius: 2
         color: bgNormalColor
-        border.color: buttonBorderColor
+        border.color: warning ? buttonBorderWarningColor : buttonBorderColor
         width: parent.width
         height: parent.height - buttonRow.height
         anchors.top: buttonRow.bottom
@@ -201,6 +216,10 @@ Item {
             anchors.bottomMargin: 1
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 2
+            height: (adjunctModel.count !=0 || showAddAdjunct) ? 52 : 0
+            Behavior on height {
+                NumberAnimation {duration: 150}
+            }
         }
     }
 

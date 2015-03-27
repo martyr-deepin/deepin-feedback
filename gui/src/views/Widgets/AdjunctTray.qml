@@ -11,7 +11,6 @@ import Deepin.Widgets 1.0
 
 Rectangle {
     color: "#e8e8e8"
-    height: adjunctView.model.count !=0 ? 52 : 0
     width: parent.width
 
     property alias adjunctModel: adjunctView.model
@@ -21,8 +20,10 @@ Rectangle {
     function addAdjunct(filePath){
         if (getIndexFromModel(filePath) == -1){
             adjunctView.model.append({
+                                         "showIconOnly": false,
                                          "filePath": filePath,
-                                         "loadPercent": 0
+                                         "loadPercent": 0,
+                                         "iconPath": "images/add-adjunct.png"
                                      })
         }
     }
@@ -54,12 +55,28 @@ Rectangle {
         adjunctView.model.clear()
     }
 
+    function showAddIcon(count){
+        for (var i = 0; i < count; i ++){
+            adjunctView.model.append({
+                                         "showIconOnly": true,
+                                         "filePath": "/" + i,
+                                         "loadPercent": 0,
+                                         "iconPath": "images/add-adjunct.png"
+                                     })
+        }
+    }
+
+    function hideAddIcon(count){
+        for (var i = count; i > 0; i --)
+            adjunctView.model.remove(adjunctView.model.count - 1)
+    }
+
     GridView {
         id: adjunctView
         anchors.fill: parent
         width: parent.width
         height: parent.height
-        cellWidth: 410 / 6
+        cellWidth: parent.width / 6
         cellHeight: 52
 
         model: ListModel {}

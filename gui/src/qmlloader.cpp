@@ -160,7 +160,10 @@ void QmlLoader::clearDraft(const QString &targetApp)
 QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 {
     if (QFile::exists(target))
+    {
+        qDebug() << "==>[Warning] Target already exist!" << target;
         return "";
+    }
 
     QFileInfo tmpFileInfo(filePath);
     if (tmpFileInfo.size() + getAdjunctsSize(target) >= ADJUNCTS_MAX_SIZE)
@@ -343,6 +346,12 @@ qint64 QmlLoader::getAdjunctsSize(const QString &target)
     }
     else
         return 0;
+}
+
+qint64 QmlLoader::getAdjunctSize(const QString &fileName)
+{
+    QFile tmpFile(fileName);
+    return tmpFile.size();
 }
 
 QmlLoaderDBus::QmlLoaderDBus(QmlLoader *parent):
