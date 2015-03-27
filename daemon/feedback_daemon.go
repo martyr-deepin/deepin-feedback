@@ -25,10 +25,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"path/filepath"
 	"pkg.linuxdeepin.com/lib/dbus"
 	. "pkg.linuxdeepin.com/lib/gettext"
 	"pkg.linuxdeepin.com/lib/utils"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -52,16 +54,17 @@ var categories []category
 
 func initCategories() {
 	categories = []category{
-		{Value: "all", Name: Tr("All")},
-		{Value: "background", Name: Tr("Background")},
-		{Value: "bluetooth", Name: Tr("Bluetooth")},
-		{Value: "bootmgr", Name: Tr("Boot Interface")},
-		{Value: "desktop", Name: Tr("Desktop")},
-		{Value: "display", Name: Tr("Display")},
-		{Value: "dock", Name: Tr("Dock")},
-		{Value: "launcher", Name: Tr("Launcher")},
-		{Value: "login", Name: Tr("User Login Interface")},
-		{Value: "network", Name: Tr("Network")},
+		{Value: "dde", Name: Tr("Deepin Desktop Environment")},
+		{Value: "dde-control-center", Name: Tr("Deepin Control Center")},
+		{Value: "system", Name: Tr("System Configuration (startup / repository / drive)")},
+		{Value: "deepin-installer", Name: Tr("Deepin Installer")},
+		{Value: "deepin-store", Name: Tr("Deepin Store")},
+		{Value: "deepin-music", Name: Tr("Deepin Music")},
+		{Value: "deepin-movie", Name: Tr("Deepin Movie")},
+		{Value: "deepin-screenshot", Name: Tr("Deepin Screenshot")},
+		{Value: "deepin-terminal", Name: Tr("Deepin Terminal")},
+		{Value: "deepin-translator", Name: Tr("Deepin Translator")},
+		{Value: "all", Name: Tr("I don't know")},
 	}
 }
 
@@ -114,7 +117,13 @@ func (fd *FeedbackDaemon) GetCategories() (jsonCategories string, err error) {
 }
 
 // GenerateBugReport notify to generate bug report for target category.
-func (fd *FeedbackDaemon) GenerateReport(category string) (requstID uint64, err error) {
+func (fd *FeedbackDaemon) GenerateReport(dmsg dbus.DMessage, category string, allowPrivacy bool) (requstID uint64, err error) {
+	username, err := getDBusCallerUsername(dmsg)
+	if err != nil {
+		logger.Error(err)
+		return
+	}
+
 	defer func() {
 		if err := recover(); err != nil {
 			logger.Error(err)
@@ -127,11 +136,15 @@ func (fd *FeedbackDaemon) GenerateReport(category string) (requstID uint64, err 
 
 	outputFilename := fmt.Sprintf("deepin-feedback-results-%s-%s-%d.tar.gz", category, time.Now().Format("2006-01-02"), time.Now().UnixNano()/1e9)
 	outputFilepath := filepath.Join(os.TempDir(), outputFilename)
-	logger.Info("generate report begin:", outputFilepath)
+	args := []string{"--username", username, "--output", outputFilepath, category}
+	if !allowPrivacy {
+		args = append(args, "--privacy-mode")
+	}
+	logger.Info("generate report begin", deepinFeedbackCliExe, args)
 	fd.addWorkingRequest(requstID)
 
 	go func() {
-		_, _, err = utils.ExecAndWait(600, deepinFeedbackCliExe, "--output", outputFilepath, category)
+		_, _, err = utils.ExecAndWait(600, deepinFeedbackCliExe, args...)
 		if err != nil {
 			logger.Error(err)
 		}
@@ -150,8 +163,25 @@ func (fd *FeedbackDaemon) GenerateReport(category string) (requstID uint64, err 
 		}
 
 		dbus.Emit(fd, "GenerateReportFinished", requstID, files)
-		logger.Info("generate report end:", outputFilepath)
+		logger.Info("generate report end", deepinFeedbackCliExe, args)
 		fd.removeWorkingRequest(requstID)
 	}()
+	return
+}
+
+func getDBusCallerUsername(dmsg dbus.DMessage) (username string, err error) {
+	if dbusDaemon == nil {
+		err = fmt.Errorf("intialize dbus daemon failed")
+		return
+	}
+	uid, err := dbusDaemon.GetConnectionUnixUser(dmsg.GetSender())
+	if err != nil {
+		return
+	}
+	user, err := user.LookupId(strconv.Itoa(int(uid)))
+	if err != nil {
+		return
+	}
+	username = user.Username
 	return
 }

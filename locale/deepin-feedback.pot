@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-27 09:56+0800\n"
+"POT-Creation-Date: 2015-03-27 14:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,50 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../daemon/feedback_daemon.go:57
+msgid "Deepin Desktop Environment"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:58
+msgid "Deepin Control Center"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:59
+msgid "System Configuration (startup / repository / drive)"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:60
+msgid "Deepin Installer"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:61
+msgid "Deepin Store"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:62
+msgid "Deepin Music"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:63
+msgid "Deepin Movie"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:64
+msgid "Deepin Screenshot"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:65
+msgid "Deepin Terminal"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:66
+msgid "Deepin Translator"
+msgstr ""
+
+#: ../daemon/feedback_daemon.go:67
+msgid "I don't know"
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:50
 msgid "Please select attachment"
@@ -35,10 +79,6 @@ msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:186
 msgid "Please upload related attachments"
-msgstr ""
-
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
-msgid "Please select feedback project firstly "
 msgstr ""
 
 #: ../gui/src/views/MainWindow.qml:225
@@ -73,4 +113,8 @@ msgstr ""
 
 #: ../gui/src/views/MainWindow.qml:359
 msgid "Send"
+msgstr ""
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:76
+msgid "Please select feedback project firstly "
 msgstr ""
