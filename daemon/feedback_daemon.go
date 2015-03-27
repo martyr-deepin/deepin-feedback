@@ -71,7 +71,7 @@ func initCategories() {
 type FeedbackDaemon struct {
 	WorkingSet             map[uint64]bool
 	sorkingSetMutex        sync.Mutex
-	GenerateReportFinished func(requstID uint64, files []string)
+	GenerateReportFinished func(requstID uint64, filesJSON string)
 }
 
 func NewFeedbackDaemon() (fd *FeedbackDaemon) {
@@ -92,11 +92,13 @@ func (fd *FeedbackDaemon) addWorkingRequest(requestID uint64) {
 	fd.sorkingSetMutex.Lock()
 	defer fd.sorkingSetMutex.Unlock()
 	fd.WorkingSet[requestID] = true
+	dbus.NotifyChange(fd, "WorkingSet")
 }
 func (fd *FeedbackDaemon) removeWorkingRequest(requestID uint64) {
 	fd.sorkingSetMutex.Lock()
 	defer fd.sorkingSetMutex.Unlock()
 	delete(fd.WorkingSet, requestID)
+	dbus.NotifyChange(fd, "WorkingSet")
 }
 func (fd *FeedbackDaemon) isInWorking() bool {
 	fd.sorkingSetMutex.Lock()
@@ -108,11 +110,7 @@ func (fd *FeedbackDaemon) isInWorking() bool {
 // supported, each category contains several keywords to help to
 // searching in front-end.
 func (fd *FeedbackDaemon) GetCategories() (jsonCategories string, err error) {
-	jsonCategoriesBytes, err := json.Marshal(categories)
-	if err != nil {
-		logger.Error(err)
-	}
-	jsonCategories = string(jsonCategoriesBytes)
+	jsonCategories = marshalJSON(categories)
 	return
 }
 
@@ -162,7 +160,7 @@ func (fd *FeedbackDaemon) GenerateReport(dmsg dbus.DMessage, category string, al
 			}
 		}
 
-		dbus.Emit(fd, "GenerateReportFinished", requstID, files)
+		dbus.Emit(fd, "GenerateReportFinished", requstID, marshalJSON(files))
 		logger.Info("generate report end", deepinFeedbackCliExe, args)
 		fd.removeWorkingRequest(requstID)
 	}()
@@ -183,5 +181,14 @@ func getDBusCallerUsername(dmsg dbus.DMessage) (username string, err error) {
 		return
 	}
 	username = user.Username
+	return
+}
+
+func marshalJSON(v interface{}) (str string) {
+	bytes, err := json.Marshal(v)
+	if err != nil {
+		logger.Error(err)
+	}
+	str = string(bytes)
 	return
 }
