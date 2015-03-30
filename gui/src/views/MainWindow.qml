@@ -19,8 +19,8 @@ DWindow {
 
     width: normalWidth
     height: normalHeight
-    x: 650
-    y: 50
+    x: screenSize.width / 2 - width / 2
+    y: screenSize.height * 0.1
 
     property int normalWidth: 460
     property int normalHeight: 592
