@@ -412,5 +412,15 @@ DWindow {
                 }
             }
         }
+
+        Tooltip {
+            id: toolTip
+            anchors.left: adjunctPanel.left
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 21
+            autoHideInterval: 1000
+            height: controlButtonRow.height
+            maxWidth: parent.width - controlButtonRow.width - 50
+        }
     }
 }

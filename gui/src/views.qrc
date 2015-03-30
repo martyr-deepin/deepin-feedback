@@ -49,5 +49,6 @@
         <file>views/Widgets/images/adjunct_disable.png</file>
         <file>views/Widgets/images/screenshot_disable.png</file>
         <file>views/Widgets/images/add-adjunct.png</file>
+        <file>views/Widgets/Tooltip.qml</file>
     </qresource>
 </RCC>
