@@ -68,6 +68,14 @@ QtObject {
         Component.onCompleted: print("==> [info] Language:", dsslocale.lang)
     }
 
+    function getProjectIDByName(name){
+        var tmpIndex = projectNameList.indexOf(name)
+        if (tmpIndex == -1)
+            return ""
+        else
+            return projectList[tmpIndex]
+    }
+
     function getSupportAppList(){
         return projectListModel.getValueList()
     }

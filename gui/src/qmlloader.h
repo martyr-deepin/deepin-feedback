@@ -80,6 +80,7 @@ public Q_SLOTS:
     void updateUiDraftData(const QString &target);
     void getScreenShot(const QString &target);
     bool canAddAdjunct(const QString &target);
+    qint64 getAdjunctSize(const QString &fileName);
 
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);

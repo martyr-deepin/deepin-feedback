@@ -147,6 +147,39 @@ DWindow {
             }
         }
 
+        DropArea {
+            id: mainDropArea
+            anchors.fill: parent
+            width: parent.width
+            height: parent.height
+            onDropped: {
+                adjunctPanel.hideAddAdjunctIcon()
+                adjunctPanel.warning = false
+
+                if (!adjunctPanel.canAddAdjunct)
+                    return
+
+                for (var key in drop.urls){
+                    if (adjunctPanel.canAddAdjunct){
+                        adjunctPanel.getAdjunct(drop.urls[key].slice(7,drop.urls[key].length))
+                    }
+                }
+            }
+            onEntered: {
+                if (adjunctPanel.canAddAdjunct)
+                    adjunctPanel.showAddAdjunctIcon(drag.urls.length)
+                else{
+                    //TODO
+                    //show tooltip
+                    adjunctPanel.warning = true
+                }
+            }
+            onExited: {
+                adjunctPanel.hideAddAdjunctIcon()
+                adjunctPanel.warning = false
+            }
+        }
+
         Row {
             id:windowButtonRow
             anchors.top:parent.top
@@ -374,8 +407,8 @@ DWindow {
                 }
                 onClicked: {
                     print ("Reporting...")
-                    print (projectList[projectNameList.indexOf(appComboBox.text.trim())], helpCheck.checked)
-                    print (feedbackContent.GenerateReport(projectList[projectNameList.indexOf(appComboBox.text.trim())], helpCheck.checked))
+                    print (getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
+                    print (feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked))
                 }
             }
         }
