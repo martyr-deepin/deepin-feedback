@@ -182,6 +182,17 @@ DWindow {
             }
         }
 
+        Text {
+            id: appTitleText
+            color: "#999999"
+            font.pixelSize: 14
+            text: dsTr("Deepin User Feedback")
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.leftMargin: 16
+        }
+
         Row {
             id:windowButtonRow
             anchors.top:parent.top

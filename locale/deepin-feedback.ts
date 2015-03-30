@@ -56,7 +56,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+14"/>
+        <source>Deepin User Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+90"/>
         <source>I have a problem</source>
         <translation type="unfinished"></translation>
     </message>

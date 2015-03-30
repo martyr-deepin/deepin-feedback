@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-31 14:16+0800\n"
+"POT-Creation-Date: 2015-03-31 15:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,49 +50,53 @@ msgstr ""
 msgid "Please select feedback project firstly "
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:268
-msgid "I have a problem"
+#: ../gui/src/views/MainWindow.qml:189
+msgid "Deepin User Feedback"
 msgstr ""
 
 #: ../gui/src/views/MainWindow.qml:279
+msgid "I have a problem"
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:290
 msgid "I have a good idea"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:296
+#: ../gui/src/views/MainWindow.qml:307
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:311
+#: ../gui/src/views/MainWindow.qml:322
 msgid "Please input the problem title"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:312
+#: ../gui/src/views/MainWindow.qml:323
 msgid "Please describe your idea simply"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:316
+#: ../gui/src/views/MainWindow.qml:327
 msgid "Title words have reached limit."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:351
+#: ../gui/src/views/MainWindow.qml:362
 msgid "Please fill in email to get the feedback progress."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:354
+#: ../gui/src/views/MainWindow.qml:365
 msgid "Email is invalid."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:379
+#: ../gui/src/views/MainWindow.qml:390
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:397
+#: ../gui/src/views/MainWindow.qml:408
 msgid "Close"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:407
+#: ../gui/src/views/MainWindow.qml:418
 msgid "Send"
 msgstr ""
