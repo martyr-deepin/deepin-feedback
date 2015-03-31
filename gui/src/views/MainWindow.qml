@@ -16,6 +16,7 @@ DWindow {
     id:mainWindow
 
     flags: Qt.FramelessWindowHint
+    color: "#00000000"
 
     width: normalWidth
     height: normalHeight
@@ -126,7 +127,9 @@ DWindow {
     }
 
     Rectangle {
+        id: rootRec
         anchors.fill: parent
+        radius: 4
 
         MouseArea {
             anchors.fill: parent
@@ -265,8 +268,8 @@ DWindow {
         Row {
             id: reportTypeButtonRow
             width: mainWindow.width - 22 * 2
-            anchors.top: windowButtonRow.bottom
-            anchors.topMargin: 10
+            anchors.top: rootRec.top
+            anchors.topMargin: 40
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 12
             property var reportType: DataConverter.DFeedback_Bug
@@ -300,7 +303,7 @@ DWindow {
             height: 30
             width: reportTypeButtonRow.width
             anchors.top: reportTypeButtonRow.bottom
-            anchors.topMargin: 26
+            anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
                 if (lastTarget != "")
@@ -329,24 +332,15 @@ DWindow {
             }
         }
 
-
         AdjunctPanel {
             id:adjunctPanel
 
             enabled: enableInput
             backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
-            height: (mainWindow.height - windowButtonRow.height
-                     - reportTypeButtonRow.height - 10
-                     - titleTextinput.height - 26
-                     - appComboBox.height - 16
-                     - 16
-                     - emailTextinput.height - 16
-                     - helpTextItem.height - 16
-                     - 16
-                     - controlButtonRow.height - 16)
+            height: (mainWindow.height - 330)
             anchors.top: titleTextinput.bottom
-            anchors.topMargin: 16
+            anchors.topMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -370,21 +364,23 @@ DWindow {
         Item {
             id: helpTextItem
             anchors.top: emailTextinput.bottom
-            anchors.topMargin: 16
+            anchors.topMargin: 12
             anchors.horizontalCenter: parent.horizontalCenter
             width: reportTypeButtonRow.width
-            height: childrenRect.height
+            height: helpText.contentHeigh
 
             AppCheckBox {
                 id: helpCheck
                 enabled: enableInput
                 width: 15
                 anchors.left: parent.left
+                anchors.top: parent.top
                 checked: true
 
             }
 
             Text {
+                id: helpText
                 anchors.left: helpCheck.right
                 width: parent.width - helpCheck.width
                 text: dsTr("I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.")
@@ -401,7 +397,7 @@ DWindow {
             anchors.right: reportTypeButtonRow.right
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 16
-            spacing: 12
+            spacing: 8
 
             TextButton {
                 id:closeButton

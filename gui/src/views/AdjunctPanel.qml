@@ -143,7 +143,7 @@ Item {
         width: parent.width
         height: parent.height - buttonRow.height
         anchors.top: buttonRow.bottom
-        anchors.topMargin: 6
+        anchors.topMargin: 2
 
         ListView {
             id: textEditView

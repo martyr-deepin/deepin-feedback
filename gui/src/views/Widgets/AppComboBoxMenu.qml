@@ -69,6 +69,7 @@ DPopupWindow {
         anchors.fill: parent
         frame.color: bgNormalColor
         frame.border.color: buttonBorderColor
+        frameRadius: 2
         layer.enabled: true
 
         Item {

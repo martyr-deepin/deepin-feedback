@@ -128,6 +128,7 @@ Item {
         Rectangle {
             id:downArrow
             width: 33
+            radius: 2
             height: parent.height
             color: bgNormalColor
             border.color: buttonBorderColor
