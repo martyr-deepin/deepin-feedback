@@ -553,7 +553,7 @@ category_deepin-translator() {
 
 
 ###* Main
-arg_username="${USER}"
+arg_username=""
 arg_privacymode=
 arg_category="all"              # if no arguments, just execute rules in category_all()
 arg_outputfile=
