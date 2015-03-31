@@ -21,12 +21,23 @@ Item {
     property bool showAddAdjunct: false
     property int addingCount: 0
     property bool warning: false
+    property real singleMaxSize: 5 * 1024 * 1024
 
     function clearAllAdjunct(){
         adjunctTray.clearAllAdjunct()
     }
 
     function getAdjunct(filePath){
+        if (mainObject.adjunctExist(filePath,getProjectIDByName(appComboBox.text.trim()))){
+            print ("==>[Info] Attachment already exist...")
+            return
+        }
+
+        if (mainObject.getAdjunctSize(filePath) > singleMaxSize){
+            toolTip.showTip(dsTr("Failed to add attachment: Single attachment cann't be more than 5M."))
+            return
+        }
+
         var targetPath = mainObject.addAdjunct(filePath, getProjectIDByName(appComboBox.text.trim()))
         if (targetPath == ""){
             print ("==>[Info] Adjunct already exist or got adjunct error")
@@ -70,17 +81,6 @@ Item {
         nameFilters: [ "All files (*)" ,"Image files (*.jpg *.png *.gif)"]
     }
 
-//    DFileChooseDialog {
-//        id: adjunctPickDialog
-//        currentFolder: mainObject.getHomeDir()
-//        onSelectAction: {
-//            print ("========",fileUrl.toString())
-//            getAdjunct(fileUrl.toString())
-
-//            adjunctPickDialog.hideWindow()
-//        }
-//    }
-
     Row {
         id: buttonRow
         anchors.left: parent.left
@@ -98,10 +98,17 @@ Item {
             hover_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
             press_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
             onClicked: {
-                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && projectNameList.indexOf(appComboBox.text) != -1){
+                if (canAddAdjunct
+                        && appComboBox.text != ""
+                        && projectNameList.indexOf(appComboBox.text) != -1){
+
                     mainWindow.hide()
                     mainObject.getScreenShot(appComboBox.text.trim())
                 }
+            }
+            onEntered: {
+                if (!canAddAdjunct)
+                    toolTip.showTip(dsTr("Total attachments have reached limit. "))
             }
         }
 
@@ -113,9 +120,16 @@ Item {
             hover_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
             press_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
             onClicked: {
-                if (mainObject.canAddAdjunct(appComboBox.text) && appComboBox.text != "" && projectNameList.indexOf(appComboBox.text) != -1){
+                if (canAddAdjunct
+                        && appComboBox.text != ""
+                        && projectNameList.indexOf(appComboBox.text) != -1){
+
                     adjunctPickDialog.open()
                 }
+            }
+            onEntered: {
+                if (!canAddAdjunct)
+                    toolTip.showTip(dsTr("Total attachments have reached limit. "))
             }
         }
     }

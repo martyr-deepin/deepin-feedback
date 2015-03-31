@@ -149,6 +149,7 @@ DWindow {
 
         DropArea {
             id: mainDropArea
+            enabled: enableInput
             anchors.fill: parent
             width: parent.width
             height: parent.height
@@ -169,14 +170,15 @@ DWindow {
                 if (adjunctPanel.canAddAdjunct)
                     adjunctPanel.showAddAdjunctIcon(drag.urls.length)
                 else{
-                    //TODO
-                    //show tooltip
                     adjunctPanel.warning = true
+                    if (enableInput)
+                        toolTip.showTip(dsTr("Total attachments have reached limit. "))
                 }
             }
             onExited: {
                 adjunctPanel.hideAddAdjunctIcon()
                 adjunctPanel.warning = false
+                toolTip.hideTip()
             }
         }
 
@@ -290,6 +292,8 @@ DWindow {
             anchors.topMargin: 26
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
+                if (lastTarget != "")
+                    toolTip.showTip(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)))
                 switchProject(projectList[index])
             }
         }
@@ -309,9 +313,7 @@ DWindow {
 
             onInWarningStateChanged: {
                 if (inWarningState){
-                    //TODO
-                    //Show warning tips
-                    print ("==>[Warning] Title too long...")
+                    toolTip.showTip(dsTr("Title words have reached limit."))
                 }
             }
         }
@@ -347,6 +349,11 @@ DWindow {
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             tip: dsTr("Please fill in email to get the feedback progress.")
+            onFocusChanged: {
+                if (!focus && !isLegitEmail(emailTextinput.text)){
+                    toolTip.showTip(dsTr("Email is invalid."))
+                }
+            }
         }
 
         Item {
@@ -418,7 +425,7 @@ DWindow {
             anchors.left: adjunctPanel.left
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 21
-            autoHideInterval: 1000
+            autoHideInterval: 3600
             height: controlButtonRow.height
             maxWidth: parent.width - controlButtonRow.width - 50
         }
