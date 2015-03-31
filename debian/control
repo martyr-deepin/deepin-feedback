@@ -6,7 +6,15 @@ Build-Depends: debhelper (>= 9),
                golang,
                golang-dlib-dev,
                dde-go-dbus-factory,
-               qt5-qmake
+               qt5-qmake,
+			   pkg-config,
+			   libx11-dev,
+			   libxtst-dev,
+			   qt5-default,
+			   qtdeclarative5-dev,
+			   libqt5webkit5-dev,
+			   deepin-gettext-tools,
+			   libgtk2.0-dev
 Standards-Version: 3.9.5
 
 Package: deepin-feedback
