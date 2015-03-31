@@ -27,6 +27,10 @@ install:
 	install -m0644 misc/com.deepin.Feedback.conf ${DESTDIR}/etc/dbus-1/system.d/
 	install -dm0755 ${DESTDIR}${PREFIX}/share/dbus-1/system-services/
 	install -m0644 misc/com.deepin.Feedback.service ${DESTDIR}${PREFIX}/share/dbus-1/system-services/
+	install -dm0755 ${DESTDIR}${PREFIX}/share/applications
+	install -m0755 deepin-feedback.desktop ${DESTDIR}${PREFIX}/share/applications/
+	install -dm0755 ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps
+	install -m0644 misc/deepin-feedback.svg ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
