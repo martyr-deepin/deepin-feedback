@@ -76,6 +76,14 @@ QtObject {
             return projectList[tmpIndex]
     }
 
+    function getProjectNameByID(id){
+        var tmpIndex = projectList.indexOf(id)
+        if (tmpIndex == -1)
+            return ""
+        else
+            return projectNameList[tmpIndex]
+    }
+
     function getSupportAppList(){
         return projectListModel.getValueList()
     }

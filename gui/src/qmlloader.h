@@ -81,6 +81,7 @@ public Q_SLOTS:
     void getScreenShot(const QString &target);
     bool canAddAdjunct(const QString &target);
     qint64 getAdjunctSize(const QString &fileName);
+    bool adjunctExist(const QString &filePath, const QString &target);
 
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);

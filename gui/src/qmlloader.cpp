@@ -165,13 +165,6 @@ QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
         return "";
     }
 
-    QFileInfo tmpFileInfo(filePath);
-    if (tmpFileInfo.size() + getAdjunctsSize(target) >= ADJUNCTS_MAX_SIZE)
-    {
-        qDebug() << "Warning: File too large!";
-        return "";
-    }
-
     QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
     //copy file from target path to draft location
     if (QFile::copy(filePath, targetFileName))
@@ -352,6 +345,15 @@ qint64 QmlLoader::getAdjunctSize(const QString &fileName)
 {
     QFile tmpFile(fileName);
     return tmpFile.size();
+}
+
+bool QmlLoader::adjunctExist(const QString &filePath, const QString &target)
+{
+    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    if (QFile::exists(targetFileName))
+        return true;
+    else
+        return false;
 }
 
 QmlLoaderDBus::QmlLoaderDBus(QmlLoader *parent):
