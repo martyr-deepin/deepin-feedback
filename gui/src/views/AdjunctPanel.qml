@@ -188,7 +188,9 @@ Item {
                     opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? 1 : 0
                     text: {
                         var content ="\n    " + dsTr("Please describe your problem in detail") + "\n\n    " +
-                                dsTr("Please upload related screenshots or files")
+                                dsTr("Please upload related screenshots or files") + "\n\n    " +
+                                dsTr("Single attachment can not exceed 5M") + "\n\n    " +
+                                dsTr("The total number of attachments is not more than six")
                         return content
                     }
 
@@ -211,8 +213,10 @@ Item {
                     wrapMode: TextEdit.Wrap
                     opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ? 1 : 0
                     text: {
-                        var content = "\n    " + dsTr("Please describe your idea in detail ") + "\n\n    " +
-                                dsTr("Please upload related attachments")
+                        var content = "\n    " + dsTr("Please describe your idea in detail") + "\n\n    " +
+                                dsTr("Please upload related attachments") + "\n\n    " +
+                                dsTr("Single attachment can not exceed 5M") + "\n\n    " +
+                                dsTr("The total number of attachments is not more than six")
                         return content
                     }
 
