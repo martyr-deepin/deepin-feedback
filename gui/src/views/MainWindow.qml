@@ -7,6 +7,7 @@
 *
 *************************************************************/
 import QtQuick 2.2
+import QtGraphicalEffects 1.0
 import QtQuick.Window 2.0
 import Deepin.Widgets 1.0
 import DataConverter 1.0
@@ -17,14 +18,14 @@ DWindow {
 
     flags: Qt.FramelessWindowHint
     color: "#00000000"
-
     width: normalWidth
     height: normalHeight
     x: screenSize.width / 2 - width / 2
     y: screenSize.height * 0.1
 
-    property int normalWidth: 460
-    property int normalHeight: 592
+    property int shadowRadius: 10
+    property int normalWidth: 460 + (shadowRadius + rootRec.radius) * 2
+    property int normalHeight: 592 + (shadowRadius + rootRec.radius) * 2
     property int maxWidth: screenSize.width * 9 / 20
     property int maxHeight: screenSize.height * 5 / 6
     property string lastTarget: "" //lastTarget = currentTarget if combobox menu item not change
@@ -128,8 +129,13 @@ DWindow {
 
     Rectangle {
         id: rootRec
-        anchors.fill: parent
+        anchors.centerIn: parent
+
+        width: mainWindow.width - (shadowRadius + rootRec.radius) * 2
+        height: mainWindow.height - (shadowRadius + rootRec.radius) * 2
         radius: 4
+        border.width: 1
+        border.color: Qt.rgba(0, 0, 0, 0.2)
 
         MouseArea {
             anchors.fill: parent
@@ -267,7 +273,7 @@ DWindow {
 
         Row {
             id: reportTypeButtonRow
-            width: mainWindow.width - 22 * 2
+            width: rootRec.width - 22 * 2
             anchors.top: rootRec.top
             anchors.topMargin: 40
             anchors.horizontalCenter: parent.horizontalCenter
@@ -276,7 +282,7 @@ DWindow {
 
             ReportTypeButton {
                 id: bugReportButton
-                width: (mainWindow.width - 12 - 22 * 2) / 2
+                width: (rootRec.width - 12 - 22 * 2) / 2
                 actived: parent.reportType == DataConverter.DFeedback_Bug
                 iconPath: "qrc:/views/Widgets/images/reporttype_bug.png"
                 text: dsTr("I have a problem")
@@ -287,7 +293,7 @@ DWindow {
 
             ReportTypeButton {
                 id: proposalReportButton
-                width: (mainWindow.width - 12 - 22 * 2) / 2
+                width: (rootRec.width - 12 - 22 * 2) / 2
                 actived: parent.reportType == DataConverter.DFeedback_Proposal
                 iconPath: "qrc:/views/Widgets/images/reporttype_proposal.png"
                 text: dsTr("I have a good idea")
@@ -338,7 +344,7 @@ DWindow {
             enabled: enableInput
             backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
-            height: (mainWindow.height - 330)
+            height: (rootRec.height - 330)
             anchors.top: titleTextinput.bottom
             anchors.topMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
@@ -436,5 +442,16 @@ DWindow {
             height: controlButtonRow.height
             maxWidth: parent.width - controlButtonRow.width - 50
         }
+    }
+
+    RectangularGlow {
+        id: shadow
+        z: -1
+        anchors.fill: rootRec
+        glowRadius: shadowRadius
+        spread: 0.2
+        color: Qt.rgba(0, 0, 0, 0.3)
+        cornerRadius: rootRec.radius + shadowRadius
+        visible: true
     }
 }

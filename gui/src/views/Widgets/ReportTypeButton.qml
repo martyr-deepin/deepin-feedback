@@ -39,14 +39,13 @@ Item {
             width: 40
             height: 40
             anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 25
+            anchors.right: text_item.left
         }
 
         Text {
             id:text_item
-            anchors.left: typeIcon.right
-            width: parent.width
+            anchors.centerIn: parent
+            width: contentWidth
             height: parent.height
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
