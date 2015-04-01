@@ -16,8 +16,8 @@ FocusScope{
     state: "normal"
 
     property alias input: textInput
-    property alias tip: tipText.text
     property alias text: textInput.text
+    property alias tip: tipText.text
     property alias backgroundColor: rootRec.color
     property int fontPixeSize: 12
     property int maxStrLength: 0
@@ -25,6 +25,7 @@ FocusScope{
     property bool inWarningState: false
 
     signal textChange(string text)
+    signal keyPressed(var event)
 
     //Use Unicode Length
     function getStrLeng(str) {
@@ -96,6 +97,9 @@ FocusScope{
                     inWarningState = false
 
                 root.textChange(text)
+            }
+            Keys.onPressed: {
+                root.keyPressed(event)
             }
         }
 

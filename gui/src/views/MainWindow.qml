@@ -21,7 +21,7 @@ DWindow {
     width: normalWidth
     height: normalHeight
     x: screenSize.width / 2 - width / 2
-    y: screenSize.height * 0.1
+    y: screenSize.height * 0.15
 
     property int shadowRadius: 10
     property int normalWidth: 460 + (shadowRadius + rootRec.radius) * 2
@@ -31,6 +31,13 @@ DWindow {
     property string lastTarget: "" //lastTarget = currentTarget if combobox menu item not change
     property int animationDuration: 200
     property bool enableInput: appComboBox.text != "" && appComboBox.labels.indexOf(appComboBox.text) >= 0
+    property bool haveDraft: {
+        reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ||
+                titleTextinput.text != "" ||
+                (emailTextinput.text != "" && emailTextinput.emailChanged) ||
+                helpCheck.checked == false ||
+                adjunctPanel.haveAdjunct
+    }
 
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
@@ -53,7 +60,7 @@ DWindow {
     }
 
     function saveDraft(){
-        if (lastTarget == "")
+        if (lastTarget == "" || !haveDraft)
             return
 
         mainObject.saveDraft(lastTarget,
@@ -64,19 +71,31 @@ DWindow {
                              adjunctPanel.contentText)
     }
 
+    function clearDraft(){
+        reportTypeButtonRow.reportType = DataConverter.DFeedback_Bug
+        titleTextinput.text = ""
+        emailTextinput.text = ""
+        emailTextinput.emailChanged = false
+        helpCheck.checked = true
+        adjunctPanel.clearAllAdjunct()
+    }
+
     function switchProject(project){
         //project exist, try to load draft
         if (mainObject.draftTargetExist(project)){
             saveDraft()
-            //clear adjunct
-            adjunctPanel.clearAllAdjunct()
+            clearDraft()
             //load new target data
             mainObject.updateUiDraftData(project)
             lastTarget = project
         }
-        //target not exist, create default draft
         else{
-            mainObject.saveDraft(project, DataConverter.DFeedback_Proposal, "", "", true, "")
+            var emailsList = mainObject.getEmails()
+            if (emailsList.length > 0){
+                emailTextinput.text = emailsList[0]
+            }
+
+            clearDraft()
         }
 
         appComboBox.setText(project)
@@ -312,8 +331,9 @@ DWindow {
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
-                if (lastTarget != "")
+                if (lastTarget != "" && haveDraft){
                     toolTip.showTip(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)))
+                }
                 switchProject(projectList[index])
             }
         }
@@ -352,6 +372,8 @@ DWindow {
 
         AppTextInput {
             id: emailTextinput
+            property bool canFillEmail: true
+            property bool emailChanged: false
             enabled: enableInput
             backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
@@ -363,6 +385,31 @@ DWindow {
             onFocusChanged: {
                 if (!focus && !isLegitEmail(emailTextinput.text)){
                     toolTip.showTip(dsTr("Email is invalid."))
+                }
+            }
+            onKeyPressed: {
+                if (event.key == Qt.Key_Backspace){
+                    canFillEmail = false
+                }
+                else if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return || event.key == Qt.Key_Right){
+                    canFillEmail = false
+                    input.deselect()
+                }
+                else{
+                    canFillEmail = true
+                }
+            }
+            onTextChange: {
+                emailChanged = true
+                if (canFillEmail){
+                    var matchEmail = mainObject.getMatchEmailPart(text)
+                    var startIndex = text.length
+                    input.text = text + matchEmail
+                    input.select(startIndex, input.text.length)
+                }
+                if (input.selectionStart == 0){//change by combobox
+                    input.deselect()
+                    emailChanged = false
                 }
             }
         }
@@ -427,6 +474,7 @@ DWindow {
                 }
                 onClicked: {
                     print ("Reporting...")
+                    mainObject.saveEmail(emailTextinput.text)
                     print (getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
                     print (feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked))
                 }

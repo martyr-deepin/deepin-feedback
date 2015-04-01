@@ -9,6 +9,7 @@
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QDir>
 #include <QFile>
 #include <QDBusAbstractAdaptor>
@@ -82,6 +83,9 @@ public Q_SLOTS:
     bool canAddAdjunct(const QString &target);
     qint64 getAdjunctSize(const QString &fileName);
     bool adjunctExist(const QString &filePath, const QString &target);
+    void saveEmail(const QString &email);
+    QStringList getEmails();
+    QString getMatchEmailPart(const QString &text);
 
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);
@@ -92,6 +96,7 @@ private:
 
     Draft getDraft(const QString &targetApp);
     void parseJsonData(const QByteArray &byteArray, Draft * draft);
+    void parseJsonArray(const QByteArray &byteArray, QStringList * emailsList);
     QString getFileNameFromPath(const QString &filePath);
     qint64 getAdjunctsSize(const QString &target);
 private:

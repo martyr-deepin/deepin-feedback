@@ -22,6 +22,7 @@ Item {
     property int addingCount: 0
     property bool warning: false
     property real singleMaxSize: 5 * 1024 * 1024
+    property bool haveAdjunct: contentTextEdit.text != "" || adjunctTray.adjunctModel.count > 0
 
     function clearAllAdjunct(){
         adjunctTray.clearAllAdjunct()

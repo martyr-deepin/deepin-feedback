@@ -312,6 +312,22 @@ void QmlLoader::parseJsonData(const QByteArray &byteArray, Draft *draft)
     }
 }
 
+void QmlLoader::parseJsonArray(const QByteArray &byteArray, QStringList *emailsList)
+{
+    QJsonParseError jsonError;
+    QJsonDocument parseDoucment = QJsonDocument::fromJson(byteArray, &jsonError);
+    if(jsonError.error == QJsonParseError::NoError && parseDoucment.isArray())
+    {
+        QJsonArray array = parseDoucment.array();
+        int arrayLength = array.count();
+
+        for (int i = 0; i < arrayLength; i ++)
+        {
+            emailsList->append(array.at(i).toString());
+        }
+    }
+}
+
 QString QmlLoader::getFileNameFromPath(const QString &filePath)
 {
     int tmpIndex = filePath.lastIndexOf("/");
@@ -354,6 +370,63 @@ bool QmlLoader::adjunctExist(const QString &filePath, const QString &target)
         return true;
     else
         return false;
+}
+
+void QmlLoader::saveEmail(const QString &email)
+{
+    QFile file(EMAILS_LIST_FILE_NAME);
+    if (!file.exists(EMAILS_LIST_FILE_NAME))
+    {
+        file.open(QIODevice::WriteOnly);
+        file.close();
+    }
+
+    QStringList emailsList = getEmails();
+    int oldIndex = emailsList.indexOf(email);
+    if (oldIndex != -1)//already exist
+    {
+        emailsList.removeAt(oldIndex);
+    }
+    emailsList.insert(0, email);
+
+    QJsonDocument jsonDocument;
+    jsonDocument.setArray(QJsonArray::fromStringList(emailsList));
+
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        file.write(jsonDocument.toJson(QJsonDocument::Compact));
+        file.close();
+    }
+    else
+        qDebug() << "Open emails list file error!";
+}
+
+QStringList QmlLoader::getEmails()
+{
+    QStringList emailsList;
+    QFile entriesFile(EMAILS_LIST_FILE_NAME);
+    if (entriesFile.open(QIODevice::ReadOnly))
+    {
+        QByteArray tmpByteArry = entriesFile.readAll();
+        parseJsonArray(tmpByteArry,&emailsList);
+        entriesFile.close();
+    }
+
+    return emailsList;
+}
+
+QString QmlLoader::getMatchEmailPart(const QString &text)
+{
+    QStringList tmpList = getEmails();
+    for (int i = 0; i < tmpList.length(); i ++)
+    {
+        int tmpIndex = tmpList.at(i).indexOf(text, 0, Qt::CaseInsensitive);
+        if (tmpIndex != -1)
+        {
+            return tmpList.at(i).mid(text.length());
+        }
+    }
+    return "";
 }
 
 QmlLoaderDBus::QmlLoaderDBus(QmlLoader *parent):
