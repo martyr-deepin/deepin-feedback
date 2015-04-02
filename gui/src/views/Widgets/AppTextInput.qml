@@ -66,7 +66,7 @@ FocusScope{
 
     Rectangle {
         id: rootRec
-        radius: 2
+        radius: 3
         anchors.fill: parent
         color: bgNormalColor
         clip: true
@@ -76,7 +76,7 @@ FocusScope{
 
             focus: true
             color: textNormalColor
-            selectionColor: "#31536e"
+            selectionColor: "#61B5F8"
             selectByMouse: true
             verticalAlignment: TextInput.AlignVCenter
             font.pixelSize: fontPixeSize
@@ -134,7 +134,6 @@ FocusScope{
             name: "warning"
             PropertyChanges {target: rootRec; border.color: buttonBorderWarningColor}
         }
-
     ]
 
 }

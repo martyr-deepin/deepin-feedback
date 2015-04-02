@@ -12,8 +12,10 @@ import QtQuick.Dialogs 1.1
 import DataConverter 1.0
 import "Widgets"
 
-Item {
+
+FocusScope{
     id: adjunctPanel
+    state: "normal"
 
     property alias backgroundColor: adjunctRec.color
     property alias contentText: contentTextEdit.text
@@ -72,182 +74,226 @@ Item {
         addingCount = 0
     }
 
-    FileDialog {
-        id: adjunctPickDialog
-        title: dsTr("Please select attachment")
-        onAccepted: {
-            getAdjunct(adjunctPickDialog.fileUrl.toString().replace("file:///","/"))
-            close()
-        }
-        nameFilters: [ "All files (*)" ,"Image files (*.jpg *.png *.gif)"]
-    }
 
-    Row {
-        id: buttonRow
-        anchors.left: parent.left
-        anchors.top: parent.top
-        width: childrenRect.width
-        height: 22
-
-        spacing: 3
-
-        DImageButton {
-            id:screenShotButton
-            width: 22
-            height: 22
-            normal_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "normal" : "disable")
-            hover_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
-            press_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
-            onClicked: {
-                if (canAddAdjunct
-                        && appComboBox.text != ""
-                        && projectNameList.indexOf(appComboBox.text) != -1){
-
-                    mainWindow.hide()
-                    mainObject.getScreenShot(appComboBox.text.trim())
-                }
-            }
-            onEntered: {
-                if (!canAddAdjunct)
-                    toolTip.showTip(dsTr("Total attachments have reached limit. "))
-            }
-        }
-
-        DImageButton {
-            id:adjunctButton
-            width: 22
-            height: 22
-            normal_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "normal" : "disable")
-            hover_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
-            press_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
-            onClicked: {
-                if (canAddAdjunct
-                        && appComboBox.text != ""
-                        && projectNameList.indexOf(appComboBox.text) != -1){
-
-                    adjunctPickDialog.open()
-                }
-            }
-            onEntered: {
-                if (!canAddAdjunct)
-                    toolTip.showTip(dsTr("Total attachments have reached limit. "))
-            }
+    onWarningChanged: {
+        if (warning)
+            state = "warning"
+        else{
+            if (focus)
+                state = "actived"
+            else
+                state = "normal"
         }
     }
 
-    Rectangle {
-        id: adjunctRec
+    onFocusChanged: {
+        if (!warning){
+            if (focus)
+                state = "actived"
+            else
+                state = "normal"
+        }
+    }
 
-        radius: 2
-        color: bgNormalColor
-        border.color: warning ? buttonBorderWarningColor : buttonBorderColor
+    states: [
+        State {
+            name: "normal"
+            PropertyChanges {target: adjunctRec; border.color: buttonBorderColor}
+        },
+        State {
+            name: "actived"
+            PropertyChanges {target: adjunctRec; border.color: buttonBorderActiveColor}
+        },
+        State {
+            name: "warning"
+            PropertyChanges {target: adjunctRec; border.color: buttonBorderWarningColor}
+        }
+    ]
+
+    Item {
         width: parent.width
-        height: parent.height - buttonRow.height
-        anchors.top: buttonRow.bottom
-        anchors.topMargin: 2
+        height: parent.height
 
-        ListView {
-            id: textEditView
-            width: parent.width
-            height: parent.height - adjunctTray.height
+        FileDialog {
+            id: adjunctPickDialog
+            title: dsTr("Please select attachment")
+            onAccepted: {
+                getAdjunct(adjunctPickDialog.fileUrl.toString().replace("file:///","/"))
+                close()
+            }
+            nameFilters: [ "All files (*)" ,"Image files (*.jpg *.png *.gif)"]
+        }
+
+        Row {
+            id: buttonRow
+            anchors.left: parent.left
             anchors.top: parent.top
-            model: itemModel
-            clip: true
+            width: childrenRect.width
+            height: 22
 
-            DScrollBar {
-                flickable: textEditView
+            spacing: 3
+
+            DImageButton {
+                id:screenShotButton
+                width: 22
+                height: 22
+                normal_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "normal" : "disable")
+                hover_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
+                press_image: "qrc:/views/Widgets/images/screenshot_%1.png".arg(canAddAdjunct ? "press" : "disable")
+                onClicked: {
+                    if (canAddAdjunct
+                            && appComboBox.text != ""
+                            && projectNameList.indexOf(appComboBox.text) != -1){
+
+                        mainWindow.hide()
+                        mainObject.getScreenShot(appComboBox.text.trim())
+                    }
+                }
+                onEntered: {
+                    if (!canAddAdjunct)
+                        toolTip.showTip(dsTr("Total attachments have reached limit. "))
+                }
             }
-        }
 
-        VisualItemModel
-        {
-            id: itemModel
+            DImageButton {
+                id:adjunctButton
+                width: 22
+                height: 22
+                normal_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "normal" : "disable")
+                hover_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
+                press_image: "qrc:/views/Widgets/images/adjunct_%1.png".arg(canAddAdjunct ? "press" : "disable")
+                onClicked: {
+                    if (canAddAdjunct
+                            && appComboBox.text != ""
+                            && projectNameList.indexOf(appComboBox.text) != -1){
 
-            Item {
-                width: adjunctRec.width
-                height: contentTextEdit.contentHeight > textEditView.height ? contentTextEdit.contentHeight : textEditView.height
-
-                TextEdit {
-                    id: contentTextEdit
-                    color: textNormalColor
-                    selectionColor: "#31536e"
-                    selectByMouse: true
-                    font.pixelSize: 12
-                    width: adjunctRec.width
-                    height: contentHeight > textEditView.height ? contentHeight : textEditView.height
-                    wrapMode: TextEdit.Wrap
-                }
-
-                Text {
-                    id: problemTips
-
-                    color: "#bebebe"
-                    font.pixelSize: 12
-                    width: adjunctRec.width
-                    height: textEditView.height
-                    wrapMode: TextEdit.Wrap
-                    opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? 1 : 0
-                    text: {
-                        var content ="\n    " + dsTr("Please describe your problem in detail") + "\n\n    " +
-                                dsTr("Please upload related screenshots or files") + "\n\n    " +
-                                dsTr("Single attachment can not exceed 5M") + "\n\n    " +
-                                dsTr("The total number of attachments is not more than six")
-                        return content
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {duration: 150}
-                    }
-
-                    Component.onCompleted: {
-
+                        adjunctPickDialog.open()
                     }
                 }
-
-                Text {
-                    id: ideaTips
-
-                    color: "#bebebe"
-                    font.pixelSize: 12
-                    width: adjunctRec.width
-                    height: textEditView.height
-                    wrapMode: TextEdit.Wrap
-                    opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ? 1 : 0
-                    text: {
-                        var content = "\n    " + dsTr("Please describe your idea in detail") + "\n\n    " +
-                                dsTr("Please upload related attachments") + "\n\n    " +
-                                dsTr("Single attachment can not exceed 5M") + "\n\n    " +
-                                dsTr("The total number of attachments is not more than six")
-                        return content
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {duration: 150}
-                    }
+                onEntered: {
+                    if (!canAddAdjunct)
+                        toolTip.showTip(dsTr("Total attachments have reached limit. "))
                 }
             }
         }
 
+        Rectangle {
+            id: adjunctRec
 
-        AdjunctTray {
-            id: adjunctTray
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 1
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - 2
-            height: (adjunctModel.count !=0 || showAddAdjunct) ? 52 : 0
-            Behavior on height {
-                NumberAnimation {duration: 150}
+            radius: 2
+            color: bgNormalColor
+            width: parent.width
+            height: parent.height - buttonRow.height
+            anchors.top: buttonRow.bottom
+            anchors.topMargin: 2
+
+            ListView {
+                id: textEditView
+                width: parent.width
+                height: parent.height - adjunctTray.height
+                anchors.top: parent.top
+                model: itemModel
+                clip: true
+
+                DScrollBar {
+                    flickable: textEditView
+                }
+            }
+
+            VisualItemModel
+            {
+                id: itemModel
+
+                Item {
+                    width: adjunctRec.width
+                    height: contentTextEdit.contentHeight > textEditView.height ? contentTextEdit.contentHeight : textEditView.height
+
+                    TextEdit {
+                        id: contentTextEdit
+                        focus: true
+                        color: textNormalColor
+                        selectionColor: "#61B5F8"
+                        selectByMouse: true
+                        font.pixelSize: 12
+                        width: adjunctRec.width - 5 * 2
+                        height: contentHeight > textEditView.height ? contentHeight : textEditView.height
+                        anchors.centerIn: parent
+
+                        wrapMode: TextEdit.Wrap
+                    }
+
+                    Text {
+                        id: problemTips
+
+                        color: "#bebebe"
+                        font.pixelSize: 12
+                        width: adjunctRec.width
+                        height: textEditView.height
+                        wrapMode: TextEdit.Wrap
+                        opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? 1 : 0
+                        text: {
+                            var content ="\n    " + dsTr("Please describe your problem in detail") + "\n\n    " +
+                                    dsTr("Please upload related screenshots or files") + "\n\n    " +
+                                    dsTr("Single attachment can not exceed 5M") + "\n\n    " +
+                                    dsTr("The total number of attachments is not more than six")
+                            return content
+                        }
+
+                        Behavior on opacity {
+                            NumberAnimation {duration: 150}
+                        }
+
+                        Component.onCompleted: {
+
+                        }
+                    }
+
+                    Text {
+                        id: ideaTips
+
+                        color: "#bebebe"
+                        font.pixelSize: 12
+                        width: adjunctRec.width
+                        height: textEditView.height
+                        wrapMode: TextEdit.Wrap
+                        opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ? 1 : 0
+                        text: {
+                            var content = "\n    " + dsTr("Please describe your idea in detail") + "\n\n    " +
+                                    dsTr("Please upload related attachments") + "\n\n    " +
+                                    dsTr("Single attachment can not exceed 5M") + "\n\n    " +
+                                    dsTr("The total number of attachments is not more than six")
+                            return content
+                        }
+
+                        Behavior on opacity {
+                            NumberAnimation {duration: 150}
+                        }
+                    }
+                }
+            }
+
+
+            AdjunctTray {
+                id: adjunctTray
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 1
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width - 2
+                height: (adjunctModel.count !=0 || showAddAdjunct) ? 52 : 0
+                Behavior on height {
+                    NumberAnimation {duration: 150}
+                }
             }
         }
-    }
 
-    Connections {
-        target: mainObject
-        onGetScreenshotFinish: {
-            getAdjunct(fileName)
-            mainWindow.show()
+        Connections {
+            target: mainObject
+            onGetScreenshotFinish: {
+                getAdjunct(fileName)
+                mainWindow.show()
+            }
         }
     }
 }
+
 

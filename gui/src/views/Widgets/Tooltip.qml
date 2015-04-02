@@ -57,7 +57,7 @@ Item {
 
     Text {
         id:tipText
-        color: "#ffa048"
+        color: "#ff8d24"
         font.pixelSize: 12
         clip: true
         width: parent.width
