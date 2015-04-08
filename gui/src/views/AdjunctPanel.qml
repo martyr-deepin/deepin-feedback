@@ -180,7 +180,7 @@ FocusScope{
         Rectangle {
             id: adjunctRec
 
-            radius: 2
+            radius: 3
             color: bgNormalColor
             width: parent.width
             height: parent.height - buttonRow.height
