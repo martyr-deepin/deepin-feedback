@@ -189,9 +189,11 @@ FocusScope{
 
             ListView {
                 id: textEditView
-                width: parent.width
+                width: parent.width - 6 * 2
                 height: parent.height - adjunctTray.height
                 anchors.top: parent.top
+                anchors.topMargin:0
+                anchors.horizontalCenter: parent.horizontalCenter
                 model: itemModel
                 clip: true
 
@@ -215,26 +217,27 @@ FocusScope{
                         selectionColor: "#61B5F8"
                         selectByMouse: true
                         font.pixelSize: 12
-                        width: adjunctRec.width - 5 * 2
+                        width: adjunctRec.width
                         height: contentHeight > textEditView.height ? contentHeight : textEditView.height
                         anchors.centerIn: parent
 
                         wrapMode: TextEdit.Wrap
                     }
 
-                    Text {
+                    TextEdit {
                         id: problemTips
 
                         color: "#bebebe"
                         font.pixelSize: 12
-                        width: adjunctRec.width
-                        height: textEditView.height
+                        enabled: false
+                        width: contentTextEdit.width
+                        height: contentTextEdit.height
                         wrapMode: TextEdit.Wrap
                         opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? 1 : 0
                         text: {
-                            var content ="\n    " + dsTr("Please describe your problem in detail") + "\n\n    " +
-                                    dsTr("Please upload related screenshots or files") + "\n\n    " +
-                                    dsTr("Single attachment can not exceed 5M") + "\n\n    " +
+                            var content = dsTr("Please describe your problem in detail") + "\n\n" +
+                                    dsTr("Please upload related screenshots or files") + "\n\n" +
+                                    dsTr("Single attachment can not exceed 5M") + "\n\n" +
                                     dsTr("The total number of attachments is not more than six")
                             return content
                         }
@@ -242,25 +245,22 @@ FocusScope{
                         Behavior on opacity {
                             NumberAnimation {duration: 150}
                         }
-
-                        Component.onCompleted: {
-
-                        }
                     }
 
-                    Text {
+                    TextEdit {
                         id: ideaTips
 
                         color: "#bebebe"
                         font.pixelSize: 12
-                        width: adjunctRec.width
-                        height: textEditView.height
+                        enabled: false
+                        width: contentTextEdit.width
+                        height: contentTextEdit.height
                         wrapMode: TextEdit.Wrap
                         opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ? 1 : 0
                         text: {
-                            var content = "\n    " + dsTr("Please describe your idea in detail") + "\n\n    " +
-                                    dsTr("Please upload related attachments") + "\n\n    " +
-                                    dsTr("Single attachment can not exceed 5M") + "\n\n    " +
+                            var content = dsTr("Please describe your idea in detail") + "\n\n" +
+                                    dsTr("Please upload related attachments") + "\n\n" +
+                                    dsTr("Single attachment can not exceed 5M") + "\n\n" +
                                     dsTr("The total number of attachments is not more than six")
                             return content
                         }
