@@ -332,7 +332,7 @@ DWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
                 if (lastTarget != "" && haveDraft){
-                    toolTip.showTip(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)))
+                    toolTip.showTipWithColor(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)),"#bcbcbc")
                 }
                 switchProject(projectList[index])
             }

@@ -35,6 +35,16 @@ Item {
 
     function showTip(message){
         delayHideTimer.stop()
+        tipText.color = "#ff8d24"
+        tipText.text = message
+        buttonToolTip.width = tipText.contentWidth > maxWidth ? maxWidth : tipText.contentWidth
+        tipText.wrapMode = tipText.contentWidth > maxWidth ? Text.WordWrap : Text.NoWrap
+        delayHideTimer.start()
+    }
+
+    function showTipWithColor(message, color){
+        tipText.color = color
+        delayHideTimer.stop()
         tipText.text = message
         buttonToolTip.width = tipText.contentWidth > maxWidth ? maxWidth : tipText.contentWidth
         tipText.wrapMode = tipText.contentWidth > maxWidth ? Text.WordWrap : Text.NoWrap
