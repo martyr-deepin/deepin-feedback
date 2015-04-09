@@ -210,15 +210,24 @@ DWindow {
             }
         }
 
+        Image {
+            id: appIcon
+            width: 16
+            height: 16
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.top: parent.top
+            anchors.topMargin: 8
+            source: "qrc:///views/Widgets/images/deepin-feedback.png"
+        }
+
         Text {
             id: appTitleText
             color: "#999999"
-            font.pixelSize: 14
+            font.pixelSize: 12
             text: dsTr("Deepin User Feedback")
-            anchors.top: parent.top
-            anchors.topMargin: 10
-            anchors.left: parent.left
-            anchors.leftMargin: 16
+            verticalAlignment: Text.AlignVCenter
+            anchors {left: appIcon.right; leftMargin: 6; verticalCenter: appIcon.verticalCenter}
         }
 
         Row {
