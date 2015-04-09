@@ -20,6 +20,7 @@ DWindow {
     color: "#00000000"
     width: normalWidth
     height: normalHeight
+    shadowWidth: 14
     x: screenSize.width / 2 - width / 2
     y: screenSize.height * 0.15
 
@@ -303,7 +304,7 @@ DWindow {
             id: reportTypeButtonRow
             width: rootRec.width - 22 * 2
             anchors.top: rootRec.top
-            anchors.topMargin: 40
+            anchors.topMargin: 38
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 12
             property var reportType: DataConverter.DFeedback_Bug
@@ -373,7 +374,7 @@ DWindow {
             enabled: enableInput
             backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
-            height: (rootRec.height - 330)
+            height: (rootRec.height - 340)
             anchors.top: titleTextinput.bottom
             anchors.topMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
@@ -388,7 +389,7 @@ DWindow {
             width: reportTypeButtonRow.width
             height: 30
             anchors.top: adjunctPanel.bottom
-            anchors.topMargin: 16
+            anchors.topMargin: 18
             anchors.horizontalCenter: parent.horizontalCenter
             tip: dsTr("Please fill in email to get the feedback progress.")
             onFocusChanged: {
@@ -426,7 +427,7 @@ DWindow {
         Item {
             id: helpTextItem
             anchors.top: emailTextinput.bottom
-            anchors.topMargin: 12
+            anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             width: reportTypeButtonRow.width
             height: helpText.contentHeigh
@@ -444,6 +445,7 @@ DWindow {
             Text {
                 id: helpText
                 anchors.left: helpCheck.right
+                lineHeight: 1.6
                 width: parent.width - helpCheck.width
                 text: dsTr("I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.")
                 wrapMode: Text.Wrap
