@@ -32,6 +32,7 @@ Item {
     property int maxWidth: 214
     property int autoHideInterval: -1
     property int delayShowInterval: -1
+    property alias textItem: tipText
 
     function showTip(message){
         delayHideTimer.stop()

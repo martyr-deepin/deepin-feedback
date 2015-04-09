@@ -507,10 +507,9 @@ DWindow {
         Tooltip {
             id: toolTip
             anchors.left: adjunctPanel.left
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 21
+            anchors.verticalCenter: controlButtonRow.verticalCenter
             autoHideInterval: 3600
-            height: controlButtonRow.height
+            height: textItem.lineCount == 1 ? textItem.contentHeight : controlButtonRow.height
             maxWidth: parent.width - controlButtonRow.width - 50
         }
     }
