@@ -10,10 +10,14 @@ import QtQuick 2.3
 import Deepin.Widgets 1.0
 
 Rectangle {
+    id: adjunctTray
     color: "#e8e8e8"
     width: parent.width
 
     property alias adjunctModel: adjunctView.model
+
+    signal adjunctAdded()
+    signal adjunctRemoved()
 
     DFileChooseDialogAide {id:dfcdAide}
 
@@ -25,6 +29,7 @@ Rectangle {
                                          "loadPercent": 0,
                                          "iconPath": "images/add-adjunct.png"
                                      })
+            adjunctTray.adjunctAdded()
         }
     }
 
@@ -32,6 +37,7 @@ Rectangle {
         var tmpIndex = getIndexFromModel(filePath)
         if (tmpIndex != -1){
             adjunctView.model.remove(tmpIndex)
+            adjunctTray.adjunctRemoved()
         }
     }
 

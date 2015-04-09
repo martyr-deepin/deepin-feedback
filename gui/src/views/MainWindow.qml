@@ -39,6 +39,7 @@ DWindow {
                 helpCheck.checked == false ||
                 adjunctPanel.haveAdjunct
     }
+    property bool draftEdited: false
 
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
@@ -61,7 +62,7 @@ DWindow {
     }
 
     function saveDraft(){
-        if (lastTarget == "" || !haveDraft)
+        if (lastTarget == "" || !haveDraft || !draftEdited)
             return
 
         mainObject.saveDraft(lastTarget,
@@ -70,6 +71,10 @@ DWindow {
                              emailTextinput.text,
                              helpCheck.checked,
                              adjunctPanel.contentText)
+    }
+
+    function contentEdited(){
+        draftEdited = true
     }
 
     function clearDraft(){
@@ -82,9 +87,11 @@ DWindow {
     }
 
     function switchProject(project){
+        autoSaveTimer.stop()
+        saveDraft()
+
         //project exist, try to load draft
         if (mainObject.draftTargetExist(project)){
-            saveDraft()
             clearDraft()
             //load new target data
             mainObject.updateUiDraftData(project)
@@ -101,6 +108,8 @@ DWindow {
 
         appComboBox.setText(project)
         lastTarget = project
+        draftEdited = false
+        autoSaveTimer.start()
     }
 
     function isLegitEmail(email){
@@ -138,13 +147,11 @@ DWindow {
     }
 
     Timer {
-        id: autoSaveDraftTimer
+        id: autoSaveTimer
         running: true
         repeat: true
-        interval: 60000
-        onTriggered: {
-            saveDraft()
-        }
+        interval: 800
+        onTriggered: saveDraft()
     }
 
     Rectangle {
@@ -328,6 +335,7 @@ DWindow {
                 text: dsTr("I have a good idea")
                 onClicked: {
                     parent.reportType = DataConverter.DFeedback_Proposal
+                    contentEdited()
                 }
             }
         }
@@ -341,7 +349,7 @@ DWindow {
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
-                if (lastTarget != "" && haveDraft){
+                if (lastTarget != "" && haveDraft && draftEdited){
                     toolTip.showTipWithColor(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)),"#a4a4a4")
                 }
                 switchProject(projectList[index])
@@ -359,13 +367,16 @@ DWindow {
             anchors.topMargin: 16
             anchors.horizontalCenter: parent.horizontalCenter
             tip:reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? dsTr("Please input the problem title")
-                                                                              : dsTr("Please describe your idea simply")
+                                                            : dsTr("Please describe your idea simply")
 
             onInWarningStateChanged: {
                 if (inWarningState){
                     toolTip.showTip(dsTr("Title words have reached limit."))
                 }
             }
+
+            onTextChange: contentEdited()
+
         }
 
         AdjunctPanel {
@@ -411,6 +422,7 @@ DWindow {
             }
             onTextChange: {
                 emailChanged = true
+                contentEdited()
                 if (canFillEmail){
                     var matchEmail = mainObject.getMatchEmailPart(text)
                     var startIndex = text.length
@@ -439,7 +451,7 @@ DWindow {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 checked: true
-
+                onCheckedChanged: contentEdited()
             }
 
             Text {

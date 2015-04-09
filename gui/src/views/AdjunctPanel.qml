@@ -27,6 +27,7 @@ FocusScope{
     property bool haveAdjunct: contentTextEdit.text != "" || adjunctTray.adjunctModel.count > 0
 
     function clearAllAdjunct(){
+        contentTextEdit.text = ""
         adjunctTray.clearAllAdjunct()
     }
 
@@ -222,6 +223,8 @@ FocusScope{
                         anchors.centerIn: parent
 
                         wrapMode: TextEdit.Wrap
+
+                        onTextChanged: contentEdited()
                     }
 
                     TextEdit {
@@ -283,6 +286,8 @@ FocusScope{
                 Behavior on height {
                     NumberAnimation {duration: 150}
                 }
+                onAdjunctAdded: contentEdited()
+                onAdjunctRemoved: contentEdited()
             }
         }
 
