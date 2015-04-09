@@ -69,10 +69,9 @@ Item {
 
         AppTextInput {
             id:currentLabel
-            width: combobox.width - downArrow.width
+            width: combobox.width
             height: parent.height
             anchors.left: parent.left
-            canChangeState: false
             tip: dsTr("Please select feedback project firstly ")
 
             onTextChange: {
@@ -123,20 +122,9 @@ Item {
                     break
                 }
             }
-        }
-
-        Rectangle {
-            id:downArrow
-            width: 33
-            radius: 2
-            height: parent.height
-            color: bgNormalColor
-            border.color: buttonBorderColor
-            anchors.left: currentLabel.right
-            anchors.leftMargin: -1
 
             Image {
-                anchors.centerIn: parent
+                anchors.right: parent.right
 
                 source: "qrc:///views/Widgets/images/arrow_down_normal.png"
 
@@ -167,6 +155,14 @@ Item {
                     onClicked: {
                         combobox.clicked()
                     }
+                }
+
+                Rectangle {
+                    anchors.left: parent.left
+                    width: 1
+                    height: parent.height
+                    visible: currentLabel.focus
+                    color: "#2aacf9"
                 }
             }
         }

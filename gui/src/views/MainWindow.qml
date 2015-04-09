@@ -227,7 +227,7 @@ DWindow {
             font.pixelSize: 12
             text: dsTr("Deepin User Feedback")
             verticalAlignment: Text.AlignVCenter
-            anchors {left: appIcon.right; leftMargin: 6; verticalCenter: appIcon.verticalCenter}
+            anchors {left: appIcon.right; leftMargin: 4; verticalCenter: appIcon.verticalCenter}
         }
 
         Row {
