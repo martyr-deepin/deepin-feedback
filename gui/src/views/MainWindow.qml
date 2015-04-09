@@ -332,7 +332,7 @@ DWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             onMenuSelect: {
                 if (lastTarget != "" && haveDraft){
-                    toolTip.showTipWithColor(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)),"#bcbcbc")
+                    toolTip.showTipWithColor(dsTr("The draft of %1 has been saved.").arg(getProjectNameByID(lastTarget)),"#a4a4a4")
                 }
                 switchProject(projectList[index])
             }
@@ -438,7 +438,7 @@ DWindow {
                 width: parent.width - helpCheck.width
                 text: dsTr("I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.")
                 wrapMode: Text.Wrap
-                color: textNormalColor
+                color: enableInput ? textNormalColor : "#bebebe"
                 horizontalAlignment: Text.AlignLeft
                 font.pixelSize: 12
                 clip: true

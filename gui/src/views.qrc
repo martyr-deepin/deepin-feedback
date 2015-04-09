@@ -50,5 +50,7 @@
         <file>views/Widgets/images/screenshot_disable.png</file>
         <file>views/Widgets/images/add-adjunct.png</file>
         <file>views/Widgets/Tooltip.qml</file>
+        <file>views/Widgets/images/checkbox-checked-insensitive.png</file>
+        <file>views/Widgets/images/checkbox-unchecked-insensitive.png</file>
     </qresource>
 </RCC>
