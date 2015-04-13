@@ -1,11 +1,13 @@
 TEMPLATE = app
 
-QT += qml quick widgets gui dbus
+QT += qml quick widgets gui dbus network
 
 SOURCES += src/main.cpp \
     src/qmlloader.cpp \
     src/dataconverter.cpp \
-    src/adjunctaide.cpp
+    src/adjunctaide.cpp \
+    src/adjunctuploader.cpp \
+    src/adjunctuploadthread.cpp
 
 RESOURCES += src/views.qrc
 
@@ -15,7 +17,9 @@ QML_IMPORT_PATH =
 HEADERS += \
     src/qmlloader.h \
     src/dataconverter.h \
-    src/adjunctaide.h
+    src/adjunctaide.h \
+    src/adjunctuploader.h \
+    src/adjunctuploadthread.h
 
 isEmpty(PREFIX){
     PREFIX = /usr

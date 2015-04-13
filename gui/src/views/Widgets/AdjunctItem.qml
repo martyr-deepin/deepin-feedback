@@ -71,12 +71,18 @@ Item {
         }
 
         PercentCircle {
+            id: progressCir
             anchors.centerIn: parent
             lineWidth: 3
             width: 30
             height: 30
 
-            Component.onCompleted: updatePercentage(0.6)
+            Connections {
+                target: adjunctItem
+                onLoad_percentChanged: {
+                    progressCir.updatePercentage(load_percent)
+                }
+            }
         }
     }
 

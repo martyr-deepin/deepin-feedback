@@ -8,6 +8,7 @@
 *************************************************************/
 import QtQuick 2.3
 import Deepin.Widgets 1.0
+import AdjunctUploader 1.0
 
 Rectangle {
     id: adjunctTray
@@ -30,6 +31,8 @@ Rectangle {
                                          "iconPath": "images/add-adjunct.png"
                                      })
             adjunctTray.adjunctAdded()
+
+            AdjunctUploader.uploadAdjunct(filePath)
         }
     }
 
@@ -38,6 +41,8 @@ Rectangle {
         if (tmpIndex != -1){
             adjunctView.model.remove(tmpIndex)
             adjunctTray.adjunctRemoved()
+
+            AdjunctUploader.cancelUpload(filePath)
         }
     }
 
@@ -75,6 +80,20 @@ Rectangle {
     function hideAddIcon(count){
         for (var i = count; i > 0; i --)
             adjunctView.model.remove(adjunctView.model.count - 1)
+    }
+
+    Connections {
+        target: AdjunctUploader
+        onUploadProgress: {
+            print (filePath,progress)
+            updateLoadPercent(filePath,progress / 100)
+        }
+        onUploadFinish: {
+
+        }
+        onUploadFailed: {
+
+        }
     }
 
     GridView {
