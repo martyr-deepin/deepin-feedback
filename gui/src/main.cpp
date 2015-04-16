@@ -1,11 +1,12 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QtQml>
-#include "qmlloader.h"
-#include "dataconverter.h"
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDebug>
+#include "qmlloader.h"
+#include "dataconverter.h"
+#include "adjunctuploader.h"
 
 void showVersion()
 {
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
 
     if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
 
+        AdjunctUploader::getInstance();
         qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
 
         QmlLoader* qmlLoader = new QmlLoader();
