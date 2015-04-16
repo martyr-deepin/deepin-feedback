@@ -20,8 +20,13 @@ void AdjunctUploadThread::startUpload()
 
 void AdjunctUploadThread::stopUpload()
 {
-    this->terminate();
-    this->wait();
+    if (this->isRunning())
+    {
+        qDebug() << "Stop upload file:" << gFilePath;
+        this->quit();
+        this->wait();
+        this->deleteLater();
+    }
 }
 
 void AdjunctUploadThread::run()
@@ -70,6 +75,7 @@ void AdjunctUploadThread::run()
         connect(tmpManager, SIGNAL(finished(QNetworkReply*)), tmpManager, SLOT(deleteLater()));
         connect(gUploadReply, SIGNAL(finished()), gUploadReply, SLOT(deleteLater()));
         connect(gUploadReply, SIGNAL(finished()), gUploadFile, SLOT(deleteLater()));
+        connect(gUploadReply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotGotError(QNetworkReply::NetworkError)), Qt::DirectConnection);
         connect(tmpManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotUploadFinish(QNetworkReply*)), Qt::DirectConnection);
         connect(gUploadReply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(slotUploadProgress(qint64,qint64)), Qt::DirectConnection);
 
@@ -146,7 +152,10 @@ void AdjunctUploadThread::slotUploadFinish(QNetworkReply * reply)
     if (statusCode == 200 && gResourceUrl != BUCKET_HOST)
         emit uploadFinish(gFilePath, gResourceUrl);
     else
+    {
+        emit uploadProgress(gFilePath, 0);
         emit uploadFailed(gFilePath, "");
+    }
 
     gUploadFile->close();
 }
@@ -157,6 +166,12 @@ void AdjunctUploadThread::slotUploadProgress(qint64 value1, qint64 value2)
     {
         emit uploadProgress(gFilePath, value1 * 100 / value2);
     }
+}
+
+void AdjunctUploadThread::slotGotError(QNetworkReply::NetworkError code)
+{
+    qDebug() << "Upload failed:" << gFilePath;
+    emit uploadFailed(gFilePath, QString::number(code));
 }
 
 AdjunctUploadThread::~AdjunctUploadThread()

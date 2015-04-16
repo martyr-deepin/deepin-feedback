@@ -43,6 +43,7 @@ public slots:
     void parseJsonData(const QByteArray &jsonData, ResponeData * resData);
     void slotUploadFinish(QNetworkReply * reply);
     void slotUploadProgress(qint64 value1, qint64 value2);
+    void slotGotError(QNetworkReply::NetworkError code);
 
 private:
     QNetworkAccessManager * networkAccessManager;

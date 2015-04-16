@@ -27,6 +27,7 @@ signals:
 
 private slots:
     void slotUploadFinish(QString filePath, QString resourceUrl);
+    void slotUploadFailed(const QString &filePath);
 
 private:
     explicit AdjunctUploader(QObject *parent = 0);

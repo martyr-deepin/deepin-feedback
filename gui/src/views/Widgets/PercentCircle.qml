@@ -60,6 +60,10 @@ Canvas {
       font.pixelSize: 13
   }
 
+  function repaint(){
+      percentCanvas.requestPaint();
+  }
+
   function updatePercentage(percent)
   {
       percentage = percent

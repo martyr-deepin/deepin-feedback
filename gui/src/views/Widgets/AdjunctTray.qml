@@ -28,7 +28,9 @@ Rectangle {
                                          "showIconOnly": false,
                                          "filePath": filePath,
                                          "loadPercent": 0,
-                                         "iconPath": "images/add-adjunct.png"
+                                         "iconPath": "images/add-adjunct.png",
+                                         "uploadFinish": false,
+                                         "gotError": false
                                      })
             adjunctTray.adjunctAdded()
 
@@ -72,7 +74,9 @@ Rectangle {
                                          "showIconOnly": true,
                                          "filePath": "/" + i,
                                          "loadPercent": 0,
-                                         "iconPath": "images/add-adjunct.png"
+                                         "iconPath": "images/add-adjunct.png",
+                                         "uploadFinish": false,
+                                         "gotError": false
                                      })
         }
     }
@@ -85,14 +89,19 @@ Rectangle {
     Connections {
         target: AdjunctUploader
         onUploadProgress: {
-            print (filePath,progress)
             updateLoadPercent(filePath,progress / 100)
         }
         onUploadFinish: {
-
+            var tmpIndex = getIndexFromModel(filePath)
+            if (tmpIndex != -1){
+                adjunctView.model.setProperty(tmpIndex,"uploadFinish",true)
+            }
         }
         onUploadFailed: {
-
+            var tmpIndex = getIndexFromModel(filePath)
+            if (tmpIndex != -1){
+                adjunctView.model.setProperty(tmpIndex,"gotError",true)
+            }
         }
     }
 
@@ -112,6 +121,14 @@ Rectangle {
             onDeleteAdjunct: {
                 removeAdjunct(filePath)
                 mainObject.removeAdjunct(filePath)
+            }
+            onRetryUpload: {
+                var tmpIndex = getIndexFromModel(filePath)
+                if (tmpIndex != -1){
+                    adjunctView.model.setProperty(tmpIndex,"gotError",false)
+                }
+
+                AdjunctUploader.uploadAdjunct(filePath)
             }
         }
     }

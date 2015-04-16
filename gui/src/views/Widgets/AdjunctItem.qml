@@ -16,9 +16,35 @@ Item {
     property string icon_path: show_icon_only ? iconPath : ""
     property string file_path: !show_icon_only ? filePath : ""
     property double load_percent: !show_icon_only ? loadPercent : 0
+    property bool upload_finish: uploadFinish
+    property bool got_error: gotError
     /*from model*****************************************/
 
     signal deleteAdjunct(string filePath)
+    signal retryUpload(string filePath)
+
+    onUpload_finishChanged: {
+        if (upload_finish){
+            hoverRec.opacity = 0
+            progressCir.opacity = 0
+        }
+    }
+
+    onGot_errorChanged: {
+        if (got_error){
+            progressCir.percentageColor = "#ff8f00"
+            progressCir.repaint()
+            percentText.visible = false
+            retryImg.visible = true
+        }
+        else{
+            progressCir.percentageColor = "#00b3fb"
+            progressCir.repaint()
+            percentText.visible = true
+            retryImg.visible = false
+            load_percent = 0
+        }
+    }
 
     Item {
         enabled: !show_icon_only
@@ -44,6 +70,7 @@ Item {
             icon: dfcdAide.getIconName(file_path)
 
             Rectangle {
+                id: hoverRec
                 anchors.centerIn: parent
                 width: 40
                 height: 40
@@ -62,7 +89,6 @@ Item {
 
             anchors.top: parent.top
             anchors.right: fileIcon.right
-//            anchors.rightMargin: width / 2
 
             onClicked: adjunctItem.deleteAdjunct(file_path)
 
@@ -73,15 +99,40 @@ Item {
         PercentCircle {
             id: progressCir
             anchors.centerIn: parent
-            lineWidth: 3
+            lineWidth: 2
             width: 30
             height: 30
+
+            Text {
+                id: percentText
+                anchors.centerIn: parent
+                font.pixelSize: 8
+                color: "#ffffff"
+                font.family: "UKIJ CJK"
+            }
+
+            Image {
+                id: retryImg
+                visible: false
+                anchors.centerIn: parent
+                source: "qrc:/views/Widgets/images/retry-angle.png"
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: adjunctItem.retryUpload(file_path)
+                }
+            }
 
             Connections {
                 target: adjunctItem
                 onLoad_percentChanged: {
                     progressCir.updatePercentage(load_percent)
+                    percentText.text = (load_percent * 100).toFixed(0) + "%"
                 }
+            }
+
+            Component.onCompleted: {
+                progressCir.updatePercentage(0)
+                percentText.text = "0%"
             }
         }
     }
