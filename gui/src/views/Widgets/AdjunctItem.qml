@@ -22,6 +22,8 @@ Item {
 
     signal deleteAdjunct(string filePath)
     signal retryUpload(string filePath)
+    signal errorSignal(int pageX, int pageY)
+    signal exited
 
     onUpload_finishChanged: {
         if (upload_finish){
@@ -56,8 +58,17 @@ Item {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            onEntered: deleteButton.visible = true
-            onExited: deleteButton.visible = false
+            onEntered: {
+                deleteButton.visible = true
+                if (got_error){
+                    var mapObj = adjunctItem.mapFromItem(rootRec)
+                    adjunctItem.errorSignal(mainWindow.x - mapObj.x + 25,mainWindow.y - mapObj.y + 56)
+                }
+            }
+            onExited: {
+                deleteButton.visible = false
+                adjunctItem.exited()
+            }
         }
 
         DIcon {

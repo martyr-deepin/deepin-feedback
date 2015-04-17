@@ -54,5 +54,7 @@
         <file>views/Widgets/images/checkbox-unchecked-insensitive.png</file>
         <file>views/Widgets/images/deepin-feedback.png</file>
         <file>views/Widgets/images/retry-angle.png</file>
+        <file>views/Widgets/SingleLineTipCreator.js</file>
+        <file>views/Widgets/SingleLineTip.qml</file>
     </qresource>
 </RCC>

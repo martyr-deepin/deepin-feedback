@@ -9,6 +9,7 @@
 import QtQuick 2.3
 import Deepin.Widgets 1.0
 import AdjunctUploader 1.0
+import "./SingleLineTipCreator.js" as IconTip
 
 Rectangle {
     id: adjunctTray
@@ -16,11 +17,10 @@ Rectangle {
     width: parent.width
 
     property alias adjunctModel: adjunctView.model
+    DFileChooseDialogAide {id:dfcdAide}
 
     signal adjunctAdded()
     signal adjunctRemoved()
-
-    DFileChooseDialogAide {id:dfcdAide}
 
     function addAdjunct(filePath){
         if (getIndexFromModel(filePath) == -1){
@@ -129,6 +129,16 @@ Rectangle {
                 }
 
                 AdjunctUploader.uploadAdjunct(filePath)
+            }
+            onErrorSignal: {
+                IconTip.pageX = pageX
+                IconTip.pageY = pageY
+                IconTip.pageWidth = 200
+                IconTip.toolTip = dsTr("Upload failed, please retry.")
+                IconTip.showTip()
+            }
+            onExited: {
+                IconTip.destroyTip()
             }
         }
     }
