@@ -78,7 +78,7 @@ Item {
             height: 48
             width: 48
             theme: "Deepin"
-            icon: dfcdAide.getIconName(file_path)
+            icon: DFileUtils.getIconName(file_path)
 
             Rectangle {
                 id: hoverRec

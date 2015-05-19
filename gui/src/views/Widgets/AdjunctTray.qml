@@ -17,7 +17,6 @@ Rectangle {
     width: parent.width
 
     property alias adjunctModel: adjunctView.model
-    DFileChooseDialogAide {id:dfcdAide}
 
     signal adjunctAdded()
     signal adjunctRemoved()

@@ -10,10 +10,10 @@ import DBus.Com.Deepin.Feedback 1.0
 QtObject {
     id: root
 
-    property color textActivedColor: dconstants.hoverColor
+    property color textActivedColor: DConstants.hoverColor
     property color textNormalColor: "#5e5e5e"
     property color bgActivedColor: "#5498ec"
-    property color bgNormalColor: dconstants.hoverColor
+    property color bgNormalColor: DConstants.hoverColor
     property color buttonBorderColor: "#d7d7d7"
     property color buttonBorderActiveColor: "#7bbefb"
     property color buttonBorderWarningColor: "#FF8F00"
@@ -59,7 +59,6 @@ QtObject {
         property int height: displayId.primaryRect[3]
     }
     property var feedbackContent: Feedback {}
-    property var dconstants: DConstants{}
     property var mainWindow: MainWindow {}
     property var dbusSearch: Search {}
     property var dsslocale: DLocale {
