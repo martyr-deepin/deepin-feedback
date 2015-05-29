@@ -106,8 +106,13 @@ collect_file() {
 do_collect_file() {
     local category="${1}"; shift
     local child_dest_dir="${dest_dir}/${category}/$(dirname "${1}")"
-    mkdir -p "${child_dest_dir}"
-    cp -fR -t "${child_dest_dir}" "$(echo "${1}" | sed "s#^~#${real_home}#")"
+    local source_file="$(echo "${1}" | sed "s#^~#${real_home}#")"
+    if [ -e "${source_file}" ]; then
+        mkdir -p "${child_dest_dir}"
+        cp -fR -t "${child_dest_dir}" "${source_file}"
+    else
+        msg2 "collect_file: ignore ${source_file}"
+    fi
 }
 
 ###* Functions to Get Certain System Information
