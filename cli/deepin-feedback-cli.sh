@@ -507,6 +507,7 @@ subcategory_login() {
     if [ ! "${arg_privacymode}" ]; then
         collect_file "login" "~/.xsession-errors"
         collect_file "login" "/etc/lightdm/lightdm.conf"
+        collect_file "login" "/var/log/Xorg."*
         collect_file "login" "/var/log/lightdm" # need root permission
     fi
 }
@@ -541,6 +542,7 @@ category_deepin-movie() {
         include_sliceinfo "kernel"
     fi
 }
+
 category_deepin-screenshot() {
     collect_file "deepin-screenshot" "~/.config/deepin-screenshot/config.ini"
 }
@@ -550,7 +552,6 @@ category_deepin-terminal() {
 category_deepin-translator() {
     collect_file "deepin-translator" "~/.config/deepin-translator/config.ini"
 }
-
 
 ###* Main
 arg_username=""
