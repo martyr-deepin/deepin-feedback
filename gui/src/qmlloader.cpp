@@ -165,7 +165,14 @@ QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
         return "";
     }
 
-    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    QString targetPath = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME;
+    QDir tmpDir;
+    if (!tmpDir.exists(targetPath))
+    {
+        tmpDir.mkpath(targetPath);
+    }
+
+    QString targetFileName = targetPath + getFileNameFromPath(filePath);
     //copy file from target path to draft location
     if (QFile::copy(filePath, targetFileName))
         return targetFileName;

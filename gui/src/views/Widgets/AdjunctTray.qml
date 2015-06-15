@@ -21,19 +21,36 @@ Rectangle {
     signal adjunctAdded()
     signal adjunctRemoved()
 
+    function isUploaded(filePath){
+        return AdjunctUploader.isInUploadedList(filePath)
+    }
+
+    function getBucketUrl(filePath){
+        return AdjunctUploader.getBucketUrl(filePath)
+    }
+
+    function getAdjunctList(){
+        //TODO
+        var tmpList = {}
+        return tmpList
+    }
+
     function addAdjunct(filePath){
         if (getIndexFromModel(filePath) == -1){
+            var fileUploaded = isUploaded(filePath)
             adjunctView.model.append({
                                          "showIconOnly": false,
                                          "filePath": filePath,
+                                         "bucketUrl": fileUploaded ? getBucketUrl(filePath) : "",
                                          "loadPercent": 0,
                                          "iconPath": "images/add-adjunct.png",
-                                         "uploadFinish": false,
+                                         "uploadFinish": fileUploaded,
                                          "gotError": false
                                      })
             adjunctTray.adjunctAdded()
 
-            AdjunctUploader.uploadAdjunct(filePath)
+            if (!fileUploaded)
+                AdjunctUploader.uploadAdjunct(filePath)
         }
     }
 
@@ -94,12 +111,14 @@ Rectangle {
             var tmpIndex = getIndexFromModel(filePath)
             if (tmpIndex != -1){
                 adjunctView.model.setProperty(tmpIndex,"uploadFinish",true)
+                adjunctView.model.setProperty(tmpIndex,"bucketUrl",bucketUrl)
             }
         }
         onUploadFailed: {
             var tmpIndex = getIndexFromModel(filePath)
             if (tmpIndex != -1){
                 adjunctView.model.setProperty(tmpIndex,"gotError",true)
+                adjunctView.model.setProperty(tmpIndex,"bucketUrl","")
             }
         }
     }
