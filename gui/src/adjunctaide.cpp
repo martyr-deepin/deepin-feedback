@@ -12,14 +12,13 @@ AdjunctAide::~AdjunctAide()
 
 void AdjunctAide::getScreenShot(const QString &target)
 {
-    QString targetFileName = "/tmp/" + target + TMP_SCREENSHOT_FILENAME;
+    tmpFileName = "/tmp/" + target + QDateTime::currentDateTime().toString("yyyy.MM.dd.hh:mm:ss") + TMP_SCREENSHOT_FILENAME;
     screenShotProcess = new QProcess(this);
     connect(screenShotProcess, SIGNAL(finished(int)), this, SLOT(finishGetScreenShot()));
-    connect(screenShotProcess, SIGNAL(finished(int)), screenShotProcess, SLOT(deleteLater()));
 
     QStringList arguments;
 
-    arguments << "-s" << targetFileName;
+    arguments << "-s" << tmpFileName;
     screenShotProcess->start("deepin-screenshot", arguments);
 }
 
@@ -75,32 +74,12 @@ bool AdjunctAide::removeDirWidthContent(const QString &dirName)
 
 void AdjunctAide::finishGetScreenShot()
 {
-    QString outPut = QString(screenShotProcess->readAllStandardOutput());
+    if (screenShotProcess->exitCode() == 0)
+        emit getScreenshotFinish(tmpFileName);
+    else
+        emit getScreenshotFinish("");
 
-    emit getScreenshotFinish(getFileNameFromFeedback(outPut));
-    qDebug() << "Get screenshot process finish!";
-}
-
-QString AdjunctAide::getFileNameFromFeedback(const QString &result)
-{
-    int startIndex = result.indexOf(FILENAME_FLAG);
-    if (startIndex == -1)
-        return "";
-    int endIndex = result.indexOf("\n",startIndex);
-    startIndex += FILENAME_FLAG.length();
-    int subStrLength = endIndex - startIndex;
-
-    return result.mid(startIndex,subStrLength).trimmed();
-}
-
-bool AdjunctAide::getScreenShotStateFromFeedback(const QString &result)
-{
-    int startIndex = result.indexOf(SCREENSHOT_STATE_HEAD_FLAG);
-    if (startIndex == -1)
-        return false;
-    int endIndex = result.indexOf("\n",startIndex);
-    startIndex += SCREENSHOT_STATE_HEAD_FLAG.length();
-    int subStrLength = endIndex - startIndex;
-
-    return result.mid(startIndex,subStrLength).trimmed() == SCREENSHOT_STATE_SUCCESS_FLAG ? true : false;
+    qDebug() << "Get screenshot process finish!" << screenShotProcess->exitCode();
+    screenShotProcess->deleteLater();
+    tmpFileName = "";
 }

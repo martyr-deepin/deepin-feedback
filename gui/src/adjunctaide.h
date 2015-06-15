@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QFile>
 #include <QDir>
+#include <QDateTime>
 #include <QDebug>
 #include "dataconverter.h"
 
@@ -26,14 +27,8 @@ private slots:
     void finishGetScreenShot();
 
 private:
-    QString getFileNameFromFeedback(const QString &result);
-    bool getScreenShotStateFromFeedback(const QString &result);
-
-private:
     QProcess * screenShotProcess;
-    const QString FILENAME_FLAG = "file:";
-    const QString SCREENSHOT_STATE_HEAD_FLAG = "State:";
-    const QString SCREENSHOT_STATE_SUCCESS_FLAG = "finish";
+    QString tmpFileName = "";
     const QString TMP_SCREENSHOT_FILENAME = "-deepin-feedback-screenshot.png";
 };
 
