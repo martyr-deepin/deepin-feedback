@@ -149,7 +149,7 @@ void AdjunctUploadThread::slotUploadFinish(QNetworkReply * reply)
 
     qDebug() << "Upload finish!" << statusCode << gResourceUrl;
 
-    if (statusCode == 200 && gResourceUrl != BUCKET_HOST)
+    if ((statusCode == 302 || statusCode == 301) && gResourceUrl != BUCKET_HOST)
         emit uploadFinish(gFilePath, gResourceUrl);
     else
     {
