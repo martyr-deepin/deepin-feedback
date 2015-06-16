@@ -301,24 +301,24 @@ DWindow {
                 }
             ]
 
-            transitions:[
-                Transition {
-                    from: "zoomout"
-                    to: "zoomin"
-                     SequentialAnimation {
-                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
-                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
-                    }
-                },
-                Transition {
-                    from: "zoomin"
-                    to: "zoomout"
-                     SequentialAnimation {
-                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
-                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
-                    }
-                }
-            ]
+//            transitions:[
+//                Transition {
+//                    from: "zoomout"
+//                    to: "zoomin"
+//                     SequentialAnimation {
+//                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
+//                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
+//                    }
+//                },
+//                Transition {
+//                    from: "zoomin"
+//                    to: "zoomout"
+//                     SequentialAnimation {
+//                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
+//                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
+//                    }
+//                }
+//            ]
         }
 
         Row {
