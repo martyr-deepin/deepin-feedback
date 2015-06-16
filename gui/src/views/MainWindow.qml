@@ -11,6 +11,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Window 2.0
 import Deepin.Widgets 1.0
 import DataConverter 1.0
+import DataSender 1.0
 import "Widgets"
 
 DWindow {
@@ -124,18 +125,21 @@ DWindow {
         }
     }
 
-    Connections {
-        target: mainObject
-        onSubmitCompleted: {
-            if (succeeded){
-                mainObject.clearDraft(lastTarget)
-                adjunctPanel.clearAllAdjunct()
-                Qt.quit()
-            }
-            else{
-                saveDraft()
+    function getJsonData(){
+        var jsonObj = {
+            "method": "Deepin.Feedback.putFeedback",
+            "version": "1.1",
+            "params": {
+                "project" : appComboBox.text.trim(),
+                "description": adjunctPanel.getDescriptionDetails(),
+                "summary" : titleTextinput.text.trim(),
+                "attachments": adjunctPanel.getAttchementsList(),
+                "email" : emailTextinput.text.trim(),
+                "type" : reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? "problem" : "suggestion"
             }
         }
+
+        return marshalJSON(jsonObj)
     }
 
     Connections {
@@ -146,11 +150,21 @@ DWindow {
         }
     }
 
+    DataSender {
+        id: dataSender
+        onPostFinish: {
+            mainObject.clearDraft(lastTarget)
+            adjunctPanel.clearAllAdjunct()
+            mainWindow.close()
+            Qt.quit()
+        }
+    }
+
     Timer {
         id: autoSaveTimer
         running: true
         repeat: true
-        interval: 800
+        interval: 2000
         onTriggered: saveDraft()
     }
 
@@ -497,6 +511,7 @@ DWindow {
                 }
                 onClicked: {
                     print ("Reporting...")
+                    dataSender.postFeedbackData(getJsonData())
                     mainObject.saveEmail(emailTextinput.text)
                     print (getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
                     print (feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked))

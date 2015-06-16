@@ -30,8 +30,16 @@ Rectangle {
     }
 
     function getAdjunctList(){
-        //TODO
-        var tmpList = {}
+        var tmpList = []
+        for (var i = 0; i < adjunctView.model.count; i ++){
+            var tmpPath = adjunctView.model.get(i).filePath
+            tmpList.push({
+                          "name": AdjunctUploader.getFileNameByPath(tmpPath),
+                             "url":adjunctView.model.get(i).bucketUrl,
+                             "type": AdjunctUploader.getMimeType(tmpPath)
+                         })
+        }
+
         return tmpList
     }
 

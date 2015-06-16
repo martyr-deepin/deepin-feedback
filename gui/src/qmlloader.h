@@ -89,7 +89,6 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);
-    void submitCompleted(bool succeeded);
 
 private:
     void init();

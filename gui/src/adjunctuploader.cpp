@@ -66,6 +66,18 @@ QString AdjunctUploader::getBucketUrl(const QString &filePath)
     return tmpObj.value(filePath).toString();
 }
 
+QString AdjunctUploader::getFileNameByPath(const QString &filePath)
+{
+    return filePath.mid(filePath.lastIndexOf("/") + 1);
+}
+
+QString AdjunctUploader::getMimeType(const QString &filePath)
+{
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForFile(filePath);
+    return mime.name();
+}
+
 void AdjunctUploader::slotUploadFinish(QString filePath, QString resourceUrl)
 {
     threadMap.take(filePath);

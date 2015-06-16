@@ -7,7 +7,8 @@ SOURCES += src/main.cpp \
     src/dataconverter.cpp \
     src/adjunctaide.cpp \
     src/adjunctuploader.cpp \
-    src/adjunctuploadthread.cpp
+    src/adjunctuploadthread.cpp \
+    src/datasender.cpp
 
 RESOURCES += src/views.qrc
 
@@ -19,7 +20,8 @@ HEADERS += \
     src/dataconverter.h \
     src/adjunctaide.h \
     src/adjunctuploader.h \
-    src/adjunctuploadthread.h
+    src/adjunctuploadthread.h \
+    src/datasender.h
 
 isEmpty(PREFIX){
     PREFIX = /usr

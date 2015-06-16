@@ -9,6 +9,8 @@
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QDebug>
 #include "adjunctuploadthread.h"
 
@@ -23,6 +25,8 @@ public:
     Q_INVOKABLE void cancelUpload(const QString &filePath);
     Q_INVOKABLE bool isInUploadedList(const QString &filePath);
     Q_INVOKABLE QString getBucketUrl(const QString &filePath);
+    Q_INVOKABLE QString getFileNameByPath(const QString &filePath);
+    Q_INVOKABLE QString getMimeType(const QString &filePath);
     static QObject * uploaderObj(QQmlEngine *engine, QJSEngine *scriptEngine);
 
 signals:

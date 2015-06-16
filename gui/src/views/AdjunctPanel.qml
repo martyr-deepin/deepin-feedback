@@ -75,6 +75,13 @@ FocusScope{
         addingCount = 0
     }
 
+    function getDescriptionDetails(){
+        return contentTextEdit.text
+    }
+
+    function getAttchementsList(){
+        return adjunctTray.getAdjunctList()
+    }
 
     onWarningChanged: {
         if (warning)

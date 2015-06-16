@@ -7,6 +7,7 @@
 #include "qmlloader.h"
 #include "dataconverter.h"
 #include "adjunctuploader.h"
+#include "datasender.h"
 
 void showVersion()
 {
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
 
         AdjunctUploader::getInstance();
         qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
+        qmlRegisterType<DataSender>("DataSender",1,0,"DataSender");
 
         QmlLoader* qmlLoader = new QmlLoader();
         qmlLoader->rootContext->setContextProperty("mainObject", qmlLoader);
