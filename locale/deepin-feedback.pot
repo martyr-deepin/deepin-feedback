@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-31 15:34+0800\n"
+"POT-Creation-Date: 2015-06-16 15:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,86 +17,98 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gui/src/views/AdjunctPanel.qml:37
+#: ../gui/src/views/AdjunctPanel.qml:41
 msgid "Failed to add attachment: Single attachment cann't be more than 5M."
 msgstr ""
 
-#: ../gui/src/views/AdjunctPanel.qml:76
+#: ../gui/src/views/AdjunctPanel.qml:127
 msgid "Please select attachment"
 msgstr ""
 
-#: ../gui/src/views/AdjunctPanel.qml:111 ../gui/src/views/AdjunctPanel.qml:132
-#: ../gui/src/views/MainWindow.qml:175
+#: ../gui/src/views/AdjunctPanel.qml:162 ../gui/src/views/AdjunctPanel.qml:183
+#: ../gui/src/views/MainWindow.qml:225
 msgid "Total attachments have reached limit. "
 msgstr ""
 
-#: ../gui/src/views/AdjunctPanel.qml:190
+#: ../gui/src/views/AdjunctPanel.qml:248
 msgid "Please describe your problem in detail"
 msgstr ""
 
-#: ../gui/src/views/AdjunctPanel.qml:191
+#: ../gui/src/views/AdjunctPanel.qml:249
 msgid "Please upload related screenshots or files"
 msgstr ""
 
-#: ../gui/src/views/AdjunctPanel.qml:214
-msgid "Please describe your idea in detail "
+#: ../gui/src/views/AdjunctPanel.qml:250 ../gui/src/views/AdjunctPanel.qml:273
+msgid "Single attachment can not exceed 5M"
 msgstr ""
 
-#: ../gui/src/views/AdjunctPanel.qml:215
+#: ../gui/src/views/AdjunctPanel.qml:251 ../gui/src/views/AdjunctPanel.qml:274
+msgid "The total number of attachments is not more than six"
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:271
+msgid "Please describe your idea in detail"
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:272
 msgid "Please upload related attachments"
 msgstr ""
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
+#: ../gui/src/views/Widgets/AdjunctTray.qml:163
+msgid "Upload failed, please retry."
+msgstr ""
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:75
 msgid "Please select feedback project firstly "
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:189
+#: ../gui/src/views/MainWindow.qml:250
 msgid "Deepin User Feedback"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:279
+#: ../gui/src/views/MainWindow.qml:338
 msgid "I have a problem"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:290
+#: ../gui/src/views/MainWindow.qml:349
 msgid "I have a good idea"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:307
+#: ../gui/src/views/MainWindow.qml:367
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:322
+#: ../gui/src/views/MainWindow.qml:383
 msgid "Please input the problem title"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:323
+#: ../gui/src/views/MainWindow.qml:384
 msgid "Please describe your idea simply"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:327
+#: ../gui/src/views/MainWindow.qml:388
 msgid "Title words have reached limit."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:362
+#: ../gui/src/views/MainWindow.qml:419
 msgid "Please fill in email to get the feedback progress."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:365
+#: ../gui/src/views/MainWindow.qml:422
 msgid "Email is invalid."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:390
+#: ../gui/src/views/MainWindow.qml:476
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:408
+#: ../gui/src/views/MainWindow.qml:494
 msgid "Close"
 msgstr ""
 
-#: ../gui/src/views/MainWindow.qml:418
+#: ../gui/src/views/MainWindow.qml:504
 msgid "Send"
 msgstr ""
