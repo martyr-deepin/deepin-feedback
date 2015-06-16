@@ -178,23 +178,13 @@ DWindow {
         border.width: 1
         border.color: Qt.rgba(0, 0, 0, 0.2)
 
-        MouseArea {
+        DDragableArea {
             anchors.fill: parent
-            property int startX
-            property int startY
-            property bool holdFlag
-            onPressed: {
-                startX = mouse.x;
-                startY = mouse.y;
-                holdFlag = true;
-            }
-            onReleased: holdFlag = false;
-            onPositionChanged: {
-                if (holdFlag) {
-                    mainWindow.setX(mainWindow.x + mouse.x - startX)
-                    mainWindow.setY(mainWindow.y + mouse.y - startY)
-                }
-            }
+            window: mainWindow
+            dragStartX: 0
+            dragStartY: 0
+            windowLastX: mainWindow.width
+            windowLastY: mainWindow.height
         }
 
         DropArea {
