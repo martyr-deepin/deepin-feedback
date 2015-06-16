@@ -79,8 +79,12 @@ FocusScope{
         return contentTextEdit.text
     }
 
-    function getAttchementsList(){
+    function getAttachmentsList(){
         return adjunctTray.getAdjunctList()
+    }
+
+    function isAllAttachmentsUploaded(){
+        return adjunctTray.isAllAdjunctUploaded()
     }
 
     onWarningChanged: {

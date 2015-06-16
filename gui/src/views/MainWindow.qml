@@ -133,7 +133,7 @@ DWindow {
                 "project" : appComboBox.text.trim(),
                 "description": adjunctPanel.getDescriptionDetails(),
                 "summary" : titleTextinput.text.trim(),
-                "attachments": adjunctPanel.getAttchementsList(),
+                "attachments": adjunctPanel.getAttachmentsList(),
                 "email" : emailTextinput.text.trim(),
                 "type" : reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? "problem" : "suggestion"
             }
@@ -494,7 +494,11 @@ DWindow {
                 text: dsTr("Send")
                 textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
-                    if (titleTextinput.text != "" && appComboBox.text != "" && isLegitEmail(emailTextinput.text))
+                    if (titleTextinput.text != ""
+                            && appComboBox.text != ""
+                            && adjunctPanel.getDescriptionDetails() !== ""
+                            && adjunctPanel.isAllAttachmentsUploaded()
+                            && isLegitEmail(emailTextinput.text))
                         return true
                     else
                         return false

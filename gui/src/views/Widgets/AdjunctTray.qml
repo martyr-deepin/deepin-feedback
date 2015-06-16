@@ -25,6 +25,14 @@ Rectangle {
         return AdjunctUploader.isInUploadedList(filePath)
     }
 
+    function isAllAdjunctUploaded(){
+        for (var i = 0; i < adjunctView.model.count; i ++){
+            if (!adjunctView.model.get(i).uploadFinish)
+                return false
+        }
+        return true
+    }
+
     function getBucketUrl(filePath){
         return AdjunctUploader.getBucketUrl(filePath)
     }
