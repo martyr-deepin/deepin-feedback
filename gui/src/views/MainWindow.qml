@@ -158,6 +158,13 @@ DWindow {
             mainWindow.close()
             Qt.quit()
         }
+        onPostError: {
+            print ("Post data error:",message)
+            sendButton.text = dsTr("Resend")
+            sendButton.enabled = true
+            closeButton.enabled = true
+            closeWindowButton.enabled = true
+        }
     }
 
     Timer {
@@ -484,6 +491,7 @@ DWindow {
             TextButton {
                 id:closeButton
                 text: dsTr("Close")
+                textItem.color: enabled ? textNormalColor : "#bebebe"
                 onClicked: {
                     saveDraft()
                     mainWindow.close()
@@ -493,6 +501,7 @@ DWindow {
 
             TextButton {
                 id: sendButton
+                width: textItem.contentWidth < 40 ? 60 : textItem.contentWidth + 50
                 text: dsTr("Send")
                 textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
@@ -506,7 +515,11 @@ DWindow {
                         return false
                 }
                 onClicked: {
-                    print ("Reporting...")
+                    text = dsTr("Sending ...")
+                    sendButton.enabled = false
+                    closeButton.enabled = false
+                    closeWindowButton.enabled = false
+
                     dataSender.postFeedbackData(getJsonData())
                     mainObject.saveEmail(emailTextinput.text)
                     print (getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
