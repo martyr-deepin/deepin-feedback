@@ -413,7 +413,7 @@ DWindow {
                 }
             }
             onKeyPressed: {
-                if (event.key == Qt.Key_Backspace){
+                if (event.key == Qt.Key_Backspace || event.key == Qt.Key_Delete){
                     canFillEmail = false
                 }
                 else if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return || event.key == Qt.Key_Right){
@@ -428,10 +428,12 @@ DWindow {
                 emailChanged = true
                 contentEdited()
                 if (canFillEmail){
-                    var matchEmail = mainObject.getMatchEmailPart(text)
-                    var startIndex = text.length
-                    input.text = text + matchEmail
-                    input.select(startIndex, input.text.length)
+                    var startIndex = input.cursorPosition
+                    if (startIndex >= input.text.length && input.text.length > 0){
+                        var matchEmail = mainObject.getMatchEmailPart(text)
+                        input.text = text + matchEmail
+                        input.select(startIndex, input.text.length)
+                    }
                 }
                 if (input.selectionStart == 0){//change by combobox
                     input.deselect()
