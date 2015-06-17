@@ -46,25 +46,26 @@ const (
 )
 
 type category struct {
-	Value string
-	Name  string
+	Value           string
+	BugzillaProject string
+	Name            string
 }
 
 var categories []category
 
 func initCategories() {
 	categories = []category{
-		{Value: "dde", Name: Tr("Deepin Desktop Environment")},
-		{Value: "dde-control-center", Name: Tr("Deepin Control Center")},
-		{Value: "system", Name: Tr("System Configuration (startup / repository / drive)")},
-		{Value: "deepin-installer", Name: Tr("Deepin Installer")},
-		{Value: "deepin-store", Name: Tr("Deepin Store")},
-		{Value: "deepin-music", Name: Tr("Deepin Music")},
-		{Value: "deepin-movie", Name: Tr("Deepin Movie")},
-		{Value: "deepin-screenshot", Name: Tr("Deepin Screenshot")},
-		{Value: "deepin-terminal", Name: Tr("Deepin Terminal")},
-		{Value: "deepin-translator", Name: Tr("Deepin Translator")},
-		{Value: "all", Name: Tr("I don't know")},
+		{Value: "dde", BugzillaProject: "深度桌面环境", Name: Tr("Deepin Desktop Environment")},
+		{Value: "dde-control-center", BugzillaProject: "深度控制中心", Name: Tr("Deepin Control Center")},
+		{Value: "system", BugzillaProject: "系统配置(启动/仓库/驱动)", Name: Tr("System Configuration (startup / repository / drive)")},
+		{Value: "deepin-installer", BugzillaProject: "系统安装", Name: Tr("Deepin Installer")},
+		{Value: "deepin-store", BugzillaProject: "深度商店", Name: Tr("Deepin Store")},
+		{Value: "deepin-music", BugzillaProject: "深度音乐", Name: Tr("Deepin Music")},
+		{Value: "deepin-movie", BugzillaProject: "深度影院", Name: Tr("Deepin Movie")},
+		{Value: "deepin-screenshot", BugzillaProject: "深度截图", Name: Tr("Deepin Screenshot")},
+		{Value: "deepin-terminal", BugzillaProject: "深度终端", Name: Tr("Deepin Terminal")},
+		{Value: "deepin-translator", BugzillaProject: "深度翻译", Name: Tr("Deepin Translator")},
+		{Value: "all", BugzillaProject: "我不清楚", Name: Tr("I don't know")},
 	}
 }
 

@@ -24,6 +24,7 @@ QtObject {
 
     property var projectList: projectListModel.getValueList()
     property var projectNameList:projectListModel.getNameList()
+    property var bugzillaProjectList: projectListModel.getBugzillaProjectList()
     property var projectListModel: ListModel {
         function getValueList(){
             var tmpValueList = new Array()
@@ -41,6 +42,14 @@ QtObject {
             }
 
             return tmpNameList
+        }
+
+        function getBugzillaProjectList(){
+            var tmpProList = new Array()
+            for (var i = 0; i < count; i ++){
+                tmpProList.push(get(i).BugzillaProject)
+            }
+            return tmpProList
         }
 
         Component.onCompleted: {
@@ -81,6 +90,14 @@ QtObject {
             return ""
         else
             return projectNameList[tmpIndex]
+    }
+
+    function getBugzillaProjectByName(name){
+        var tmpIndex = projectNameList.indexOf(name)
+        if (tmpIndex == -1)
+            return ""
+        else
+            return bugzillaProjectList[tmpIndex]
     }
 
     function getSupportAppList(){

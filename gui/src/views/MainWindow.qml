@@ -130,7 +130,7 @@ DWindow {
             "method": "Deepin.Feedback.putFeedback",
             "version": "1.1",
             "params": {
-                "project" : appComboBox.text.trim(),
+                "project" : getBugzillaProjectByName(appComboBox.text.trim()),
                 "description": adjunctPanel.getDescriptionDetails(),
                 "summary" : titleTextinput.text.trim(),
                 "attachments": adjunctPanel.getAttachmentsList(),
