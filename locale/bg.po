@@ -1,0 +1,115 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Galin Iskrenov <loot270@abv.bg>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: deepin-feedback\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-16 15:23+0800\n"
+"PO-Revision-Date: 2015-06-16 10:58+0000\n"
+"Last-Translator: Galin Iskrenov <loot270@abv.bg>\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/deepin-feedback/language/bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../gui/src/views/AdjunctPanel.qml:41
+msgid "Failed to add attachment: Single attachment cann't be more than 5M."
+msgstr "Неуспешно добавяне на файл. Размерът не може да е по-голям от 5М. "
+
+#: ../gui/src/views/AdjunctPanel.qml:127
+msgid "Please select attachment"
+msgstr "Моля изберете файл"
+
+#: ../gui/src/views/AdjunctPanel.qml:162 ../gui/src/views/AdjunctPanel.qml:183
+#: ../gui/src/views/MainWindow.qml:225
+msgid "Total attachments have reached limit. "
+msgstr "Ограничен брой на прикрепените файлове."
+
+#: ../gui/src/views/AdjunctPanel.qml:248
+msgid "Please describe your problem in detail"
+msgstr "Моля опишете подробно вашия проблем"
+
+#: ../gui/src/views/AdjunctPanel.qml:249
+msgid "Please upload related screenshots or files"
+msgstr "Моля качете материалите по въпроса"
+
+#: ../gui/src/views/AdjunctPanel.qml:250 ../gui/src/views/AdjunctPanel.qml:273
+msgid "Single attachment can not exceed 5M"
+msgstr "Един файл не може да надвиши 5М"
+
+#: ../gui/src/views/AdjunctPanel.qml:251 ../gui/src/views/AdjunctPanel.qml:274
+msgid "The total number of attachments is not more than six"
+msgstr "Общия брой на файловете не може да е повече от 6"
+
+#: ../gui/src/views/AdjunctPanel.qml:271
+msgid "Please describe your idea in detail"
+msgstr "Моля опишете подробно вашата идея"
+
+#: ../gui/src/views/AdjunctPanel.qml:272
+msgid "Please upload related attachments"
+msgstr "Моля качете свързаните файлове"
+
+#: ../gui/src/views/Widgets/AdjunctTray.qml:163
+msgid "Upload failed, please retry."
+msgstr "Качването неуспешно. Моля повторете."
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:75
+msgid "Please select feedback project firstly "
+msgstr "Моля първо изберете проект за отзив"
+
+#: ../gui/src/views/MainWindow.qml:250
+msgid "Deepin User Feedback"
+msgstr "Потребителски отзив за Deepin"
+
+#: ../gui/src/views/MainWindow.qml:338
+msgid "I have a problem"
+msgstr "Аз имам проблем"
+
+#: ../gui/src/views/MainWindow.qml:349
+msgid "I have a good idea"
+msgstr "Аз имам добра идея"
+
+#: ../gui/src/views/MainWindow.qml:367
+#, qt-format
+msgid "The draft of %1 has been saved."
+msgstr "Черновата на  %1 беше запазена."
+
+#: ../gui/src/views/MainWindow.qml:383
+msgid "Please input the problem title"
+msgstr "Моля въведете заглавие на проблема"
+
+#: ../gui/src/views/MainWindow.qml:384
+msgid "Please describe your idea simply"
+msgstr "Моля опишете ясно идеята си"
+
+#: ../gui/src/views/MainWindow.qml:388
+msgid "Title words have reached limit."
+msgstr "големината на заглавието е ограничено"
+
+#: ../gui/src/views/MainWindow.qml:419
+msgid "Please fill in email to get the feedback progress."
+msgstr "Моля попълнете е-поща за информация по отзива."
+
+#: ../gui/src/views/MainWindow.qml:422
+msgid "Email is invalid."
+msgstr "Невалидна е-поща"
+
+#: ../gui/src/views/MainWindow.qml:476
+msgid ""
+"I wish to join in User Feedback Help Plan to quickly improve the system "
+"without any personal information collected."
+msgstr "Желая на се присъединя към Потребителските отзиви за бързо подобрение на системата без събиране на лични данни. "
+
+#: ../gui/src/views/MainWindow.qml:494
+msgid "Close"
+msgstr "Затвори"
+
+#: ../gui/src/views/MainWindow.qml:504
+msgid "Send"
+msgstr "Изпрати"
