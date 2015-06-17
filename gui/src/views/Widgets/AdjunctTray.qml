@@ -17,9 +17,11 @@ Rectangle {
     width: parent.width
 
     property alias adjunctModel: adjunctView.model
+    property var sysAdjunctModel: ListModel{}
 
     signal adjunctAdded()
     signal adjunctRemoved()
+    signal sysAdjunctUploaded()
 
     function isUploaded(filePath){
         return AdjunctUploader.isInUploadedList(filePath)
@@ -47,12 +49,22 @@ Rectangle {
                              "type": AdjunctUploader.getMimeType(tmpPath)
                          })
         }
+        for (var i = 0; i < sysAdjunctModel.count; i ++){
+            tmpList.push({
+                             "name": sysAdjunctModel.get(i).name,
+                             "url": sysAdjunctModel.get(i).url,
+                             "type": sysAdjunctModel.get(i).type
+                         })
+        }
 
         return tmpList
     }
 
     function addAdjunct(filePath){
-        if (getIndexFromModel(filePath) == -1){
+        if (filePath.indexOf("deepin-feedback-results") > 0){
+            AdjunctUploader.uploadAdjunct(filePath)
+        }
+        else if (getIndexFromModel(filePath) == -1){
             var fileUploaded = isUploaded(filePath)
             adjunctView.model.append({
                                          "showIconOnly": false,
@@ -124,10 +136,23 @@ Rectangle {
             updateLoadPercent(filePath,progress / 100)
         }
         onUploadFinish: {
-            var tmpIndex = getIndexFromModel(filePath)
-            if (tmpIndex != -1){
-                adjunctView.model.setProperty(tmpIndex,"uploadFinish",true)
-                adjunctView.model.setProperty(tmpIndex,"bucketUrl",bucketUrl)
+            if (filePath.indexOf("deepin-feedback-results") > 0){
+                sysAdjunctModel.append({
+                                           "name": AdjunctUploader.getFileNameByPath(filePath),
+                                           "url":getBucketUrl(filePath),
+                                           "type": AdjunctUploader.getMimeType(filePath)
+                                       })
+
+                if (-- sysAdjunctCount == 0){
+                    adjunctTray.sysAdjunctUploaded()
+                }
+            }
+            else{
+                var tmpIndex = getIndexFromModel(filePath)
+                if (tmpIndex != -1){
+                    adjunctView.model.setProperty(tmpIndex,"uploadFinish",true)
+                    adjunctView.model.setProperty(tmpIndex,"bucketUrl",bucketUrl)
+                }
             }
         }
         onUploadFailed: {

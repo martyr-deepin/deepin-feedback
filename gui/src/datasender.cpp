@@ -7,7 +7,7 @@ DataSender::DataSender(QObject *parent) :
 
 void DataSender::postFeedbackData(const QString &jsonData)
 {
-    qDebug() << "Start send process..."<<jsonData;
+    qDebug() << "Start send process...";//<<jsonData;
 
     QNetworkRequest request;
     request.setUrl(QUrl(JSONRPC_HOST));

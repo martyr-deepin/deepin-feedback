@@ -25,6 +25,9 @@ FocusScope{
     property bool warning: false
     property real singleMaxSize: 15 * 1024 * 1024
     property bool haveAdjunct: contentTextEdit.text != "" || adjunctTray.adjunctModel.count > 0
+    property int sysAdjunctCount: 0
+
+    signal sysAdjunctUploaded()
 
     function clearAllAdjunct(){
         contentTextEdit.text = ""
@@ -299,6 +302,10 @@ FocusScope{
                 }
                 onAdjunctAdded: contentEdited()
                 onAdjunctRemoved: contentEdited()
+                onSysAdjunctUploaded: {
+                    adjunctPanel.sysAdjunctUploaded()
+                }
+
             }
         }
 

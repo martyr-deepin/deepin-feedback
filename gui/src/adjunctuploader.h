@@ -6,13 +6,11 @@
 #include <QtQml>
 #include <QQmlEngine>
 #include <QJSEngine>
-#include <QJsonParseError>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QDebug>
 #include "adjunctuploadthread.h"
+#include "adjunctaide.h"
 
 class AdjunctUploader : public QObject
 {
@@ -40,16 +38,10 @@ private slots:
 
 private:
     explicit AdjunctUploader(QObject *parent = 0);
-    void insertToUploadedList(const QString &filePath, const QString &bucketUrl);
-    void deleteFromUploadedList(const QString &filePath);
 
-    QJsonObject getJsonObjFromFile();
 private:
     static AdjunctUploader * adjunctUploader;
     QMap<QString, AdjunctUploadThread *> threadMap;
-
-    const QString DRAFT_SAVE_PATH = QDir::homePath() + "/.cache/deepin-feedback/draft/";
-    const QString UPLOAD_RECORD_FILE = DRAFT_SAVE_PATH + "uploadrecord.json";
 };
 
 #endif // ADJUNCTUPLOADER_H
