@@ -157,6 +157,11 @@ void QmlLoader::clearDraft(const QString &targetApp)
     AdjunctAide::removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL + targetApp);
 }
 
+void QmlLoader::clearSysAdjuncts(const QString &targetApp)
+{
+    AdjunctAide::removeSysAdjuncts(DRAFT_SAVE_PATH_NARMAL + targetApp + "/Adjunct");
+}
+
 QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 {
     if (QFile::exists(target))

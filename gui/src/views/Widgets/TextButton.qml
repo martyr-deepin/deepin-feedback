@@ -25,8 +25,8 @@ Rectangle {
     Text {
         id:text_item
         anchors.centerIn: parent
-        width: parent.width
-        height: parent.height
+        width: contentWidth + 40
+        height: contentHeight
         wrapMode: Text.Wrap
         color: textNormalColor
         horizontalAlignment: Text.AlignHCenter

@@ -75,6 +75,7 @@ public Q_SLOTS:
                    const QString &content);
     void clearAllDraft();
     void clearDraft(const QString &targetApp);
+    void clearSysAdjuncts(const QString &targetApp);
     QString addAdjunct(const QString &filePath, const QString &target);
     void removeAdjunct(const QString &filePath);
     bool draftTargetExist(const QString &target);

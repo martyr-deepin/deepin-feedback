@@ -145,8 +145,11 @@ DWindow {
     Connections {
         target:feedbackContent
         onGenerateReportFinished: {
-            //TODO add result file to draft system
-            print ("===++++++++++++++++++",arg0,arg1)
+            var packageList = unmarshalJSON(arg1)
+            adjunctPanel.sysAdjunctCount = packageList.length
+            for (var i = 0; i < packageList.length; i ++){
+                adjunctPanel.getAdjunct(packageList[i])
+            }
         }
     }
 
@@ -156,6 +159,7 @@ DWindow {
             mainObject.clearDraft(lastTarget)
             adjunctPanel.clearAllAdjunct()
             mainWindow.close()
+
             Qt.quit()
         }
         onPostError: {
@@ -164,6 +168,8 @@ DWindow {
             sendButton.enabled = true
             closeButton.enabled = true
             closeWindowButton.enabled = true
+            mainObject.clearSysAdjuncts(lastTarget)
+
         }
     }
 
@@ -400,6 +406,10 @@ DWindow {
             anchors.top: titleTextinput.bottom
             anchors.topMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
+            onSysAdjunctUploaded: {
+                dataSender.postFeedbackData(getJsonData())
+                mainObject.saveEmail(emailTextinput.text)
+            }
         }
 
         AppTextInput {
@@ -520,10 +530,9 @@ DWindow {
                     closeButton.enabled = false
                     closeWindowButton.enabled = false
 
-                    dataSender.postFeedbackData(getJsonData())
-                    mainObject.saveEmail(emailTextinput.text)
-                    print (getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
-                    print (feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked))
+                    //genera system infomation,then send data to server
+                    feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
+
                 }
             }
         }
