@@ -159,6 +159,8 @@ DWindow {
             mainObject.clearDraft(lastTarget)
             adjunctPanel.clearAllAdjunct()
             mainWindow.close()
+            dataSender.showSuccessNotification(dsTr("Deepin User Feedback")
+                                               ,dsTr("Your feedback has been sent successfully, thanks for your support!"))
 
             Qt.quit()
         }
@@ -170,6 +172,21 @@ DWindow {
             closeWindowButton.enabled = true
             mainObject.clearSysAdjuncts(lastTarget)
 
+            dataSender.showErrorNotification(dsTr("Deepin User Feedback")
+                                               ,dsTr("Failed to send your feedback, resend?")
+                                               ,dsTr("Resend"))
+
+        }
+        onRetryPost: {
+            if (sendButton.enabled){
+                sendButton.text = dsTr("Sending ...")
+                sendButton.enabled = false
+                closeButton.enabled = false
+                closeWindowButton.enabled = false
+
+                //genera system infomation,then send data to server
+                feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
+            }
         }
     }
 
@@ -532,7 +549,6 @@ DWindow {
 
                     //genera system infomation,then send data to server
                     feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
-
                 }
             }
         }

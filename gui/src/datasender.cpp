@@ -3,6 +3,9 @@
 DataSender::DataSender(QObject *parent) :
     QObject(parent)
 {
+    notifyInterface = new QDBusInterface("org.freedesktop.Notifications", "/org/freedesktop/Notifications",
+                                         "org.freedesktop.Notifications",QDBusConnection::sessionBus(),this);
+    connect(notifyInterface,SIGNAL(ActionInvoked(uint,QString)),this,SLOT(slotRetry(uint,QString)));
 }
 
 void DataSender::postFeedbackData(const QString &jsonData)
@@ -22,6 +25,19 @@ void DataSender::postFeedbackData(const QString &jsonData)
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotPostFinish(QNetworkReply*)), Qt::DirectConnection);
 }
 
+void DataSender::showSuccessNotification(const QString &title, const QString &msg)
+{
+    showNotification(title,msg,QStringList());
+}
+
+void DataSender::showErrorNotification(const QString &title, const QString &msg, const QString &action)
+{
+    QStringList actions;
+    actions << "deepin_feedback_retry";
+    actions << action;
+    showNotification(title,msg,actions);
+}
+
 void DataSender::slotGotError(QNetworkReply::NetworkError error)
 {
     qDebug() << "Post failed!";
@@ -36,4 +52,25 @@ void DataSender::slotPostFinish(QNetworkReply *reply)
 
     if (statusCode == 200)
         emit postFinish();
+}
+
+void DataSender::slotRetry(uint code, QString id)
+{
+    if (code == 0 && id == "deepin_feedback_retry")
+    {
+        emit retryPost();
+    }
+}
+
+void DataSender::showNotification(const QString &title, const QString &msg, const QStringList &actions)
+{
+    notifyInterface->call(QDBus::AutoDetect,"Notify",
+                      "Deepin Feedback",
+                      uint(0),
+                      "deepin-feedback",
+                      title,
+                      msg,
+                      actions,
+                      QVariantMap(),
+                      -1);
 }

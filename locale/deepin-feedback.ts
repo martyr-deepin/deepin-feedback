@@ -4,12 +4,12 @@
 <context>
     <name>AdjunctPanel</name>
     <message>
-        <location filename="../gui/src/views/AdjunctPanel.qml" line="+41"/>
+        <location filename="../gui/src/views/AdjunctPanel.qml" line="+44"/>
         <source>Failed to add attachment: Single attachment cann&apos;t be more than 5M.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+90"/>
         <source>Please select attachment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -55,7 +55,7 @@
 <context>
     <name>AdjunctTray</name>
     <message>
-        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+163"/>
+        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+196"/>
         <source>Upload failed, please retry.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,17 +71,35 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/src/views/MainWindow.qml" line="+225"/>
+        <location filename="../gui/src/views/MainWindow.qml" line="+234"/>
         <source>Total attachments have reached limit. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="-72"/>
+        <location line="+13"/>
+        <location line="+84"/>
         <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="-96"/>
+        <source>Your feedback has been sent successfully, thanks for your support!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+8"/>
+        <source>Resend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>Failed to send your feedback, resend?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+171"/>
         <source>I have a problem</source>
         <translation type="unfinished"></translation>
     </message>
@@ -111,7 +129,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+35"/>
         <source>Please fill in email to get the feedback progress.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -121,7 +139,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+56"/>
         <source>I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -131,8 +149,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Sending ...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
