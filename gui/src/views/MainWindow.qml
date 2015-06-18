@@ -28,8 +28,8 @@ DWindow {
     property int shadowRadius: 10
     property int normalWidth: 460 + (shadowRadius + rootRec.radius) * 2
     property int normalHeight: 592 + (shadowRadius + rootRec.radius) * 2
-    property int maxWidth: screenSize.width * 9 / 20
-    property int maxHeight: screenSize.height * 5 / 6
+    property int maxWidth:screenSize.width <= 1024 ? screenSize.width * 11 /20 : screenSize.width * 9 / 20
+    property int maxHeight: screenSize.height <= 768 ? screenSize.height : screenSize.height * 5 / 6
     property string lastTarget: "" //lastTarget = currentTarget if combobox menu item not change
     property int animationDuration: 200
     property bool enableInput: appComboBox.text != "" && appComboBox.labels.indexOf(appComboBox.text) >= 0
