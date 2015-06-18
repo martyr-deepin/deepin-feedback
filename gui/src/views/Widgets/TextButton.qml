@@ -8,19 +8,19 @@
 *************************************************************/
 import QtQuick 2.1
 
-Rectangle {
+ButtonFrame {
     width: 60
     height: 30
-    radius: 2
-    color: bgNormalColor
-    border.color: buttonBorderColor
 
     property alias textItem: text_item
     property alias text: text_item.text
 
-    signal entered()
-    signal exited()
-    signal clicked()
+    onEntered: {
+        text_item.color = "#000000"
+    }
+    onExited: {
+        text_item.color = textNormalColor
+    }
 
     Text {
         id:text_item
@@ -33,24 +33,6 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 13
         clip: true
-
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onEntered: {
-            parent.entered()
-        }
-
-        onExited: {
-            parent.exited()
-        }
-
-        onClicked: {
-            parent.clicked()
-        }
     }
 }
 

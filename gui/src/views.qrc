@@ -56,5 +56,6 @@
         <file>views/Widgets/images/retry-angle.png</file>
         <file>views/Widgets/SingleLineTipCreator.js</file>
         <file>views/Widgets/SingleLineTip.qml</file>
+        <file>views/Widgets/ButtonFrame.qml</file>
     </qresource>
 </RCC>
