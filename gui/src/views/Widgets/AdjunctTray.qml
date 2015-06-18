@@ -163,6 +163,15 @@ Rectangle {
             }
         }
     }
+    function getStringPixelSize(preText,fontPixelSize){
+        var tmpText = calculateTextComponent.createObject(null, { "text": preText , "font.pixelSize": fontPixelSize})
+        var width = tmpText.width
+        return width
+    }
+
+    property var calculateTextComponent: Component {
+        Text{visible: false}
+    }
 
     GridView {
         id: adjunctView
@@ -189,11 +198,24 @@ Rectangle {
 
                 AdjunctUploader.uploadAdjunct(filePath)
             }
-            onErrorSignal: {
+            onEntered: {
                 IconTip.pageX = pageX
                 IconTip.pageY = pageY
-                IconTip.pageWidth = 200
-                IconTip.toolTip = dsTr("Upload failed, please retry.")
+                if (error){
+                    IconTip.tipColor = "#ff8c03"
+                    IconTip.toolTip = AdjunctUploader.getFileNameByPath(file_path) + "\n" + dsTr("Upload failed, please retry.")
+                }
+                else{
+                    IconTip.tipColor = "#FFFFFF"
+                    IconTip.toolTip = AdjunctUploader.getFileNameByPath(file_path)
+                }
+                var textLength = getStringPixelSize(AdjunctUploader.getFileNameByPath(IconTip.toolTip),13)
+                if (textLength < 200)
+                    IconTip.pageWidth = textLength + 30
+                else
+                    IconTip.pageWidth = 200
+                IconTip.pageHeight = Math.ceil(textLength/200) * 26
+
                 IconTip.showTip()
             }
             onExited: {

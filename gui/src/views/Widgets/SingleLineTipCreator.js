@@ -26,6 +26,8 @@ var iconTipPage;
 var pageX = 0
 var pageY = 0
 var pageWidth = 0
+var pageHeight = 36
+var tipColor = "#ff8c03"
 var toolTip = ""
 
 
@@ -36,6 +38,8 @@ function showTip()
         iconTipPage.x = pageX
         iconTipPage.y = pageY
         iconTipPage.width = pageWidth;
+        iconTipPage.height = pageHeight
+        iconTipPage.textColor = tipColor
         iconTipPage.toolTip = toolTip
         iconTipPage.destroyInterval = 200
         iconTipPage.showTipAtTop()
@@ -70,6 +74,8 @@ function fnishCreate()
             iconTipPage.x = pageX
             iconTipPage.y = pageY
             iconTipPage.width = pageWidth;
+            iconTipPage.height = pageHeight
+            iconTipPage.textColor = tipColor
             iconTipPage.toolTip = toolTip
             iconTipPage.destroyInterval = 200
             iconTipPage.showTipAtTop()

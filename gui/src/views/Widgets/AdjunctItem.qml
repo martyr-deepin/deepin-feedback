@@ -22,7 +22,7 @@ Item {
 
     signal deleteAdjunct(string filePath)
     signal retryUpload(string filePath)
-    signal errorSignal(int pageX, int pageY)
+    signal entered(int pageX,int pageY,bool error)
     signal exited
 
     onUpload_finishChanged: {
@@ -60,10 +60,8 @@ Item {
             hoverEnabled: true
             onEntered: {
                 deleteButton.visible = true
-                if (got_error){
-                    var mapObj = adjunctItem.mapFromItem(rootRec)
-                    adjunctItem.errorSignal(mainWindow.x - mapObj.x + 25,mainWindow.y - mapObj.y + 56)
-                }
+                var mapObj = adjunctItem.mapFromItem(rootRec)
+                adjunctItem.entered(mainWindow.x - mapObj.x + 25,mainWindow.y - mapObj.y + 56,got_error)
             }
             onExited: {
                 deleteButton.visible = false
