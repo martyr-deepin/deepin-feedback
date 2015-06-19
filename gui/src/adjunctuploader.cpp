@@ -35,6 +35,15 @@ void AdjunctUploader::cancelUpload(const QString &filePath)
     tmpAide.deleteFromUploadedList(filePath);
 }
 
+void AdjunctUploader::cancelAllUpload()
+{
+    QStringList tmpKeys = threadMap.keys();
+    for (int i = 0; i < tmpKeys.length(); i ++)
+    {
+        threadMap.take(tmpKeys.at(i))->stopUpload();
+    }
+}
+
 bool AdjunctUploader::isInUploadedList(const QString &filePath)
 {
     AdjunctAide tmpAide;
