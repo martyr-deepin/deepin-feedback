@@ -21,6 +21,7 @@ public:
 
     Q_INVOKABLE void uploadAdjunct(const QString &filePath);
     Q_INVOKABLE void cancelUpload(const QString &filePath);
+    Q_INVOKABLE void cancelAllUpload();
     Q_INVOKABLE bool isInUploadedList(const QString &filePath);
     Q_INVOKABLE QString getBucketUrl(const QString &filePath);
     Q_INVOKABLE QString getFileNameByPath(const QString &filePath);

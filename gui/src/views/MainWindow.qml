@@ -10,6 +10,7 @@ import QtQuick 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.0
 import Deepin.Widgets 1.0
+import AdjunctUploader 1.0
 import DataConverter 1.0
 import DataSender 1.0
 import "Widgets"
@@ -85,6 +86,8 @@ DWindow {
         emailTextinput.emailChanged = false
         helpCheck.checked = true
         adjunctPanel.clearAllAdjunct()
+        //if some attachments is uploading,stop it
+        AdjunctUploader.cancelAllUpload()
     }
 
     function switchProject(project){
