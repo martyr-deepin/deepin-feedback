@@ -48,15 +48,28 @@ void DataSender::slotPostFinish(QNetworkReply *reply)
 {
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    qDebug() << "Post finish!" << statusCode << reply->readAll();
-
+    QString replyStr(reply->readAll());
     if (statusCode == 200)
-        emit postFinish();
+    {
+        if (replyStr.indexOf("error") != -1)
+        {
+            emit postError(QString("Error"));
+            qWarning() << "Post Error:" << replyStr;
+        }
+        else
+        {
+            emit postFinish();
+            qWarning() << "Post finish!" << statusCode;
+        }
+    }
+    else
+        emit postError("Error Status Code:" + QString::number(statusCode));
+
 }
 
 void DataSender::slotRetry(uint code, QString id)
 {
-    if (code == 0 && id == "deepin_feedback_retry")
+    if (id == "deepin_feedback_retry")
     {
         emit retryPost();
     }
