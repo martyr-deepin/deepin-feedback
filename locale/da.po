@@ -3,174 +3,174 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# szd_liufei <liufei@linuxdeepin.com>, 2015
+# Carl Andersen <carl@manjaro.dk>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-19 15:46+0800\n"
-"PO-Revision-Date: 2015-06-19 08:11+0000\n"
-"Last-Translator: szd_liufei <liufei@linuxdeepin.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/deepin-feedback/language/zh_CN/)\n"
+"PO-Revision-Date: 2015-06-21 15:52+0000\n"
+"Last-Translator: Carl Andersen <carl@manjaro.dk>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/deepin-feedback/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../daemon/feedback_daemon.go:58
 msgid "Deepin Desktop Environment"
-msgstr "深度桌面环境"
+msgstr "Deepin Desktop Miljø"
 
 #: ../daemon/feedback_daemon.go:59
 msgid "Deepin Control Center"
-msgstr "深度控制中心 "
+msgstr "Deepin Kontrol Center"
 
 #: ../daemon/feedback_daemon.go:60
 msgid "System Configuration (startup / repository / drive)"
-msgstr "系统配置（启动/仓库/驱动）"
+msgstr "System Konfiguration (opstart / arkiv / drev)"
 
 #: ../daemon/feedback_daemon.go:61
 msgid "Deepin Installer"
-msgstr "深度安装器"
+msgstr "Deepin Installation"
 
 #: ../daemon/feedback_daemon.go:62
 msgid "Deepin Store"
-msgstr "深度商店"
+msgstr "Deepin Pakker"
 
 #: ../daemon/feedback_daemon.go:63
 msgid "Deepin Music"
-msgstr "深度音乐"
+msgstr "Deepin Musik"
 
 #: ../daemon/feedback_daemon.go:64
 msgid "Deepin Movie"
-msgstr "深度影院"
+msgstr "Deepin Film"
 
 #: ../daemon/feedback_daemon.go:65
 msgid "Deepin Screenshot"
-msgstr "深度截图"
+msgstr "Deepin Skærmbillede"
 
 #: ../daemon/feedback_daemon.go:66
 msgid "Deepin Terminal"
-msgstr "深度终端"
+msgstr "Deepin Terminal"
 
 #: ../daemon/feedback_daemon.go:67
 msgid "Deepin Translator"
-msgstr "深度翻译"
+msgstr "Deepin Oversætter"
 
 #: ../daemon/feedback_daemon.go:68
 msgid "I don't know"
-msgstr "我不清楚"
+msgstr "Jeg ved det ikke"
 
 #: ../gui/src/views/AdjunctPanel.qml:44
 msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "附件添加失败：单个附件不能超过15M。"
+msgstr "Kunne ikke tilføje vedhæftet fil: Enkelt vedhæftning kan ikke være mere end 15M."
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
-msgstr "请选择附件"
+msgstr "Vælg venligst fil"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
 #: ../gui/src/views/MainWindow.qml:245
 msgid "Total attachments have reached limit. "
-msgstr "附件总数已达上限。"
+msgstr "Total vedhæftede filer har nået grænsen."
 
 #: ../gui/src/views/AdjunctPanel.qml:255
 msgid "Please describe your problem in detail"
-msgstr "请详细描述您遇到的问题"
+msgstr "Beskriv dit problem i detaljer"
 
 #: ../gui/src/views/AdjunctPanel.qml:256
 msgid "Please upload related screenshots or files"
-msgstr "请上传相关截图或文件"
+msgstr "Upload relaterede skærmbilleder eller filer"
 
 #: ../gui/src/views/AdjunctPanel.qml:257 ../gui/src/views/AdjunctPanel.qml:280
 msgid "Single attachment can not exceed 15M"
-msgstr "单个附件不能超过15M"
+msgstr "Enkelt vedhæftet fil kan ikke overstige 15M"
 
 #: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
 msgid "The total number of attachments is not more than six"
-msgstr "附件总数不能超过6个"
+msgstr "Det samlede antal af vedhæftede filer kan ikke være mere end seks"
 
 #: ../gui/src/views/AdjunctPanel.qml:278
 msgid "Please describe your idea in detail"
-msgstr "请详细描述您的想法"
+msgstr "Beskriv din idé i detaljer"
 
 #: ../gui/src/views/AdjunctPanel.qml:279
 msgid "Please upload related attachments"
-msgstr "请上传相关附件"
+msgstr "Upload venligst relaterede vedhæftede filer"
 
 #: ../gui/src/views/MainWindow.qml:162 ../gui/src/views/MainWindow.qml:175
 #: ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
-msgstr "深度用户反馈"
+msgstr "Deepin Bruger Feedback"
 
 #: ../gui/src/views/MainWindow.qml:163
 msgid "Your feedback has been sent successfully, thanks for your support!"
-msgstr "您的反馈已发送成功，感谢您的支持！"
+msgstr "Feedback er sendt, tak for din støtte!"
 
 #: ../gui/src/views/MainWindow.qml:169 ../gui/src/views/MainWindow.qml:177
 msgid "Resend"
-msgstr "重发"
+msgstr "Send igen"
 
 #: ../gui/src/views/MainWindow.qml:176
 msgid "Failed to send your feedback, resend?"
-msgstr "您的反馈发送失败，是否重发?"
+msgstr "Kunne ikke sende din feedback, send igen?"
 
 #: ../gui/src/views/MainWindow.qml:182 ../gui/src/views/MainWindow.qml:444
 msgid "Sending ..."
-msgstr "发送中......"
+msgstr "Sender ..."
 
 #: ../gui/src/views/MainWindow.qml:288
 #, qt-format
 msgid "The draft of %1 has been saved."
-msgstr "%1的草稿已保存。"
+msgstr "Udkastet til %1 er blevet gemt."
 
 #: ../gui/src/views/MainWindow.qml:304
 msgid "Please input the problem title"
-msgstr "请输入问题标题"
+msgstr "Skriv venligst problem titel"
 
 #: ../gui/src/views/MainWindow.qml:305
 msgid "Please describe your idea simply"
-msgstr "请简要描述您的想法"
+msgstr "Beskriv din idé ganske enkelt"
 
 #: ../gui/src/views/MainWindow.qml:308
 msgid "Title words have reached limit."
-msgstr "标题字数已达上限。"
+msgstr "Titel ord har nået grænsen."
 
 #: ../gui/src/views/MainWindow.qml:342
 msgid "Please fill in email to get the feedback progress."
-msgstr "请填写Email以接收反馈的处理进度。"
+msgstr "Udfyld venligst email for at få feedback fremskridt."
 
 #: ../gui/src/views/MainWindow.qml:345
 msgid "Email is invalid."
-msgstr "Email无效。"
+msgstr "E-mail er ugyldig."
 
 #: ../gui/src/views/MainWindow.qml:401
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
-msgstr "我愿意参加深度用户反馈帮助计划，帮助系统快速改进。此过程不会收集个人隐私信息。"
+msgstr "Jeg ønsker at deltage i Bruger Feedback, forhurtigt at forbedre systemet uden at nogen personlige oplysninger indsamles."
 
 #: ../gui/src/views/MainWindow.qml:419
 msgid "Close"
-msgstr "关闭"
+msgstr "Luk"
 
 #: ../gui/src/views/MainWindow.qml:431
 msgid "Send"
-msgstr "发送 "
+msgstr "Send"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:24
 msgid "I have a problem"
-msgstr "我遇到问题"
+msgstr "Jeg har et problem"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:35
 msgid "I have a good idea"
-msgstr "我有好想法"
+msgstr "Jeg har en god idé"
 
 #: ../gui/src/views/Widgets/AdjunctTray.qml:206
 msgid "Upload failed, please retry."
-msgstr "上传失败，点击重试。"
+msgstr "Upload mislykkedes, prøv igen."
 
 #: ../gui/src/views/Widgets/AppComboBox.qml:75
 msgid "Please select feedback project firstly "
-msgstr "请先选择反馈项目"
+msgstr "Vælg venligst tilbagemeldingsprojekt først"
