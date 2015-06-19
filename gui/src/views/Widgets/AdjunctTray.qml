@@ -44,9 +44,9 @@ Rectangle {
         for (var i = 0; i < adjunctView.model.count; i ++){
             var tmpPath = adjunctView.model.get(i).filePath
             tmpList.push({
-                          "name": AdjunctUploader.getFileNameByPath(tmpPath),
+                          "name": getFileNameByPath(tmpPath),
                              "url":adjunctView.model.get(i).bucketUrl,
-                             "type": AdjunctUploader.getMimeType(tmpPath)
+                             "type": getMimeTypeByPath(tmpPath)
                          })
         }
         for (var i = 0; i < sysAdjunctModel.count; i ++){
@@ -90,6 +90,14 @@ Rectangle {
 
             AdjunctUploader.cancelUpload(filePath)
         }
+    }
+
+    function getFileNameByPath(filePath){
+        return AdjunctUploader.getFileNameByPath(filePath)
+    }
+
+    function getMimeTypeByPath(filePath){
+        return AdjunctUploader.getMimeType(filePath)
     }
 
     function updateLoadPercent(filePath, percent){
@@ -138,9 +146,9 @@ Rectangle {
         onUploadFinish: {
             if (filePath.indexOf("deepin-feedback-results") > 0){
                 sysAdjunctModel.append({
-                                           "name": AdjunctUploader.getFileNameByPath(filePath),
+                                           "name": getFileNameByPath(filePath),
                                            "url":getBucketUrl(filePath),
-                                           "type": AdjunctUploader.getMimeType(filePath)
+                                           "type": getMimeTypeByPath(filePath)
                                        })
 
                 if (-- sysAdjunctCount == 0){
@@ -207,13 +215,13 @@ Rectangle {
                 IconTip.pageY = pageY
                 if (error){
                     IconTip.tipColor = "#ff8c03"
-                    IconTip.toolTip = AdjunctUploader.getFileNameByPath(file_path) + "\n" + dsTr("Upload failed, please retry.")
+                    IconTip.toolTip = getFileNameByPath(file_path) + "\n" + dsTr("Upload failed, please retry.")
                 }
                 else{
                     IconTip.tipColor = "#FFFFFF"
-                    IconTip.toolTip = AdjunctUploader.getFileNameByPath(file_path)
+                    IconTip.toolTip = getFileNameByPath(file_path)
                 }
-                var textLength = getStringPixelSize(AdjunctUploader.getFileNameByPath(IconTip.toolTip),13)
+                var textLength = getStringPixelSize(getFileNameByPath(IconTip.toolTip),13)
                 if (textLength < 200)
                     IconTip.pageWidth = textLength + 30
                 else

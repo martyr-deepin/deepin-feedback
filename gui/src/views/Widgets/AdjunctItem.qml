@@ -76,7 +76,19 @@ Item {
             height: 48
             width: 48
             theme: "Deepin"
-            icon: DFileUtils.getIconName(file_path)
+            icon: {
+                if (file_path == "")
+                    return ""
+
+                var mimeType = getMimeTypeByPath(file_path)
+                if (mimeType.indexOf("image/") != -1){
+                    return file_path
+                }
+                else{
+
+                    return  DFileUtils.getIconName(file_path)
+                }
+            }
 
             Rectangle {
                 id: hoverRec
