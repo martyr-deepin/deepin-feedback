@@ -57,5 +57,8 @@
         <file>views/Widgets/SingleLineTipCreator.js</file>
         <file>views/Widgets/SingleLineTip.qml</file>
         <file>views/Widgets/ButtonFrame.qml</file>
+        <file>views/WindowButtonRow.qml</file>
+        <file>views/TitleRow.qml</file>
+        <file>views/ReportTypeButtonRow.qml</file>
     </qresource>
 </RCC>

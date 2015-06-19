@@ -252,126 +252,27 @@ DWindow {
             }
         }
 
-        Image {
-            id: appIcon
-            width: 16
+        TitleRow {
+            width: parent.width - windowButtonRow.width
             height: 16
             anchors.left: parent.left
             anchors.leftMargin: 8
             anchors.top: parent.top
             anchors.topMargin: 8
-            source: "qrc:///views/Widgets/images/deepin-feedback.png"
         }
 
-        Text {
-            id: appTitleText
-            color: "#999999"
-            font.pixelSize: 12
-            text: dsTr("Deepin User Feedback")
-            verticalAlignment: Text.AlignVCenter
-            anchors {left: appIcon.right; leftMargin: 4; verticalCenter: appIcon.verticalCenter}
-        }
-
-        Row {
+        WindowButtonRow {
             id:windowButtonRow
             anchors.top:parent.top
             anchors.right: parent.right
-            state: "zoomin"
-
-            DImageButton {
-                id:minimizeButton
-                normal_image: "qrc:/views/Widgets/images/minimise_normal.png"
-                hover_image: "qrc:/views/Widgets/images/minimise_hover.png"
-                press_image: "qrc:/views/Widgets/images/minimise_press.png"
-                onClicked: {
-                    mainWindow.showMinimized()
-                }
-            }
-
-            DImageButton {
-                id:maximizeButton
-                normal_image: "qrc:/views/Widgets/images/%1_normal.png".arg(windowButtonRow.state)
-                hover_image: "qrc:/views/Widgets/images/%1_hover.png".arg(windowButtonRow.state)
-                press_image: "qrc:/views/Widgets/images/%1_press.png".arg(windowButtonRow.state)
-                onClicked: {
-                    windowButtonRow.state = windowButtonRow.state == "zoomin" ? "zoomout" : "zoomin"
-                }
-            }
-
-            DImageButton {
-                id:closeWindowButton
-                normal_image: "qrc:/views/Widgets/images/close_normal.png"
-                hover_image: "qrc:/views/Widgets/images/close_hover.png"
-                press_image: "qrc:/views/Widgets/images/close_press.png"
-                onClicked: {
-                    saveDraft()
-                    mainWindow.close()
-                    Qt.quit()
-                }
-            }
-
-            states: [
-                State {
-                    name: "zoomout"
-                    PropertyChanges {target: mainWindow; width: maxWidth; height: maxHeight}
-                },
-                State {
-                    name: "zoomin"
-                    PropertyChanges {target: mainWindow; width: normalWidth; height: normalHeight}
-                }
-            ]
-
-//            transitions:[
-//                Transition {
-//                    from: "zoomout"
-//                    to: "zoomin"
-//                     SequentialAnimation {
-//                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
-//                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
-//                    }
-//                },
-//                Transition {
-//                    from: "zoomin"
-//                    to: "zoomout"
-//                     SequentialAnimation {
-//                        NumberAnimation {target: mainWindow;property: "width";duration: animationDuration;easing.type: Easing.OutCubic}
-//                        NumberAnimation {target: mainWindow;property: "height";duration: animationDuration;easing.type: Easing.OutCubic}
-//                    }
-//                }
-//            ]
         }
 
-        Row {
+        ReportTypeButtonRow {
             id: reportTypeButtonRow
             width: rootRec.width - 22 * 2
             anchors.top: rootRec.top
             anchors.topMargin: 38
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 12
-            property var reportType: DataConverter.DFeedback_Bug
-
-            ReportTypeButton {
-                id: bugReportButton
-                width: (rootRec.width - 12 - 22 * 2) / 2
-                actived: parent.reportType == DataConverter.DFeedback_Bug
-                iconPath: "qrc:/views/Widgets/images/reporttype_bug.png"
-                text: dsTr("I have a problem")
-                onClicked: {
-                    parent.reportType = DataConverter.DFeedback_Bug
-                }
-            }
-
-            ReportTypeButton {
-                id: proposalReportButton
-                width: (rootRec.width - 12 - 22 * 2) / 2
-                actived: parent.reportType == DataConverter.DFeedback_Proposal
-                iconPath: "qrc:/views/Widgets/images/reporttype_proposal.png"
-                text: dsTr("I have a good idea")
-                onClicked: {
-                    parent.reportType = DataConverter.DFeedback_Proposal
-                    contentEdited()
-                }
-            }
         }
 
         AppComboBox {
@@ -402,13 +303,11 @@ DWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             tip:reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? dsTr("Please input the problem title")
                                                             : dsTr("Please describe your idea simply")
-
             onInWarningStateChanged: {
                 if (inWarningState){
                     toolTip.showTip(dsTr("Title words have reached limit."))
                 }
             }
-
             onTextChange: contentEdited()
 
         }
