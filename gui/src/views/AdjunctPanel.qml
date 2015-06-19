@@ -254,7 +254,7 @@ FocusScope{
                         text: {
                             var content = dsTr("Please describe your problem in detail") + "\n\n" +
                                     dsTr("Please upload related screenshots or files") + "\n\n" +
-                                    dsTr("Single attachment can not exceed 5M") + "\n\n" +
+                                    dsTr("Single attachment can not exceed 15M") + "\n\n" +
                                     dsTr("The total number of attachments is not more than six")
                             return content
                         }
@@ -277,7 +277,7 @@ FocusScope{
                         text: {
                             var content = dsTr("Please describe your idea in detail") + "\n\n" +
                                     dsTr("Please upload related attachments") + "\n\n" +
-                                    dsTr("Single attachment can not exceed 5M") + "\n\n" +
+                                    dsTr("Single attachment can not exceed 15M") + "\n\n" +
                                     dsTr("The total number of attachments is not more than six")
                             return content
                         }

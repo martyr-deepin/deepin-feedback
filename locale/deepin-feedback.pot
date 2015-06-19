@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-19 12:17+0800\n"
+"POT-Creation-Date: 2015-06-19 15:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgid "Please upload related screenshots or files"
 msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:257 ../gui/src/views/AdjunctPanel.qml:280
-msgid "Single attachment can not exceed 5M"
+msgid "Single attachment can not exceed 15M"
 msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281

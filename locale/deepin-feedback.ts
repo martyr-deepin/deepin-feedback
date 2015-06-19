@@ -32,7 +32,7 @@
     <message>
         <location line="+1"/>
         <location line="+23"/>
-        <source>Single attachment can not exceed 5M</source>
+        <source>Single attachment can not exceed 15M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
