@@ -15,7 +15,7 @@ Item {
     property string baseColor: "#FFFFFF"          //圆圈的底色
     property string percentageColor: "#00b3fb"    //使用率的颜色
     property int lineWidth: 2                     //圈的粗细
-    property double startAngle: Math.PI / 2
+    property double startAngle: -Math.PI / 2
     property double percentage: 0   //0~1
     property string mainTitle: ""
 
