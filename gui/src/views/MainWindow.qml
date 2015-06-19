@@ -434,7 +434,7 @@ DWindow {
                 text: dsTr("Send")
                 textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
-                    if (titleTextinput.text != ""
+                    if (titleTextinput.text != "" && !titleTextinput.inWarningState
                             && appComboBox.text != ""
                             && adjunctPanel.getDescriptionDetails() !== ""
                             && adjunctPanel.isAllAttachmentsUploaded()
