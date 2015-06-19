@@ -71,12 +71,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/src/views/MainWindow.qml" line="+245"/>
-        <source>Total attachments have reached limit. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-83"/>
+        <location filename="../gui/src/views/MainWindow.qml" line="+162"/>
         <location line="+13"/>
         <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
@@ -98,7 +93,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+6"/>
+        <location line="+262"/>
+        <source>Sending ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-199"/>
+        <source>Total attachments have reached limit. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>The draft of %1 has been saved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -140,12 +146,6 @@
     <message>
         <location line="+12"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-249"/>
-        <location line="+262"/>
-        <source>Sending ...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -38,7 +38,7 @@ QtObject {
         function getNameList(){
             var tmpNameList = new Array()
             for (var i = 0; i < count; i ++){
-                tmpNameList.push(get(i).Name)
+                tmpNameList.push(dsTr(get(i).Name))
             }
 
             return tmpNameList
@@ -71,7 +71,7 @@ QtObject {
     property var mainWindow: MainWindow {}
     property var dbusSearch: Search {}
     property var dsslocale: DLocale {
-        domain: "deepin-user-feedback"
+        domain: "deepin-feedback"
 
         Component.onCompleted: print("==> [info] Language:", dsslocale.lang)
     }

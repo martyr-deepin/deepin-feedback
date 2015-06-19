@@ -17,7 +17,12 @@ configure:
 pot:
 	deepin-update-pot locale/locale_config.ini
 
-install:
+install-mo:
+	deepin-generate-mo locale/locale_config.ini
+	install -dm0755 ${DESTDIR}${PREFIX}/share/locale
+	cp -rf locale/mo/* ${DESTDIR}${PREFIX}/share/locale/
+
+install: install-mo
 	install -dm0755 ${DESTDIR}${PREFIX}/bin/
 	install -m0755 cli/deepin-feedback-cli.sh ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
 	install -m0755 gui/deepin-feedback ${DESTDIR}${PREFIX}/bin/deepin-feedback
@@ -39,6 +44,8 @@ uninstall:
 	rmdir ${DESTDIR}${PREFIX}/lib/deepin-feedback
 	rm -f ${DESTDIR}/etc/dbus-1/system.d/com.deepin.Feedback.conf
 	rm -f ${DESTDIR}${PREFIX}/share/dbus-1/system-services/com.deepin.Feedback.service
+	rm -f ${DESTDIR}${PREFIX}/share/applications/deepin-feedback.desktop
+	rm -f ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/deepin-feedback.svg
 
 clean:
 	rm -f daemon/deepin-feedback-daemon
