@@ -41,7 +41,6 @@ private:
 private:
     QProcess * screenShotProcess;
     QString tmpFileName = "";
-    const QString TMP_SCREENSHOT_FILENAME = "-deepin-feedback-screenshot.png";
     const QString DRAFT_SAVE_PATH = QDir::homePath() + "/.cache/deepin-feedback/draft/";
     const QString UPLOAD_RECORD_FILE = DRAFT_SAVE_PATH + "uploadrecord.json";
 };

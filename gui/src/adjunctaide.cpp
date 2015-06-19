@@ -12,7 +12,7 @@ AdjunctAide::~AdjunctAide()
 
 void AdjunctAide::getScreenShot(const QString &target)
 {
-    tmpFileName = "/tmp/" + target + QDateTime::currentDateTime().toString("yyyy.MM.dd.hh:mm:ss") + TMP_SCREENSHOT_FILENAME;
+    tmpFileName = "/tmp/" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".png";
     screenShotProcess = new QProcess(this);
     connect(screenShotProcess, SIGNAL(finished(int)), this, SLOT(finishGetScreenShot()));
 
