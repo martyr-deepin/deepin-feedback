@@ -41,7 +41,7 @@ FocusScope{
         }
 
         if (mainObject.getAdjunctSize(filePath) > singleMaxSize){
-            toolTip.showTip(dsTr("Failed to add attachment: Single attachment cann't be more than 5M."))
+            toolTip.showTip(dsTr("Failed to add attachment: Single attachment cann't be more than 15M."))
             return
         }
 

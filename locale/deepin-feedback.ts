@@ -5,7 +5,7 @@
     <name>AdjunctPanel</name>
     <message>
         <location filename="../gui/src/views/AdjunctPanel.qml" line="+44"/>
-        <source>Failed to add attachment: Single attachment cann&apos;t be more than 5M.</source>
+        <source>Failed to add attachment: Single attachment cann&apos;t be more than 15M.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -55,7 +55,7 @@
 <context>
     <name>AdjunctTray</name>
     <message>
-        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+196"/>
+        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+206"/>
         <source>Upload failed, please retry.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,19 +71,18 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/src/views/MainWindow.qml" line="+234"/>
+        <location filename="../gui/src/views/MainWindow.qml" line="+245"/>
         <source>Total attachments have reached limit. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-83"/>
         <location line="+13"/>
-        <location line="+84"/>
         <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-12"/>
         <source>Your feedback has been sent successfully, thanks for your support!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -99,17 +98,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+171"/>
-        <source>I have a problem</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>I have a good idea</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="+112"/>
         <source>The draft of %1 has been saved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -124,12 +113,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>Title words have reached limit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+34"/>
         <source>Please fill in email to get the feedback progress.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -154,8 +143,30 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-249"/>
+        <location line="+262"/>
         <source>Sending ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReportTypeButtonRow</name>
+    <message>
+        <location filename="../gui/src/views/ReportTypeButtonRow.qml" line="+24"/>
+        <source>I have a problem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>I have a good idea</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TitleRow</name>
+    <message>
+        <location filename="../gui/src/views/TitleRow.qml" line="+28"/>
+        <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
