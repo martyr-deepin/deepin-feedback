@@ -9,6 +9,8 @@ Row {
     anchors.right: parent.right
     state: "zoomin"
 
+    property alias closeEnable: closeWindowButton.enabled
+
     DImageButton {
         id:minimizeButton
         normal_image: "qrc:/views/Widgets/images/minimise_normal.png"

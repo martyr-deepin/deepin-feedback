@@ -169,7 +169,7 @@ DWindow {
             sendButton.text = dsTr("Resend")
             sendButton.enabled = true
             closeButton.enabled = true
-            closeWindowButton.enabled = true
+            windowButtonRow.closeEnable = true
             mainObject.clearSysAdjuncts(lastTarget)
 
             dataSender.showErrorNotification(dsTr("Deepin User Feedback")
@@ -182,7 +182,7 @@ DWindow {
                 sendButton.text = dsTr("Sending ...")
                 sendButton.enabled = false
                 closeButton.enabled = false
-                closeWindowButton.enabled = false
+                windowButtonRow.closeEnable = false
 
                 //genera system infomation,then send data to server
                 feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
@@ -444,7 +444,7 @@ DWindow {
                     text = dsTr("Sending ...")
                     sendButton.enabled = false
                     closeButton.enabled = false
-                    closeWindowButton.enabled = false
+                    windowButtonRow.closeEnable = false
 
                     //genera system infomation,then send data to server
                     feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
