@@ -35,7 +35,7 @@ private:
 private:
     QDBusInterface * notifyInterface;
     const QString PUT_FEEDBACK_METHOD = "Deepin.Feedback.putFeedback";
-    const QString JSONRPC_HOST = "http://10.0.0.231/jsonrpc.psgi";//"https://bugzilla.deepin.io/jsonrpc.psgi";
+    const QString JSONRPC_HOST = "https://bugzilla.deepin.io/jsonrpc.psgi";
 };
 
 #endif // DATASENDER_H
