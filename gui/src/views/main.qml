@@ -10,10 +10,10 @@ import DBus.Com.Deepin.Feedback 1.0
 QtObject {
     id: root
 
-    property color textActivedColor: DConstants.hoverColor
+    property color textActivedColor: DPalette.hoverColor
     property color textNormalColor: "#5e5e5e"
     property color bgActivedColor: "#5498ec"
-    property color bgNormalColor: DConstants.hoverColor
+    property color bgNormalColor: DPalette.hoverColor
     property color buttonBorderColor: "#d7d7d7"
     property color buttonBorderActiveColor: "#7bbefb"
     property color buttonBorderWarningColor: "#FF8F00"
