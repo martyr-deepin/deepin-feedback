@@ -156,6 +156,10 @@ Rectangle {
             }
         }
         onUploadFailed: {
+            if (filePath.indexOf("deepin-feedback-results") > 0){
+                mainObject.clearSysAdjuncts(lastTarget)
+            }
+
             var tmpIndex = getIndexFromModel(filePath)
             if (tmpIndex != -1){
                 adjunctView.model.setProperty(tmpIndex,"gotError",true)
