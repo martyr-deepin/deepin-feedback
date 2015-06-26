@@ -7,10 +7,13 @@
 #include <QNetworkReply>
 #include <QHttpMultiPart>
 #include <QHttpPart>
+#include <QUrlQuery>
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QFile>
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QDebug>
 
 struct ResponeData{
@@ -44,6 +47,9 @@ public slots:
     void slotUploadFinish(QNetworkReply * reply);
     void slotUploadProgress(qint64 value1, qint64 value2);
     void slotGotError(QNetworkReply::NetworkError code);
+
+private:
+    QString getSuffixe(const QString &filePath);
 
 private:
     QNetworkAccessManager * networkAccessManager;

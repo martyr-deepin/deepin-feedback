@@ -10,10 +10,15 @@ void AdjunctUploadThread::startUpload()
 {
     QString url = BUCKET_API + REST_TYPE;
     QNetworkRequest request;
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     request.setUrl(QUrl(url));
 
+    QUrlQuery postData;
+    postData.addQueryItem("file-type", getSuffixe(gFilePath));
+
     QNetworkAccessManager * tmpManager = new QNetworkAccessManager();
-    tmpManager->post(request, QByteArray(""));
+    tmpManager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getServerAccessResult(QNetworkReply*)));
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), tmpManager, SLOT(deleteLater()));
 }
@@ -90,6 +95,7 @@ void AdjunctUploadThread::getServerAccessResult(QNetworkReply * reply)
 
     if (statusCode != 200)
     {
+        qWarning() << "Create Resource Error:" << tmpArray;
         emit uploadFailed(gFilePath,"Requrest error!");
         return;
     }
@@ -172,6 +178,17 @@ void AdjunctUploadThread::slotGotError(QNetworkReply::NetworkError code)
 {
     qDebug() << "Upload failed:" << gFilePath;
     emit uploadFailed(gFilePath, QString::number(code));
+}
+
+QString AdjunctUploadThread::getSuffixe(const QString &filePath)
+{
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForFile(filePath);
+    QStringList suffixesList = mime.suffixes();
+    if (suffixesList.count() > 0)
+        return suffixesList.at(0);
+    else
+        return "";
 }
 
 AdjunctUploadThread::~AdjunctUploadThread()
