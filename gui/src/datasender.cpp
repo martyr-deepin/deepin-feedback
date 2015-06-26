@@ -10,7 +10,7 @@ DataSender::DataSender(QObject *parent) :
 
 void DataSender::postFeedbackData(const QString &jsonData)
 {
-    qDebug() << "Start send process...";//<<jsonData;
+    qDebug()<< "---------------" << "Start send process..."<<jsonData << "---------------";
 
     QNetworkRequest request;
     request.setUrl(QUrl(JSONRPC_HOST));
@@ -59,7 +59,7 @@ void DataSender::slotPostFinish(QNetworkReply *reply)
         else
         {
             emit postFinish();
-            qWarning() << "Post finish!" << statusCode;
+            qWarning() << "Post finish!" << statusCode << replyStr;
         }
     }
     else

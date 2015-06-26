@@ -72,9 +72,9 @@ void AdjunctUploader::slotUploadFinish(QString filePath, QString resourceUrl)
 {
     threadMap.take(filePath);
 
-    emit uploadFinish(filePath, resourceUrl);
     AdjunctAide tmpAide;
     tmpAide.insertToUploadedList(filePath,resourceUrl);
+    emit uploadFinish(filePath, resourceUrl);
 }
 
 void AdjunctUploader::slotUploadFailed(const QString &filePath)
