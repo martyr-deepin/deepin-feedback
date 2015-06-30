@@ -21,6 +21,7 @@ Item {
     property string searchMd5: ""
 
     signal clicked
+    signal searchResultCountChanged(int count)
     signal menuSelect(int index)
 
     onSelectIndexChanged: menu.currentIndex = selectIndex
@@ -88,10 +89,14 @@ Item {
                         appList.push(searchResult[i])
                     }
 
+                    combobox.searchResultCountChanged(appList.length)
                     combobox.labels = appList
 
-                    if (!menu.visible){
+                    if (!menu.visible && appList.length > 0){
                         showMenu()
+                    }
+                    else{
+                        hideMenu()
                     }
                 }
             }

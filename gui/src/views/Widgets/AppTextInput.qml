@@ -75,7 +75,7 @@ FocusScope{
             id: textInput
 
             focus: true
-            color: textNormalColor
+            color: root.enabled ? textNormalColor : "#bebebe"
             selectionColor: "#61B5F8"
             selectByMouse: true
             verticalAlignment: TextInput.AlignVCenter

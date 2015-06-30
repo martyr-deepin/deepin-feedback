@@ -145,6 +145,24 @@ DWindow {
         return marshalJSON(jsonObj)
     }
 
+    function disableAllInput(){
+        reportTypeButtonRow.enabled = false
+        titleTextinput.enabled = false
+        adjunctPanel.enabled = false
+        emailTextinput.enabled = false
+        helpTextItem.enabled = false
+        sendButton.enabled = false
+    }
+
+    function enableAllInput(){
+        reportTypeButtonRow.enabled = true
+        titleTextinput.enabled = true
+        adjunctPanel.enabled = true
+        emailTextinput.enabled = true
+        helpTextItem.enabled = true
+        sendButton.enabled = true
+    }
+
     Connections {
         target:feedbackContent
         onGenerateReportFinished: {
@@ -153,6 +171,7 @@ DWindow {
             for (var i = 0; i < packageList.length; i ++){
                 adjunctPanel.getAdjunct(packageList[i])
             }
+            print("[Info:]Genera system infomation archive complete! Packages count:",packageList.length)
         }
     }
 
@@ -173,6 +192,11 @@ DWindow {
             sendButton.enabled = true
             closeButton.enabled = true
             windowButtonRow.closeEnable = true
+
+            //enable all UI
+            enableAllInput()
+            appComboBox.enabled = true
+
             mainObject.clearSysAdjuncts(lastTarget)
 
             dataSender.showErrorNotification(dsTr("Deepin User Feedback")
@@ -186,6 +210,10 @@ DWindow {
                 sendButton.enabled = false
                 closeButton.enabled = false
                 windowButtonRow.closeEnable = false
+
+                //disable UI
+                disableAllInput()
+                appComboBox.enabled = false
 
                 //genera system infomation,then send data to server
                 feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
@@ -292,6 +320,12 @@ DWindow {
                 }
                 switchProject(projectList[index])
             }
+            onSearchResultCountChanged: {
+                if (count > 0)
+                    enableAllInput()
+                else
+                    disableAllInput()
+            }
         }
 
         AppTextInput {
@@ -326,6 +360,7 @@ DWindow {
             anchors.topMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
             onSysAdjunctUploaded: {
+                print("[Info:]Posting data to bugzilla server...")
                 dataSender.postFeedbackData(getJsonData())
                 mainObject.saveEmail(emailTextinput.text)
             }
@@ -388,7 +423,7 @@ DWindow {
 
             AppCheckBox {
                 id: helpCheck
-                enabled: enableInput
+                enabled: enableInput && parent.enabled
                 width: 15
                 anchors.left: parent.left
                 anchors.top: parent.top
@@ -398,12 +433,13 @@ DWindow {
 
             Text {
                 id: helpText
+                enabled: enableInput && parent.enabled
                 anchors.left: helpCheck.right
                 lineHeight: 1.6
                 width: parent.width - helpCheck.width
                 text: dsTr("I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.")
                 wrapMode: Text.Wrap
-                color: enableInput ? textNormalColor : "#bebebe"
+                color: enabled ? textNormalColor : "#bebebe"
                 horizontalAlignment: Text.AlignLeft
                 font.pixelSize: 12
                 clip: true
@@ -449,8 +485,13 @@ DWindow {
                     closeButton.enabled = false
                     windowButtonRow.closeEnable = false
 
+                    //disable UI
+                    disableAllInput()
+                    appComboBox.enabled = false
+
                     //genera system infomation,then send data to server
                     feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
+                    print("[Info:]Generating system infomation archive...")
                 }
             }
         }

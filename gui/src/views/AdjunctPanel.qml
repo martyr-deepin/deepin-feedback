@@ -228,7 +228,7 @@ FocusScope{
                     TextEdit {
                         id: contentTextEdit
                         focus: true
-                        color: textNormalColor
+                        color: adjunctPanel.enabled ? textNormalColor : "#bebebe"
                         selectionColor: "#61B5F8"
                         selectByMouse: true
                         font.pixelSize: 12
