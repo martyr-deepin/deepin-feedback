@@ -64,7 +64,7 @@ DWindow {
     }
 
     function saveDraft(){
-        if (lastTarget == "" || !haveDraft || !draftEdited)
+        if (lastTarget == "" ||!draftEdited )
             return
 
         mainObject.saveDraft(lastTarget,

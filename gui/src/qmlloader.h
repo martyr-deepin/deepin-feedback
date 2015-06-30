@@ -79,6 +79,7 @@ public Q_SLOTS:
     QString addAdjunct(const QString &filePath, const QString &target);
     void removeAdjunct(const QString &filePath);
     bool draftTargetExist(const QString &target);
+    bool draftNotEmpty(const QString &target);
     void updateUiDraftData(const QString &target);
     void getScreenShot(const QString &target);
     bool canAddAdjunct(const QString &target);

@@ -38,10 +38,21 @@ Item {
         anchors.fill: parent
     }
 
+    Image {
+        id:draftImg
+        visible: mainObject.draftNotEmpty(getProjectIDByName(label.text))
+        width: 12
+        height: 12
+        source: "images/draft.png"
+        anchors.left: parent.left
+        anchors.leftMargin: 4
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
     DLabel {
         id: label
-        anchors.left: parent.left
-        anchors.leftMargin: 5
+        anchors.left: draftImg.right
+        anchors.leftMargin: 3
         anchors.verticalCenter: parent.verticalCenter
         text: "text " + index
         font.pixelSize: 12

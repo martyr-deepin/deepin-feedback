@@ -192,7 +192,19 @@ void QmlLoader::removeAdjunct(const QString &filePath)
 
 bool QmlLoader::draftTargetExist(const QString &target)
 {
-    return QFile::exists(DRAFT_SAVE_PATH_NARMAL + target);
+    QDir tmpDir(DRAFT_SAVE_PATH_NARMAL + target);
+    tmpDir.setFilter(QDir::Files |QDir::Dirs | QDir::Hidden | QDir::NoDotAndDotDot);
+    return tmpDir.exists() && tmpDir.entryList().length() > 0;
+}
+
+bool QmlLoader::draftNotEmpty(const QString &target)
+{
+    //get draft
+    Draft draft = getDraft(target);
+
+    return draft.title != "" || draft.content != "" || draft.email != "" ||
+            draft.feedbackType != DataConverter::DFeedback_Bug ||
+            draft.helpDeepin != true || draft.adjunctPathList.length() > 0;
 }
 
 void QmlLoader::updateUiDraftData(const QString &target)
