@@ -23,10 +23,10 @@ package main
 import (
 	dbusOrigIfc "dbus/org/freedesktop/dbus/system"
 	"os"
-	"pkg.deepin.io/lib"
-	"pkg.deepin.io/lib/dbus"
-	. "pkg.deepin.io/lib/gettext"
-	"pkg.deepin.io/lib/log"
+	"pkg.linuxdeepin.com/lib"
+	"pkg.linuxdeepin.com/lib/dbus"
+	. "pkg.linuxdeepin.com/lib/gettext"
+	"pkg.linuxdeepin.com/lib/log"
 	"time"
 )
 
