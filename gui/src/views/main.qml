@@ -24,6 +24,7 @@ QtObject {
 
     property var projectList: projectListModel.getValueList()
     property var projectNameList:projectListModel.getNameList()
+    property var projectEnNameList:projectListModel.getEnNameList()
     property var bugzillaProjectList: projectListModel.getBugzillaProjectList()
     property var projectListModel: ListModel {
         function getValueList(){
@@ -39,6 +40,15 @@ QtObject {
             var tmpNameList = new Array()
             for (var i = 0; i < count; i ++){
                 tmpNameList.push(dsTr(get(i).Name))
+            }
+
+            return tmpNameList
+        }
+
+        function getEnNameList(){
+            var tmpNameList = new Array()
+            for (var i = 0; i < count; i ++){
+                tmpNameList.push(get(i).Name)
             }
 
             return tmpNameList

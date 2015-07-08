@@ -31,7 +31,7 @@ Item {
             menu.currentIndex = selectIndex
         }
 
-        searchMd5 = dbusSearch.NewSearchWithStrList(projectNameList)[0]
+        searchMd5 = dbusSearch.NewSearchWithStrList(projectNameList.concat(projectEnNameList))[0]
     }
 
     onClicked: {
@@ -86,7 +86,10 @@ Item {
                     var searchResult = dbusSearch.SearchString(text, searchMd5)
                     var appList = new Array()
                     for(var i in searchResult){
-                        appList.push(searchResult[i])
+                        if (dsslocale.lang.indexOf("en_") != -1)
+                            appList.push(searchResult[i])
+                        else
+                            appList.push(dsTr(searchResult[i]))
                     }
 
                     combobox.searchResultCountChanged(appList.length)
@@ -95,7 +98,7 @@ Item {
                     if (!menu.visible && appList.length > 0){
                         showMenu()
                     }
-                    else{
+                    else if(appList.length <= 0){
                         hideMenu()
                     }
                 }
