@@ -490,7 +490,7 @@ DWindow {
                     appComboBox.enabled = false
 
                     //genera system infomation,then send data to server
-                    feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
+                    feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text), helpCheck.checked)
                     print("[Info:]Generating system infomation archive...")
                 }
             }
