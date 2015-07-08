@@ -60,8 +60,8 @@ private:
     QString gResourceUrl;
 
     const QString REST_TYPE = "report";
-    const QString BUCKET_HOST = "https://api.linuxdeepin.com/";
-    const QString BUCKET_API = "https://api.linuxdeepin.com/bucket/";
+    const QString BUCKET_HOST = "https://api.deepin.org/";
+    const QString BUCKET_API = "https://api.deepin.org/bucket/";
 };
 
 #endif // ADJUNCTUPLOADTHREAD_H
