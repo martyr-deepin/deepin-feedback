@@ -87,9 +87,19 @@ Item {
                     var appList = new Array()
                     for(var i in searchResult){
                         if (dsslocale.lang.indexOf("en_") != -1)
-                            appList.push(searchResult[i])
+                        {
+                            var v = searchResult[i];
+                            if (appList.indexOf(v) != -1)
+                                break;
+                            appList.push(v)
+                        }
                         else
-                            appList.push(dsTr(searchResult[i]))
+                        {
+                            var v = dsTr(searchResult[i]);
+                            if (appList.indexOf(v) != -1)
+                                break;
+                            appList.push(v)
+                        }
                     }
 
                     combobox.searchResultCountChanged(appList.length)
