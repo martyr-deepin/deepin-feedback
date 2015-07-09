@@ -133,7 +133,7 @@ DWindow {
             "method": "Deepin.Feedback.putFeedback",
             "version": "1.1",
             "params": {
-                "project" : getBugzillaProjectByName(appComboBox.text.trim()),
+                "project" : getBugzillaProjectByName(appComboBox.text),
                 "description": adjunctPanel.getDescriptionDetails(),
                 "summary" : titleTextinput.text.trim(),
                 "attachments": adjunctPanel.getAttachmentsList(),
@@ -216,7 +216,7 @@ DWindow {
                 appComboBox.enabled = false
 
                 //genera system infomation,then send data to server
-                feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text.trim()), helpCheck.checked)
+                feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text), helpCheck.checked)
             }
         }
     }
