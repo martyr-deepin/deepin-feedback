@@ -151,7 +151,6 @@ DWindow {
         adjunctPanel.enabled = false
         emailTextinput.enabled = false
         helpTextItem.enabled = false
-        sendButton.enabled = false
     }
 
     function enableAllInput(){
@@ -160,7 +159,6 @@ DWindow {
         adjunctPanel.enabled = true
         emailTextinput.enabled = true
         helpTextItem.enabled = true
-        sendButton.enabled = true
     }
 
     Connections {
@@ -470,6 +468,7 @@ DWindow {
                 text: dsTr("Send")
                 textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
+                    print (titleTextinput.text)
                     if (titleTextinput.text != "" && !titleTextinput.inWarningState
                             && appComboBox.text != ""
                             && adjunctPanel.getDescriptionDetails() !== ""
