@@ -77,6 +77,8 @@ DWindow {
 
     function contentEdited(){
         draftEdited = true
+
+        sendButton.text = dsTr("Send")
     }
 
     function clearDraft(){
