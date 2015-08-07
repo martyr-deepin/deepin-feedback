@@ -180,7 +180,7 @@ Item {
                     width: 1
                     height: parent.height
                     visible: currentLabel.focus
-                    color: "#2aacf9"
+                    color: buttonBorderActiveColor
                 }
             }
         }
