@@ -173,6 +173,12 @@ DWindow {
         helpTextItem.enabled = true
     }
 
+    function postDataToServer(){
+        print("[Info:]Posting data to bugzilla server...")
+        dataSender.postFeedbackData(getJsonData())
+        mainObject.saveEmail(emailTextinput.text)
+    }
+
     Connections {
         target:feedbackContent
         onGenerateReportFinished: {
@@ -395,9 +401,7 @@ DWindow {
             anchors.topMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
             onSysAdjunctUploaded: {
-                print("[Info:]Posting data to bugzilla server...")
-                dataSender.postFeedbackData(getJsonData())
-                mainObject.saveEmail(emailTextinput.text)
+                postDataToServer()
             }
         }
 
@@ -519,6 +523,12 @@ DWindow {
                     }
                 }
                 onClicked: {
+                    //for deepin-feedback-web,not collect sys info
+                    if (getProjectIDByName(appComboBox.text) == "none"){
+                        postDataToServer()
+                        return
+                    }
+
                     text = dsTr("Sending ...")
                     sending = true
                     if (resendFlag) {
