@@ -81,6 +81,10 @@ Item {
 
                 if(text == ""){
                     combobox.labels = projectNameList
+                    mainWindow.disableTextInput()
+                    mainWindow.saveDraft()
+                    mainWindow.lastTarget = ""
+                    mainWindow.clearDraft()
                 }
                 else{
                     var searchResult = dbusSearch.SearchString(text, searchMd5)

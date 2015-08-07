@@ -149,12 +149,16 @@ DWindow {
         return marshalJSON(jsonObj)
     }
 
-    function disableAllInput(){
-        reportTypeButtonRow.enabled = false
+    function disableTextInput() {
         titleTextinput.enabled = false
         adjunctPanel.enabled = false
         emailTextinput.enabled = false
         helpTextItem.enabled = false
+    }
+
+    function disableAllInput(){
+        reportTypeButtonRow.enabled = false
+        disableTextInput()
     }
 
     function enableAllInput(){
