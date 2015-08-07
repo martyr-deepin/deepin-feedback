@@ -204,7 +204,7 @@ FocusScope{
 
             ListView {
                 id: textEditView
-                width: parent.width - 6 * 2
+                width: parent.width
                 height: parent.height - adjunctTray.height
                 anchors.top: parent.top
                 anchors.topMargin:0
@@ -227,6 +227,7 @@ FocusScope{
 
                     TextEdit {
                         id: contentTextEdit
+                        textMargin: 6
                         focus: true
                         color: adjunctPanel.enabled ? textNormalColor : "#bebebe"
                         selectionColor: "#61B5F8"
@@ -243,7 +244,7 @@ FocusScope{
 
                     TextEdit {
                         id: problemTips
-
+                        textMargin: 6
                         color: "#bebebe"
                         font.pixelSize: 12
                         enabled: false
@@ -266,7 +267,7 @@ FocusScope{
 
                     TextEdit {
                         id: ideaTips
-
+                        textMargin: 6
                         color: "#bebebe"
                         font.pixelSize: 12
                         enabled: false
