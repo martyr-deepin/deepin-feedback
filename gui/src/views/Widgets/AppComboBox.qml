@@ -195,7 +195,8 @@ Item {
         parentWindow: combobox.parentWindow
         labels: combobox.labels
         onMenuSelect: {
-            combobox.menuSelect(index)
+            var truelly_index = projectNameList.indexOf(menu.labels[index])
+            combobox.menuSelect(truelly_index)
             selectIndex = index
             combobox.text = menu.labels[selectIndex]
 

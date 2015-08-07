@@ -60,8 +60,10 @@ DPopupWindow {
     }
 
     function selectMenu(){
-        menuPopupWindow.visible = false
-        menuPopupWindow.menuSelect(completeView.selectIndex)
+        if(completeView.selectIndex>=0&&completeView.selectIndex<=completeView.count){
+            menuPopupWindow.visible = false
+            menuPopupWindow.menuSelect(completeView.selectIndex)
+        }
     }
 
     DWindowFrame {
