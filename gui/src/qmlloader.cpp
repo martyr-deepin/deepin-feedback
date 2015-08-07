@@ -296,6 +296,8 @@ Draft QmlLoader::getDraft(const QString &targetApp)
                     tmpDraft.adjunctPathList.append(infoList.at(i).filePath());
             }
         }
+
+        return tmpDraft;
     }
 }
 
