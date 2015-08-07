@@ -43,6 +43,8 @@ DWindow {
     }
     property bool draftEdited: false
 
+    property bool sending: false
+
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
     }
@@ -189,7 +191,7 @@ DWindow {
         onPostError: {
             print ("Post data error:",message)
             sendButton.text = dsTr("Resend")
-            sendButton.enabled = true
+            sending = false
             closeButton.enabled = true
             windowButtonRow.closeEnable = true
 
@@ -207,7 +209,7 @@ DWindow {
         onRetryPost: {
             if (sendButton.enabled){
                 sendButton.text = dsTr("Sending ...")
-                sendButton.enabled = false
+                sending = true
                 closeButton.enabled = false
                 windowButtonRow.closeEnable = false
 
@@ -218,6 +220,28 @@ DWindow {
                 //genera system infomation,then send data to server
                 feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text), helpCheck.checked)
             }
+        }
+    }
+
+    Connections {
+        target: AdjunctUploader
+
+        onUploadFailed:{
+            print ("Post data error:",message)
+            sendButton.text = dsTr("Resend")
+            sending = false
+            closeButton.enabled = true
+            windowButtonRow.closeEnable = true
+
+            //enable all UI
+            enableAllInput()
+            appComboBox.enabled = true
+
+            mainObject.clearSysAdjuncts(lastTarget)
+
+            dataSender.showErrorNotification(dsTr("Deepin User Feedback")
+                                               ,dsTr("Failed to send your feedback, resend?")
+                                               ,dsTr("Resend"))
         }
     }
 
@@ -468,21 +492,24 @@ DWindow {
                 id: sendButton
                 width: textItem.contentWidth < 40 ? 60 : textItem.contentWidth + 50
                 text: dsTr("Send")
-                textItem.color: enabled ? textNormalColor : "#bebebe"
                 enabled: {
                     print (titleTextinput.text)
                     if (titleTextinput.text != "" && !titleTextinput.inWarningState
                             && appComboBox.text != ""
                             && adjunctPanel.getDescriptionDetails() !== ""
                             && adjunctPanel.isAllAttachmentsUploaded()
-                            && isLegitEmail(emailTextinput.text))
+                            && isLegitEmail(emailTextinput.text)
+                            && (!mainWindow.sending)){
+                        textItem.color = textNormalColor
                         return true
-                    else
+                    }else{
+                        textItem.color = "#bebebe"
                         return false
+                    }
                 }
                 onClicked: {
                     text = dsTr("Sending ...")
-                    sendButton.enabled = false
+                    sending = true
                     closeButton.enabled = false
                     windowButtonRow.closeEnable = false
 
