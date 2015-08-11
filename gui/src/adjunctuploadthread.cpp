@@ -1,4 +1,7 @@
 #include "adjunctuploadthread.h"
+#include <QTimer>
+
+#define UPLOAD_TIMEOUT 60*1000
 
 AdjunctUploadThread::AdjunctUploadThread(const QString &filePath) :
     gFilePath(filePath)
@@ -17,7 +20,9 @@ void AdjunctUploadThread::startUpload()
     postData.addQueryItem("file-type", getSuffixe(gFilePath));
 
     QNetworkAccessManager * tmpManager = new QNetworkAccessManager();
-    tmpManager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+    tmpUploadReply = tmpManager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+
+    QTimer::singleShot(UPLOAD_TIMEOUT, this, SLOT(uploadTimeout()));
 
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getServerAccessResult(QNetworkReply*)));
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), tmpManager, SLOT(deleteLater()));
@@ -98,6 +103,10 @@ void AdjunctUploadThread::getServerAccessResult(QNetworkReply * reply)
         qWarning() << "Create Resource Error:" << tmpArray;
         emit uploadFailed(gFilePath,"Requrest error!");
         return;
+    }
+    else
+    {
+        qWarning() << statusCode << tmpArray << "====";
     }
 
     parseJsonData(tmpArray, &gResponeData);
@@ -191,8 +200,16 @@ QString AdjunctUploadThread::getSuffixe(const QString &filePath)
         return "";
 }
 
+void AdjunctUploadThread::uploadTimeout()
+{
+    if(tmpUploadReply&&!tmpUploadReply->isFinished()){
+        qWarning()<<"upload timeout";
+
+        tmpUploadReply->abort();
+    }
+}
+
 AdjunctUploadThread::~AdjunctUploadThread()
 {
 
 }
-

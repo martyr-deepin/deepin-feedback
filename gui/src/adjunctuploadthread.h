@@ -54,6 +54,7 @@ private:
 private:
     QNetworkAccessManager * networkAccessManager;
     QNetworkReply * gUploadReply;
+    QNetworkReply * tmpUploadReply;
     ResponeData gResponeData;
     QFile * gUploadFile;
     QString gFilePath;
@@ -62,6 +63,9 @@ private:
     const QString REST_TYPE = "report";
     const QString BUCKET_HOST = "https://api.deepin.org/";
     const QString BUCKET_API = "https://api.deepin.org/bucket/";
+
+private slots:
+    void uploadTimeout();
 };
 
 #endif // ADJUNCTUPLOADTHREAD_H
