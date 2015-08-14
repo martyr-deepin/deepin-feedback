@@ -44,7 +44,7 @@ Item {
             progressCir.repaint()
             percentText.visible = true
             retryImg.visible = false
-            load_percent = 0
+            loadPercent = 0
         }
     }
 

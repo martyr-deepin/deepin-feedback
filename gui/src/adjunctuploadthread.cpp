@@ -1,12 +1,13 @@
 #include "adjunctuploadthread.h"
-#include <QTimer>
 
 #define UPLOAD_TIMEOUT 60*1000
 
 AdjunctUploadThread::AdjunctUploadThread(const QString &filePath) :
     gFilePath(filePath)
 {
-
+    uploadTimeoutTimer.setSingleShot(true);
+    uploadTimeoutTimer.setInterval(UPLOAD_TIMEOUT);
+    connect(&uploadTimeoutTimer, &QTimer::timeout, this, &AdjunctUploadThread::uploadTimeout);
 }
 
 void AdjunctUploadThread::startUpload()
@@ -22,10 +23,12 @@ void AdjunctUploadThread::startUpload()
     QNetworkAccessManager * tmpManager = new QNetworkAccessManager();
     tmpUploadReply = tmpManager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
 
-    QTimer::singleShot(UPLOAD_TIMEOUT, this, SLOT(uploadTimeout()));
+    uploadTimeoutTimer.start();
 
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getServerAccessResult(QNetworkReply*)));
     connect(tmpManager, SIGNAL(finished(QNetworkReply*)), tmpManager, SLOT(deleteLater()));
+    connect(tmpManager, SIGNAL(finished(QNetworkReply*)), &uploadTimeoutTimer, SLOT(stop()));
+    connect(tmpUploadReply.data(), SIGNAL(uploadProgress(qint64,qint64)), &uploadTimeoutTimer, SLOT(start()));
 }
 
 void AdjunctUploadThread::stopUpload()
@@ -88,6 +91,8 @@ void AdjunctUploadThread::run()
         connect(gUploadReply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotGotError(QNetworkReply::NetworkError)), Qt::DirectConnection);
         connect(tmpManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotUploadFinish(QNetworkReply*)), Qt::DirectConnection);
         connect(gUploadReply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(slotUploadProgress(qint64,qint64)), Qt::DirectConnection);
+        connect(tmpManager, SIGNAL(finished(QNetworkReply*)), &uploadTimeoutTimer, SLOT(stop()));
+        connect(gUploadReply.data(), SIGNAL(uploadProgress(qint64,qint64)), &uploadTimeoutTimer, SLOT(start()));
 
         exec();
     }
@@ -203,10 +208,14 @@ QString AdjunctUploadThread::getSuffixe(const QString &filePath)
 void AdjunctUploadThread::uploadTimeout()
 {
     if(tmpUploadReply&&!tmpUploadReply->isFinished()){
-        qWarning()<<"upload timeout";
-
         tmpUploadReply->abort();
     }
+
+    if(gUploadReply&&!gUploadReply->isFinished()){
+        gUploadReply->abort();
+    }
+
+    qWarning()<<"upload timeout";
 }
 
 AdjunctUploadThread::~AdjunctUploadThread()

@@ -15,6 +15,8 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QDebug>
+#include <QPointer>
+#include <QTimer>
 
 struct ResponeData{
     QString id;
@@ -53,12 +55,13 @@ private:
 
 private:
     QNetworkAccessManager * networkAccessManager;
-    QNetworkReply * gUploadReply;
-    QNetworkReply * tmpUploadReply;
+    QPointer<QNetworkReply> gUploadReply;
+    QPointer<QNetworkReply> tmpUploadReply;
     ResponeData gResponeData;
     QFile * gUploadFile;
     QString gFilePath;
     QString gResourceUrl;
+    QTimer uploadTimeoutTimer;
 
     const QString REST_TYPE = "report";
     const QString BUCKET_HOST = "https://api.deepin.org/";
