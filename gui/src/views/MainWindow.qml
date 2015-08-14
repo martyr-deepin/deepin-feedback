@@ -45,6 +45,10 @@ DWindow {
 
     property bool sending: false
 
+    property int notifyFailedId: 0
+
+    property bool resendFlag: false
+
     function updateReportContentText(value){
         adjunctPanel.setContentText(value)
     }
@@ -197,6 +201,7 @@ DWindow {
             sendButton.text = dsTr("Resend")
             sending = false
             closeButton.enabled = true
+            resendFlag = true
             windowButtonRow.closeEnable = true
 
             //enable all UI
@@ -205,9 +210,10 @@ DWindow {
 
             mainObject.clearSysAdjuncts(lastTarget)
 
-            dataSender.showErrorNotification(dsTr("Deepin User Feedback")
-                                               ,dsTr("Failed to send your feedback, resend?")
-                                               ,dsTr("Resend"))
+            notifyFailedId = dataSender.showErrorNotification(
+                dsTr("Deepin User Feedback"),
+                dsTr("Failed to send your feedback, resend?"),
+                dsTr("Resend"))
 
         }
         onRetryPost: {
@@ -235,6 +241,7 @@ DWindow {
             sendButton.text = dsTr("Resend")
             sending = false
             closeButton.enabled = true
+            resendFlag = true
             windowButtonRow.closeEnable = true
 
             //enable all UI
@@ -514,6 +521,10 @@ DWindow {
                 onClicked: {
                     text = dsTr("Sending ...")
                     sending = true
+                    if (resendFlag) {
+                        resendFlag = false
+                        dataSender.closeNotification(notifyFailedId)
+                    }
                     closeButton.enabled = false
                     windowButtonRow.closeEnable = false
 

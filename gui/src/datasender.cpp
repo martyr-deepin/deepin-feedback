@@ -30,12 +30,18 @@ void DataSender::showSuccessNotification(const QString &title, const QString &ms
     showNotification(title,msg,QStringList());
 }
 
-void DataSender::showErrorNotification(const QString &title, const QString &msg, const QString &action)
+quint32 DataSender::showErrorNotification(const QString &title, const QString &msg, const QString &action)
 {
     QStringList actions;
     actions << "deepin_feedback_retry";
     actions << action;
-    showNotification(title,msg,actions);
+    return showNotification(title,msg,actions);
+}
+
+void DataSender::closeNotification(quint32 id)
+{
+    notifyInterface->call(QDBus::AutoDetect, "CloseNotification", 
+		    id);
 }
 
 void DataSender::slotGotError(QNetworkReply::NetworkError error)
@@ -75,9 +81,9 @@ void DataSender::slotRetry(uint code, QString id)
     }
 }
 
-void DataSender::showNotification(const QString &title, const QString &msg, const QStringList &actions)
+quint32 DataSender::showNotification(const QString &title, const QString &msg, const QStringList &actions)
 {
-    notifyInterface->call(QDBus::AutoDetect,"Notify",
+    QDBusMessage ret = notifyInterface->call(QDBus::AutoDetect,"Notify",
                       "Deepin Feedback",
                       uint(0),
                       "deepin-feedback",
@@ -86,4 +92,5 @@ void DataSender::showNotification(const QString &title, const QString &msg, cons
                       actions,
                       QVariantMap(),
                       -1);
+    return ret.arguments().at(0).toUInt();
 }

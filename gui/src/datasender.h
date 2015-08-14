@@ -17,7 +17,8 @@ public:
     explicit DataSender(QObject *parent = 0);
     Q_INVOKABLE void postFeedbackData(const QString &jsonData);
     Q_INVOKABLE void showSuccessNotification(const QString &title, const QString &msg);
-    Q_INVOKABLE void showErrorNotification(const QString &title, const QString &msg, const QString &action);
+    Q_INVOKABLE quint32 showErrorNotification(const QString &title, const QString &msg, const QString &action);
+    Q_INVOKABLE void closeNotification(quint32 id);
 
 signals:
     void postError(QString message);
@@ -30,7 +31,7 @@ private slots:
     void slotRetry(uint code,QString id);
 
 private:
-    void showNotification(const QString &title, const QString &msg, const QStringList &actions);
+    quint32 showNotification(const QString &title, const QString &msg, const QStringList &actions);
 
 private:
     QDBusInterface * notifyInterface;
