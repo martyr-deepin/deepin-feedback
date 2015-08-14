@@ -112,7 +112,7 @@ FocusScope{
             font.pixelSize: fontPixeSize
             clip: true
 
-            opacity: textInput.text == "" ? 1 : 0
+            opacity: textInput.text == "" && root.state == "normal" ? 1 : 0
 
             Behavior on opacity {
                 NumberAnimation {duration: 150}
