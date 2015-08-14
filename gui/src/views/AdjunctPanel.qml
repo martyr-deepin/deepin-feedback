@@ -251,7 +251,10 @@ FocusScope{
                         width: contentTextEdit.width
                         height: contentTextEdit.height
                         wrapMode: TextEdit.Wrap
-                        opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug ? 1 : 0
+                        opacity: contentTextEdit.text == ""
+                                 && reportTypeButtonRow.reportType == DataConverter.DFeedback_Bug
+                                 && adjunctPanel.state == "normal"
+                                 ? 1 : 0
                         text: {
                             var content = dsTr("Please describe your problem in detail") + "\n\n" +
                                     dsTr("Please upload related screenshots or files") + "\n\n" +
@@ -274,7 +277,10 @@ FocusScope{
                         width: contentTextEdit.width
                         height: contentTextEdit.height
                         wrapMode: TextEdit.Wrap
-                        opacity: contentTextEdit.text == "" && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug ? 1 : 0
+                        opacity: contentTextEdit.text == ""
+                                 && reportTypeButtonRow.reportType != DataConverter.DFeedback_Bug
+                                 && adjunctPanel.state == "normal"
+                                 ? 1 : 0
                         text: {
                             var content = dsTr("Please describe your idea in detail") + "\n\n" +
                                     dsTr("Please upload related attachments") + "\n\n" +
