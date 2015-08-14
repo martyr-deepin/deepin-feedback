@@ -179,6 +179,13 @@ DWindow {
         mainObject.saveEmail(emailTextinput.text)
     }
 
+    function resetAllInputState() {
+        appComboBox.setTextInputState("normal")
+        titleTextinput.state = "normal"
+        adjunctPanel.state = "normal"
+        emailTextinput.state = "normal"
+    }
+
     Connections {
         target:feedbackContent
         onGenerateReportFinished: {
@@ -371,6 +378,7 @@ DWindow {
 
         AppTextInput {
             id: titleTextinput
+            state: "normal"
             enabled: enableInput
             backgroundColor: enabled ? bgNormalColor : inputDisableBgColor
             width: reportTypeButtonRow.width
@@ -407,6 +415,7 @@ DWindow {
 
         AppTextInput {
             id: emailTextinput
+            state: "normal"
             property bool canFillEmail: true
             property bool emailChanged: false
             enabled: enableInput
@@ -537,6 +546,9 @@ DWindow {
                     }
                     closeButton.enabled = false
                     windowButtonRow.closeEnable = false
+
+                    // reset text input state
+                    resetAllInputState()
 
                     //disable UI
                     disableAllInput()

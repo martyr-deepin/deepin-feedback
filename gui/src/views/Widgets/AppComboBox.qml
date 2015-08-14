@@ -63,6 +63,10 @@ Item {
         settingText = false
     }
 
+    function setTextInputState(value) {
+        currentLabel.state = value
+    }
+
     Item {
         id:background
         height: parent.height
@@ -70,6 +74,7 @@ Item {
 
         AppTextInput {
             id:currentLabel
+            state: "normal"
             width: combobox.width
             height: parent.height
             anchors.left: parent.left
