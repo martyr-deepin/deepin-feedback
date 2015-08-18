@@ -20,7 +20,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+66"/>
         <source>Please describe your problem in detail</source>
         <translation type="unfinished"></translation>
     </message>
@@ -55,7 +55,7 @@
 <context>
     <name>AdjunctTray</name>
     <message>
-        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+206"/>
+        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+218"/>
         <source>Upload failed, please retry.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -63,7 +63,7 @@
 <context>
     <name>AppComboBox</name>
     <message>
-        <location filename="../gui/src/views/Widgets/AppComboBox.qml" line="+75"/>
+        <location filename="../gui/src/views/Widgets/AppComboBox.qml" line="+76"/>
         <source>Please select feedback project firstly </source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,35 +71,39 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/src/views/MainWindow.qml" line="+162"/>
-        <location line="+13"/>
+        <location filename="../gui/src/views/MainWindow.qml" line="+196"/>
+        <location line="+18"/>
+        <location line="+38"/>
         <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-55"/>
         <source>Your feedback has been sent successfully, thanks for your support!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
-        <location line="+8"/>
+        <location line="+13"/>
+        <location line="+25"/>
+        <location line="+13"/>
         <source>Resend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-39"/>
+        <location line="+38"/>
         <source>Failed to send your feedback, resend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+262"/>
+        <location line="-32"/>
+        <location line="+304"/>
         <source>Sending ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-199"/>
+        <location line="-215"/>
         <source>Total attachments have reached limit. </source>
         <translation type="unfinished"></translation>
     </message>
@@ -109,7 +113,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+22"/>
         <source>Please input the problem title</source>
         <translation type="unfinished"></translation>
     </message>
@@ -124,7 +128,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+33"/>
         <source>Please fill in email to get the feedback progress.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -134,7 +138,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+57"/>
         <source>I wish to join in User Feedback Help Plan to quickly improve the system without any personal information collected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -144,7 +148,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="-407"/>
+        <location line="+419"/>
         <source>Send</source>
         <translation type="unfinished"></translation>
     </message>
