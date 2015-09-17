@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Massimo Antonio Carofano <real.massimo@hotmail.it>, 2015
+# Yugo Purwanto <dedy.yugo.purwanto@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 18:57+0000\n"
-"Last-Translator: Massimo Antonio Carofano <real.massimo@hotmail.it>\n"
-"Language-Team: Italian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/it/)\n"
+"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"Language-Team: Indonesian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../daemon/feedback_daemon.go:58
 msgid "Deepin Desktop Environment"
@@ -24,158 +24,158 @@ msgstr "Deepin Desktop Environment"
 
 #: ../daemon/feedback_daemon.go:59
 msgid "Deepin Control Center"
-msgstr "Deepin Control Center"
+msgstr "Pusat Kontrol Deepin"
 
 #: ../daemon/feedback_daemon.go:60
 msgid "System Configuration (startup / repository / drive)"
-msgstr "Configurazione Sistema (Startup / repository / drives)"
+msgstr "Konfigurasi Sistem (startup / repositori / drive)"
 
 #: ../daemon/feedback_daemon.go:61
 msgid "Deepin Installer"
-msgstr "Deepin Installer"
+msgstr "Pemasang Deepin"
 
 #: ../daemon/feedback_daemon.go:62
 msgid "Deepin Store"
-msgstr "Deepin Store"
+msgstr "Toko Deepin"
 
 #: ../daemon/feedback_daemon.go:63
 msgid "Deepin Music"
-msgstr "Deepin Music"
+msgstr "Musik Deepin"
 
 #: ../daemon/feedback_daemon.go:64
 msgid "Deepin Movie"
-msgstr "Deepin Movie"
+msgstr "Film Deepin"
 
 #: ../daemon/feedback_daemon.go:65
 msgid "Deepin Screenshot"
-msgstr "Deepin Screenshot"
+msgstr "Tangkapan Layar Deepin"
 
 #: ../daemon/feedback_daemon.go:66
 msgid "Deepin Terminal"
-msgstr "Deepin Terminal"
+msgstr "Terminal Deepin"
 
 #: ../daemon/feedback_daemon.go:67
 msgid "Deepin Translator"
-msgstr "Deepin Translator"
+msgstr "Translator Deepin"
 
 #: ../daemon/feedback_daemon.go:68
 msgid "I don't know"
-msgstr "Non lo so"
+msgstr "Saya tidak tahu"
 
 #: ../daemon/feedback_daemon.go:69
 msgid "Deepin Web"
-msgstr "Deepin Web"
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:44
 msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "Caricamento allegato fallito: un singolo file non può superare i 15 Mb."
+msgstr "Gagal menambahkan lampiran: Satu lampiran tidak lebih dari 15M."
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
-msgstr "Per cortesia aggiungi un allegato"
+msgstr "Mohon pilih lampiran"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
 #: ../gui/src/views/MainWindow.qml:310
 msgid "Total attachments have reached limit. "
-msgstr "Raggiunto il numero massimo di allegati."
+msgstr "Total lampiran melebihi batas."
 
 #: ../gui/src/views/AdjunctPanel.qml:256
 msgid "Please describe your problem in detail"
-msgstr "Descrivi in dettaglio la problematica rilevata"
+msgstr "Mohon deskripsikan masalah Anda dengan rinci"
 
 #: ../gui/src/views/AdjunctPanel.qml:257
 msgid "Please upload related screenshots or files"
-msgstr "Per cortesia carica eventuali screenshots o files"
+msgstr "Mohon unggah tangkapan layar terkait atau berkas"
 
 #: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
 msgid "Single attachment can not exceed 15M"
-msgstr "Il singolo file non può superare i 15 Mb."
+msgstr "Satu lampiran tidak lebih dari 15M"
 
 #: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
 msgid "The total number of attachments is not more than six"
-msgstr "Il numero totale degli allegati è superiore a sei"
+msgstr "Total jumlah lampiran tidak lebih dari enam"
 
 #: ../gui/src/views/AdjunctPanel.qml:279
 msgid "Please describe your idea in detail"
-msgstr "Descrivi la tua idea in modo dettagliato"
+msgstr "Mohon deskripsikan ide Anda dengan rinci"
 
 #: ../gui/src/views/AdjunctPanel.qml:280
 msgid "Please upload related attachments"
-msgstr "Per cortesia carica eventuali allegati"
+msgstr "Mohon unggah lampiran terkait"
 
 #: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
 msgid "Send"
-msgstr "Invia"
+msgstr "Kirim"
 
 #: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
 #: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
-msgstr "Deepin User Feedback"
+msgstr "Umpan balik Pengguna Deepin"
 
 #: ../gui/src/views/MainWindow.qml:197
 msgid "Your feedback has been sent successfully, thanks for your support!"
-msgstr "Feedback inviato correttamente, grazie per il tuo aiuto!"
+msgstr "Umpan balik Anda berhasil dikirim, terimakasih atas bantuan Anda!"
 
 #: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
 #: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
 msgid "Resend"
-msgstr "Nuovo invio"
+msgstr "Kirim ulang"
 
 #: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
 msgid "Failed to send your feedback, resend?"
-msgstr "Invio feedback fallito, riprovare?"
+msgstr "Gagal mengirim umpan balik Anda, kirim ulang?"
 
 #: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
 msgid "Sending ..."
-msgstr "Invio ..."
+msgstr "Mengirim ..."
 
 #: ../gui/src/views/MainWindow.qml:353
 #, qt-format
 msgid "The draft of %1 has been saved."
-msgstr "La bozza di %1 è stata salvata."
+msgstr "Konsep dari %1 telah disimpan."
 
 #: ../gui/src/views/MainWindow.qml:375
 msgid "Please input the problem title"
-msgstr "Scrivi il titolo del problema"
+msgstr "Mohon masukkan judul masalah"
 
 #: ../gui/src/views/MainWindow.qml:376
 msgid "Please describe your idea simply"
-msgstr "Descrivi la tua idea in modo semplice"
+msgstr "Mohon deskripsikkan ide Anda dengan sederhana"
 
 #: ../gui/src/views/MainWindow.qml:379
 msgid "Title words have reached limit."
-msgstr "Hai raggiunto la lunghezza massima."
+msgstr "Jumlah kata judul mencapai batas."
 
 #: ../gui/src/views/MainWindow.qml:412
 msgid "Please fill in email to get the feedback progress."
-msgstr "Compila il campo email per rimanere aggiornato."
+msgstr "Mohon isi alamat email untuk mendapatkan kemajuan umpan balik."
 
 #: ../gui/src/views/MainWindow.qml:415
 msgid "Email is invalid."
-msgstr "Email non valida."
+msgstr "Email tidak valid."
 
 #: ../gui/src/views/MainWindow.qml:472
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
-msgstr "Mi piacerebbe partecipare al User Feedback Help Plan per migliorare Deepin senza che vengano raccolte info personali."
+msgstr "Saya ingin bergabung di Rencana Bantuan Umpan balik untuk meningkatkatkan sistem tanpa pengumpulan informasi pribadi."
 
 #: ../gui/src/views/MainWindow.qml:490
 msgid "Close"
-msgstr "Chiudi"
+msgstr "Tutup"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:24
 msgid "I have a problem"
-msgstr "Ho un problema"
+msgstr "Saya punya sebuah masalah"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:35
 msgid "I have a good idea"
-msgstr "Ho una buona idea"
+msgstr "Saya punya sebuah ide bagus"
 
 #: ../gui/src/views/Widgets/AdjunctTray.qml:218
 msgid "Upload failed, please retry."
-msgstr "Caricamento fallito, riprova per cortesia."
+msgstr "Unggah gagal, mohon coba lagi."
 
 #: ../gui/src/views/Widgets/AppComboBox.qml:76
 msgid "Please select feedback project firstly "
-msgstr "Per cortesia seleziona prima il progetto"
+msgstr "Mohon pilih proyek umpan balik terlebih dahulu"

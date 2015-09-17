@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-19 15:46+0800\n"
-"PO-Revision-Date: 2015-06-24 07:10+0000\n"
-"Last-Translator: Vasilii Rusu <basil_russu@hotmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/deepin-feedback/language/ru/)\n"
+"POT-Creation-Date: 2015-08-14 10:32+0800\n"
+"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"Language-Team: Russian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,6 +62,10 @@ msgstr "Переводчик Deepin"
 msgid "I don't know"
 msgstr "Я не знаю"
 
+#: ../daemon/feedback_daemon.go:69
+msgid "Deepin Web"
+msgstr ""
+
 #: ../gui/src/views/AdjunctPanel.qml:44
 msgid "Failed to add attachment: Single attachment cann't be more than 15M."
 msgstr "Не удалось прикрепить файл: Прикрепленный файл не должен быть больше 15 Мб."
@@ -71,93 +75,94 @@ msgid "Please select attachment"
 msgstr "Выберите файл для прикрепления"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
-#: ../gui/src/views/MainWindow.qml:245
+#: ../gui/src/views/MainWindow.qml:310
 msgid "Total attachments have reached limit. "
 msgstr "Прикрепленные файлы достигли общего лимита."
 
-#: ../gui/src/views/AdjunctPanel.qml:255
+#: ../gui/src/views/AdjunctPanel.qml:256
 msgid "Please describe your problem in detail"
 msgstr "Пожалуйста, опишите свою проблему подробно"
 
-#: ../gui/src/views/AdjunctPanel.qml:256
+#: ../gui/src/views/AdjunctPanel.qml:257
 msgid "Please upload related screenshots or files"
 msgstr "Пожалуйста загрузите соответствующие снимки экрана или файлы"
 
-#: ../gui/src/views/AdjunctPanel.qml:257 ../gui/src/views/AdjunctPanel.qml:280
+#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
 msgid "Single attachment can not exceed 15M"
 msgstr "Прикрепленный файл не должен быть больше 15 Мб"
 
-#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
+#: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
 msgid "The total number of attachments is not more than six"
 msgstr "Общее количество прикрепленных файлов не более шести."
 
-#: ../gui/src/views/AdjunctPanel.qml:278
+#: ../gui/src/views/AdjunctPanel.qml:279
 msgid "Please describe your idea in detail"
 msgstr "Пожалуйста, опишите свою идею подробно"
 
-#: ../gui/src/views/AdjunctPanel.qml:279
+#: ../gui/src/views/AdjunctPanel.qml:280
 msgid "Please upload related attachments"
 msgstr "Пожалуйста прикрепите соответствующие файлы"
 
-#: ../gui/src/views/MainWindow.qml:162 ../gui/src/views/MainWindow.qml:175
-#: ../gui/src/views/TitleRow.qml:28
+#: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
+msgid "Send"
+msgstr "Отправить"
+
+#: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
+#: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
 msgstr "Обратная связь с пользователем Deepin"
 
-#: ../gui/src/views/MainWindow.qml:163
+#: ../gui/src/views/MainWindow.qml:197
 msgid "Your feedback has been sent successfully, thanks for your support!"
 msgstr "Ваш отзыв успешно отправлен, спасибо!"
 
-#: ../gui/src/views/MainWindow.qml:169 ../gui/src/views/MainWindow.qml:177
+#: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
+#: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
 msgid "Resend"
 msgstr "Переслать"
 
-#: ../gui/src/views/MainWindow.qml:176
+#: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
 msgid "Failed to send your feedback, resend?"
 msgstr "Не удалось отправить отзыв, переслать?"
 
-#: ../gui/src/views/MainWindow.qml:182 ../gui/src/views/MainWindow.qml:444
+#: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
 msgid "Sending ..."
 msgstr "Отправка..."
 
-#: ../gui/src/views/MainWindow.qml:288
+#: ../gui/src/views/MainWindow.qml:353
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr "Черновик  %1  сохранен."
 
-#: ../gui/src/views/MainWindow.qml:304
+#: ../gui/src/views/MainWindow.qml:375
 msgid "Please input the problem title"
 msgstr "Пожалуйста, введите наименование проблемы"
 
-#: ../gui/src/views/MainWindow.qml:305
+#: ../gui/src/views/MainWindow.qml:376
 msgid "Please describe your idea simply"
 msgstr "Опишите свою идею просто"
 
-#: ../gui/src/views/MainWindow.qml:308
+#: ../gui/src/views/MainWindow.qml:379
 msgid "Title words have reached limit."
 msgstr "Количество слов в заголовке достигло предела."
 
-#: ../gui/src/views/MainWindow.qml:342
+#: ../gui/src/views/MainWindow.qml:412
 msgid "Please fill in email to get the feedback progress."
 msgstr "Пожалуйста введите свой электронный адрес чтобы завершить."
 
-#: ../gui/src/views/MainWindow.qml:345
+#: ../gui/src/views/MainWindow.qml:415
 msgid "Email is invalid."
 msgstr "Введенный электронный адрес не действителен."
 
-#: ../gui/src/views/MainWindow.qml:401
+#: ../gui/src/views/MainWindow.qml:472
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr "Я желаю присоединится к Плану Поддержки и Обратной Связи с Пользователем с целью улучшения системы, без сбора личной информации."
 
-#: ../gui/src/views/MainWindow.qml:419
+#: ../gui/src/views/MainWindow.qml:490
 msgid "Close"
 msgstr "Закрыть"
-
-#: ../gui/src/views/MainWindow.qml:431
-msgid "Send"
-msgstr "Отправить"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:24
 msgid "I have a problem"
@@ -167,10 +172,10 @@ msgstr "У меня возникла проблема"
 msgid "I have a good idea"
 msgstr "У меня возникла хорошая идея"
 
-#: ../gui/src/views/Widgets/AdjunctTray.qml:206
+#: ../gui/src/views/Widgets/AdjunctTray.qml:218
 msgid "Upload failed, please retry."
 msgstr "Загрузка не удалась, пожалуйста попробуйте заново."
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:75
+#: ../gui/src/views/Widgets/AppComboBox.qml:76
 msgid "Please select feedback project firstly "
 msgstr "Пожалуйста, сначала выберите проект по которому хотите отослать отзыв"

@@ -3,179 +3,179 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Massimo Antonio Carofano <real.massimo@hotmail.it>, 2015
+# fri, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 18:57+0000\n"
-"Last-Translator: Massimo Antonio Carofano <real.massimo@hotmail.it>\n"
-"Language-Team: Italian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/it/)\n"
+"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"Language-Team: Czech (http://www.transifex.com/linuxdeepin/deepin-feedback/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../daemon/feedback_daemon.go:58
 msgid "Deepin Desktop Environment"
-msgstr "Deepin Desktop Environment"
+msgstr "Prostředí plochy"
 
 #: ../daemon/feedback_daemon.go:59
 msgid "Deepin Control Center"
-msgstr "Deepin Control Center"
+msgstr "Ovládací středisko"
 
 #: ../daemon/feedback_daemon.go:60
 msgid "System Configuration (startup / repository / drive)"
-msgstr "Configurazione Sistema (Startup / repository / drives)"
+msgstr "Nastavení systému (spuštění/ukládání/disk)"
 
 #: ../daemon/feedback_daemon.go:61
 msgid "Deepin Installer"
-msgstr "Deepin Installer"
+msgstr "Instalátor"
 
 #: ../daemon/feedback_daemon.go:62
 msgid "Deepin Store"
-msgstr "Deepin Store"
+msgstr "Obchod"
 
 #: ../daemon/feedback_daemon.go:63
 msgid "Deepin Music"
-msgstr "Deepin Music"
+msgstr "Hudba"
 
 #: ../daemon/feedback_daemon.go:64
 msgid "Deepin Movie"
-msgstr "Deepin Movie"
+msgstr "Filmy"
 
 #: ../daemon/feedback_daemon.go:65
 msgid "Deepin Screenshot"
-msgstr "Deepin Screenshot"
+msgstr "Snímek obrazovky"
 
 #: ../daemon/feedback_daemon.go:66
 msgid "Deepin Terminal"
-msgstr "Deepin Terminal"
+msgstr "Terminál"
 
 #: ../daemon/feedback_daemon.go:67
 msgid "Deepin Translator"
-msgstr "Deepin Translator"
+msgstr "Překladatel"
 
 #: ../daemon/feedback_daemon.go:68
 msgid "I don't know"
-msgstr "Non lo so"
+msgstr "Nevím"
 
 #: ../daemon/feedback_daemon.go:69
 msgid "Deepin Web"
-msgstr "Deepin Web"
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:44
 msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "Caricamento allegato fallito: un singolo file non può superare i 15 Mb."
+msgstr "Nepodařilo se přidat přílohu. Jedna příloha nemůže mít více než 15 MB."
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
-msgstr "Per cortesia aggiungi un allegato"
+msgstr "Vyberte, prosím, přílohu"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
 #: ../gui/src/views/MainWindow.qml:310
 msgid "Total attachments have reached limit. "
-msgstr "Raggiunto il numero massimo di allegati."
+msgstr "Celkový počet příloh dosáhl nejvyššího možného počtu."
 
 #: ../gui/src/views/AdjunctPanel.qml:256
 msgid "Please describe your problem in detail"
-msgstr "Descrivi in dettaglio la problematica rilevata"
+msgstr "Podrobně popište potíže"
 
 #: ../gui/src/views/AdjunctPanel.qml:257
 msgid "Please upload related screenshots or files"
-msgstr "Per cortesia carica eventuali screenshots o files"
+msgstr "Nahrajte souvidející snímky obrazovky nebo soubory"
 
 #: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
 msgid "Single attachment can not exceed 15M"
-msgstr "Il singolo file non può superare i 15 Mb."
+msgstr "Jedna příloha nemůže mít více jak 15 MB"
 
 #: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
 msgid "The total number of attachments is not more than six"
-msgstr "Il numero totale degli allegati è superiore a sei"
+msgstr "Celkový počet příloh není vyšší než šest"
 
 #: ../gui/src/views/AdjunctPanel.qml:279
 msgid "Please describe your idea in detail"
-msgstr "Descrivi la tua idea in modo dettagliato"
+msgstr "Podrobně popište svoji myšlenku"
 
 #: ../gui/src/views/AdjunctPanel.qml:280
 msgid "Please upload related attachments"
-msgstr "Per cortesia carica eventuali allegati"
+msgstr "Nahrajte souvidející přílohy"
 
 #: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
 msgid "Send"
-msgstr "Invia"
+msgstr "Poslat"
 
 #: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
 #: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
-msgstr "Deepin User Feedback"
+msgstr "Uživatelská zpětná vazba"
 
 #: ../gui/src/views/MainWindow.qml:197
 msgid "Your feedback has been sent successfully, thanks for your support!"
-msgstr "Feedback inviato correttamente, grazie per il tuo aiuto!"
+msgstr "Vaše zpětná vazba byla úspěšně odeslána. Děkujeme vám za podporu!"
 
 #: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
 #: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
 msgid "Resend"
-msgstr "Nuovo invio"
+msgstr "Poslat znovu"
 
 #: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
 msgid "Failed to send your feedback, resend?"
-msgstr "Invio feedback fallito, riprovare?"
+msgstr "Nepodařilo se odeslat vaši zpětnou vazbu. Poslat znovu?"
 
 #: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
 msgid "Sending ..."
-msgstr "Invio ..."
+msgstr "Posílá se..."
 
 #: ../gui/src/views/MainWindow.qml:353
 #, qt-format
 msgid "The draft of %1 has been saved."
-msgstr "La bozza di %1 è stata salvata."
+msgstr "Návrh %1 byl uložen."
 
 #: ../gui/src/views/MainWindow.qml:375
 msgid "Please input the problem title"
-msgstr "Scrivi il titolo del problema"
+msgstr "Zadejte název potíží"
 
 #: ../gui/src/views/MainWindow.qml:376
 msgid "Please describe your idea simply"
-msgstr "Descrivi la tua idea in modo semplice"
+msgstr "Jednoduše popište svoji myšlenku"
 
 #: ../gui/src/views/MainWindow.qml:379
 msgid "Title words have reached limit."
-msgstr "Hai raggiunto la lunghezza massima."
+msgstr "Počet slov v názvu dosáhl nejvyššího možného počtu"
 
 #: ../gui/src/views/MainWindow.qml:412
 msgid "Please fill in email to get the feedback progress."
-msgstr "Compila il campo email per rimanere aggiornato."
+msgstr "Vyplňte adresu elektronické pošty, abyste se dostal dále ke zpětné vazbě."
 
 #: ../gui/src/views/MainWindow.qml:415
 msgid "Email is invalid."
-msgstr "Email non valida."
+msgstr "Adresa je neplatná."
 
 #: ../gui/src/views/MainWindow.qml:472
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
-msgstr "Mi piacerebbe partecipare al User Feedback Help Plan per migliorare Deepin senza che vengano raccolte info personali."
+msgstr "Chtěl bych se připojit k plánu zpětné vazby uživatelů pro rychlé zlepšení systému bez sběru osobních údajů."
 
 #: ../gui/src/views/MainWindow.qml:490
 msgid "Close"
-msgstr "Chiudi"
+msgstr "Zavřít"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:24
 msgid "I have a problem"
-msgstr "Ho un problema"
+msgstr "Mám potíže"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:35
 msgid "I have a good idea"
-msgstr "Ho una buona idea"
+msgstr "Mám dobrý nápad"
 
 #: ../gui/src/views/Widgets/AdjunctTray.qml:218
 msgid "Upload failed, please retry."
-msgstr "Caricamento fallito, riprova per cortesia."
+msgstr "Nahrávání selhalo. Zkuste to znovu."
 
 #: ../gui/src/views/Widgets/AppComboBox.qml:76
 msgid "Please select feedback project firstly "
-msgstr "Per cortesia seleziona prima il progetto"
+msgstr "Nejprve vyberte projekt zpětné vazby"
