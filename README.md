@@ -13,7 +13,7 @@ collecting back-end. For advanced usage, run it under the terminal.
 
 ## Dependencies
 
-### Build Dependencies
+### Build dependencies
 
 - [dde-go-dbus-factory](https://github.com/linuxdeepin/dbus-factory)
 - [deepin-gettext-tools](https://github.com/linuxdeepin/deepin-gettext-tools)
@@ -22,7 +22,7 @@ collecting back-end. For advanced usage, run it under the terminal.
 - qt5-default
 - qt5-qmake
 
-### Runtime Dependencies
+### Runtime dependencies
 
 - Qt5Quick
 - Qt5webkit
@@ -127,7 +127,7 @@ Any usage issues can ask for help via
 
 We encourage you to report issues and contribute changes
 
-* [Contirubtion guide for users](http://wiki.deepin.org/index.php?title=Contribution_Guidelines_for_Users)
+* [Contribution guide for users](http://wiki.deepin.org/index.php?title=Contribution_Guidelines_for_Users)
 * [Contribution guide for developers](http://wiki.deepin.org/index.php?title=Contribution_Guidelines_for_Developers).
 
 ## License
