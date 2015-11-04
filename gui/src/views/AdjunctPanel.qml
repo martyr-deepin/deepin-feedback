@@ -129,14 +129,19 @@ FocusScope{
         width: parent.width
         height: parent.height
 
-        FileDialog {
-            id: adjunctPickDialog
-            title: dsTr("Please select attachment")
-            onAccepted: {
-                getAdjunct(adjunctPickDialog.fileUrl.toString().replace("file:///","/"))
-                close()
+        //use Component.createObject() to makesure the files propertys will be refresh
+        //there is a bug with FileDialog
+        Component {
+            id: pickerDialogComp
+
+            FileDialog {
+                title: dsTr("Please select attachment")
+                onAccepted: {
+                    adjunctPanel.getAdjunct(fileUrl.toString().replace("file:///","/"))
+                    close()
+                }
+                nameFilters: [ "All files (*)" ,"Image files (*.jpg *.png *.gif)"]
             }
-            nameFilters: [ "All files (*)" ,"Image files (*.jpg *.png *.gif)"]
         }
 
         Row {
@@ -182,7 +187,7 @@ FocusScope{
                             && appComboBox.text != ""
                             && projectNameList.indexOf(appComboBox.text) != -1){
 
-                        adjunctPickDialog.open()
+                        pickerDialogComp.createObject(adjunctPanel).open()
                     }
                 }
                 onEntered: {
