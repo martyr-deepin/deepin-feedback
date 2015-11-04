@@ -65,8 +65,8 @@ func initCategories() {
 		{Value: "deepin-screenshot", BugzillaProject: "深度截图", Name: Tr("Deepin Screenshot")},
 		{Value: "deepin-terminal", BugzillaProject: "深度终端", Name: Tr("Deepin Terminal")},
 		{Value: "deepin-translator", BugzillaProject: "深度翻译", Name: Tr("Deepin Translator")},
-		{Value: "all", BugzillaProject: "我不清楚", Name: Tr("I don't know")},
 		{Value: "none", BugzillaProject: "深度网站", Name: Tr("Deepin Web")},
+		{Value: "all", BugzillaProject: "我不清楚", Name: Tr("I don't know")},
 	}
 }
 
