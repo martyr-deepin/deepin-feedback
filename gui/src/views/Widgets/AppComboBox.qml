@@ -18,7 +18,7 @@ Item {
     property var labels:projectNameList
     property int selectIndex: -1
 
-    property string searchMd5: ""
+    property string _searchMd5: ""
 
     signal clicked
     signal searchResultCountChanged(int count)
@@ -31,7 +31,7 @@ Item {
             menu.currentIndex = selectIndex
         }
 
-        searchMd5 = dbusSearch.NewSearchWithStrList(projectNameList.concat(projectEnNameList))[0]
+        _searchMd5 = dbusSearch.NewSearchWithStrList(projectNameList.concat(projectEnNameList))[0]
     }
 
     onClicked: {
@@ -92,32 +92,24 @@ Item {
                     mainWindow.clearDraft()
                 }
                 else{
-                    var searchResult = dbusSearch.SearchString(text, searchMd5)
+                    var inEnLang = dsslocale.lang.indexOf("en_") != -1
+                    var searchResult =searchResult = dbusSearch.SearchString(text, _searchMd5)
                     var appList = new Array()
-                    for(var i in searchResult){
-                        if (dsslocale.lang.indexOf("en_") != -1)
-                        {
-                            var v = searchResult[i];
-                            if (appList.indexOf(v) != -1)
-                                break;
-                            appList.push(v)
-                        }
-                        else
-                        {
-                            var v = dsTr(searchResult[i]);
-                            if (appList.indexOf(v) != -1)
-                                break;
-                            appList.push(v)
-                        }
+
+                    for(var i in searchResult) {
+                        var v = inEnLang ? searchResult[i] : dsTr(searchResult[i]);
+                        if (appList.indexOf(v) != -1)
+                            break;
+                        appList.push(v)
                     }
 
                     combobox.searchResultCountChanged(appList.length)
                     combobox.labels = appList
 
-                    if (!menu.visible && appList.length > 0){
+                    if (!menu.visible && appList.length > 0) {
                         showMenu()
                     }
-                    else if(appList.length <= 0){
+                    else if(appList.length <= 0) {
                         hideMenu()
                     }
                 }
