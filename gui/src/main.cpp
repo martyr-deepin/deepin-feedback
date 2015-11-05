@@ -1,32 +1,34 @@
+#include <QtQml>
 #include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QtQml>
+#include <QCommandLineParser>
 #include <QDBusConnection>
 #include <QDBusInterface>
-#include <QDebug>
+
 #include "qmlloader.h"
 #include "dataconverter.h"
 #include "adjunctuploader.h"
 #include "datasender.h"
 
-void showVersion()
-{
-    qDebug() << "1.0";
-}
-
-void showHelpTip()
-{
-    qWarning() << "Usage:";
-    qWarning() << "\tdeepin-feedback  \t\t\tDo not specify a target_app";
-    qWarning() << "\tdeepin-feedback -v   \t\t\tPrint version";
-    qWarning() << "\tdeepin-feedback -h   \t\t\tShow this message";
-    qWarning() << "\tdeepin-feedback -t <target_app>\t\tReport target_app's bug\n";
-}
-
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("deepin-feedback");
+
+    //Add command line option
+    QCommandLineParser parser;
+//    parser.setApplicationDescription("Feedback helper");
+    parser.addHelpOption();
+    parser.addOptions({
+                          {{"t", "target"},
+                           QObject::tr("Report a bug for <target>."),
+                           QObject::tr("target")}
+                      });
+
+    parser.process(app);
+
+    QString reportTarget = parser.value("target");
 
     if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
 
@@ -40,48 +42,23 @@ int main(int argc, char *argv[])
         QObject::connect(qmlLoader->engine, SIGNAL(quit()), QApplication::instance(), SLOT(quit()));
 
 
-        if(argc == 2)
-        {
-            QString order = argv[1];
-            if(order == "-v" || order == "--version")
-            {
-                showVersion();
-            }
-            else
-            {
-                showHelpTip();
-            }
-            return 0;
-        }
-        else if (argc == 1)
-        {
+        if (reportTarget.isEmpty()) {
             //TODO  clear project
             qmlLoader->reportBug();
         }
-        else if (argc == 3 && QString(argv[1]) == "-t")
-        {
-            QString target = argv[2];
-            //TODO change report project
-            qmlLoader->reportBug(target);
-        }
-        else
-        {
-            showHelpTip();
-            return 0;
+        else {
+            qmlLoader->reportBug(reportTarget);
         }
 
         return app.exec();
     }
-    else
-    {
-        qWarning() << "DFeedback is running...";
-        if(argc == 3 && QString(argv[1]) == "-t"){
-            QDBusInterface *iface;
-            iface = new QDBusInterface(DBUS_NAME, DBUS_PATH, DBUS_NAME, QDBusConnection::sessionBus());
-            QString target = argv[2];
-            iface->call("switchProject", target);
-        }
-
-        return 0;
+    else if (!reportTarget.isEmpty()) {
+        QDBusInterface iface(DBUS_NAME, DBUS_PATH, DBUS_NAME, QDBusConnection::sessionBus());
+        iface.call("switchProject", reportTarget);
     }
+    else {
+        qWarning() << "deepin-feedback is running...";
+    }
+
+    return 0;
 }
