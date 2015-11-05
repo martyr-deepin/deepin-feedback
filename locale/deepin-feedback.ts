@@ -155,6 +155,19 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <location filename="../gui/src/main.cpp" line="+25"/>
+        <source>Report a bug for &lt;target&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>target</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ReportTypeButtonRow</name>
     <message>
         <location filename="../gui/src/views/ReportTypeButtonRow.qml" line="+24"/>
