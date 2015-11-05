@@ -443,15 +443,12 @@ QStringList QmlLoader::getEmails()
 
 QString QmlLoader::getMatchEmailPart(const QString &text)
 {
-    QStringList tmpList = getEmails();
-    for (int i = 0; i < tmpList.length(); i ++)
-    {
-        int tmpIndex = tmpList.at(i).indexOf(text, 0, Qt::CaseInsensitive);
-        if (tmpIndex != -1)
-        {
-            return tmpList.at(i).mid(text.length());
-        }
+    QStringList emailList = getEmails();
+    foreach (QString email, emailList) {
+        if (email.indexOf(text, 0, Qt::CaseInsensitive) == 0)
+            return email.mid(text.length());
     }
+
     return "";
 }
 
