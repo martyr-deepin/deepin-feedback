@@ -250,22 +250,26 @@ DWindow {
         target: AdjunctUploader
 
         onUploadFailed:{
-            print ("Post data error:",message)
-            sendButton.text = dsTr("Resend")
-            sending = false
-            closeButton.enabled = true
-            resendFlag = true
-            windowButtonRow.closeEnable = true
+            //deepin-feedback-results will only upload when "Send" button click
+            //so ignore other error here
+            if (filePath.indexOf("deepin-feedback-results") > 0) {
+                print ("Post data error:",message)
+                sendButton.text = dsTr("Resend")
+                sending = false
+                closeButton.enabled = true
+                resendFlag = true
+                windowButtonRow.closeEnable = true
 
-            //enable all UI
-            enableAllInput()
-            appComboBox.enabled = true
+                //enable all UI
+                enableAllInput()
+                appComboBox.enabled = true
 
-            mainObject.clearSysAdjuncts(lastTarget)
+                mainObject.clearSysAdjuncts(lastTarget)
 
-            dataSender.showErrorNotification(dsTr("Deepin User Feedback")
-                                               ,dsTr("Failed to send your feedback, resend?")
-                                               ,dsTr("Resend"))
+                dataSender.showErrorNotification(dsTr("Deepin User Feedback")
+                                                 ,dsTr("Failed to send your feedback, resend?")
+                                                 ,dsTr("Resend"))
+            }
         }
     }
 
