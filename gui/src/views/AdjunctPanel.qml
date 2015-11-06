@@ -217,9 +217,9 @@ FocusScope{
                 model: itemModel
                 clip: true
 
-                DScrollBar {
-                    flickable: textEditView
-                }
+//                DScrollBar {
+//                    flickable: textEditView
+//                }
             }
 
             VisualItemModel
@@ -230,21 +230,42 @@ FocusScope{
                     width: adjunctRec.width
                     height: contentTextEdit.contentHeight > textEditView.height ? contentTextEdit.contentHeight : textEditView.height
 
-                    TextEdit {
-                        id: contentTextEdit
-                        textMargin: 6
-                        focus: true
-                        color: adjunctPanel.enabled ? textNormalColor : "#bebebe"
-                        selectionColor: "#61B5F8"
-                        selectByMouse: true
-                        font.pixelSize: 12
-                        width: adjunctRec.width
-                        height: contentHeight > textEditView.height ? contentHeight : textEditView.height
-                        anchors.centerIn: parent
+                    Flickable {
+                        id: flick
 
-                        wrapMode: TextEdit.Wrap
+                        width: textEditView.width;
+                        height: textEditView.height;
+                        contentWidth: contentTextEdit.paintedWidth
+                        contentHeight: contentTextEdit.paintedHeight
+                        clip: true
 
-                        onTextChanged: contentEdited()
+                        function ensureVisible(r)
+                        {
+                            if (contentX >= r.x)
+                                contentX = r.x;
+                            else if (contentX+width <= r.x+r.width)
+                                contentX = r.x+r.width-width;
+                            if (contentY >= r.y)
+                                contentY = r.y;
+                            else if (contentY+height <= r.y+r.height)
+                                contentY = r.y+r.height-height;
+                        }
+
+                        TextEdit {
+                            id: contentTextEdit
+                            width: flick.width
+                            height: flick.height
+                            textMargin: 6
+                            focus: true
+                            color: adjunctPanel.enabled ? textNormalColor : "#bebebe"
+                            selectionColor: "#61B5F8"
+                            selectByMouse: true
+                            font.pixelSize: 12
+                            wrapMode: TextEdit.Wrap
+
+                            onTextChanged: contentEdited()
+                            onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
+                        }
                     }
 
                     TextEdit {
