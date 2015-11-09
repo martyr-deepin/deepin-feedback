@@ -36,7 +36,7 @@ FocusScope{
 
     function getAdjunct(filePath){
         if (mainObject.adjunctExist(filePath,getProjectIDByName(appComboBox.text.trim()))){
-            print ("==>[Info] Attachment already exist...")
+            console.log ("Attachment already exist: ", filePath)
             return
         }
 
@@ -47,7 +47,7 @@ FocusScope{
 
         var targetPath = mainObject.addAdjunct(filePath, getProjectIDByName(appComboBox.text.trim()))
         if (targetPath == ""){
-            print ("==>[Info] Adjunct already exist or got adjunct error")
+            console.log ("Adjunct already exist or got attachment error")
             return
         }
 

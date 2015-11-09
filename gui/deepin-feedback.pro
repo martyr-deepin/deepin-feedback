@@ -14,6 +14,8 @@ RESOURCES += src/views.qrc
 
 CONFIG += c++11
 
+include (src/cutelogger/cutelogger.pri)
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 

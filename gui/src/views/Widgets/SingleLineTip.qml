@@ -129,10 +129,6 @@ DWindow{
             lineHeight: fontPixelSize*1.2
             font.pixelSize: fontPixelSize
             height: Math.min(lineHeight*3, parent.height-10)
-
-            Component.onCompleted: {
-                console.log(lineHeight)
-            }
         }
     }
 

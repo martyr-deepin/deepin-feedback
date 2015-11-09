@@ -83,7 +83,9 @@ QtObject {
     property var dsslocale: DLocale {
         domain: "deepin-feedback"
 
-        Component.onCompleted: print("==> [info] Language:", dsslocale.lang)
+        Component.onCompleted: {
+            console.log ("Language:", dsslocale.lang)
+        }
     }
 
     function getProjectIDByName(name){

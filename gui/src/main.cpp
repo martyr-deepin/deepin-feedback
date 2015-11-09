@@ -5,6 +5,8 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 
+#include "logmanager.h"
+#include "Logger.h"
 #include "qmlloader.h"
 #include "dataconverter.h"
 #include "adjunctuploader.h"
@@ -27,6 +29,9 @@ int main(int argc, char *argv[])
                       });
 
     parser.process(app);
+
+    LogManager::instance()->debug_log_console_on();
+    LOG_INFO() << LogManager::instance()->getlogFilePath();
 
     QString reportTarget = parser.value("target");
 

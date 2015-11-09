@@ -155,7 +155,7 @@ QJsonObject AdjunctAide::getJsonObjFromFile()
     QFile recordFile(UPLOAD_RECORD_FILE);
     if (!recordFile.open(QIODevice::ReadOnly))
     {
-        qWarning() << "Open upload record file to read error!";
+        qWarning() << "Open upload record file to read error: " << UPLOAD_RECORD_FILE;
         return jsonObj;
     }
 

@@ -51,7 +51,7 @@ function showTip()
             fnishCreate();
         else if (iconTipComponent.status === Component.Error)
         {
-            console.log("component Error:", iconTipComponent.errorString());
+            console.warn ("Component Error:", iconTipComponent.errorString());
         }
         else{
             iconTipComponent.statusChanged.connect(fnishCreate);
@@ -67,7 +67,7 @@ function fnishCreate()
 
         if (iconTipPage === null)
         {
-            console.log("component createObject failed");
+            console.warn ("Component createObject failed");
         }
         else
         {
@@ -82,7 +82,7 @@ function fnishCreate()
         }
     }
     else if (iconTipComponent.status === Component.Error) {
-        console.log("Error loading component:", iconTipComponent.errorString());
+        console.warn ("Error loading component:", iconTipComponent.errorString());
     }
 }
 

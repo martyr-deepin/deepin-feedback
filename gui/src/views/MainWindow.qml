@@ -174,7 +174,7 @@ DWindow {
     }
 
     function postDataToServer(){
-        print("[Info:]Posting data to bugzilla server...")
+        console.log ("Posting data to bugzilla server...")
         dataSender.postFeedbackData(getJsonData())
         mainObject.saveEmail(emailTextinput.text)
     }
@@ -194,7 +194,7 @@ DWindow {
             for (var i = 0; i < packageList.length; i ++){
                 adjunctPanel.getAdjunct(packageList[i])
             }
-            print("[Info:]Genera system infomation archive complete! Packages count:",packageList.length)
+            console.log ("Genera system infomation archive complete! Packages count:", packageList.length)
         }
     }
 
@@ -210,7 +210,7 @@ DWindow {
             Qt.quit()
         }
         onPostError: {
-            print ("Post data error:",message)
+            console.warn ("Post data error:", message)
             sendButton.text = dsTr("Resend")
             sending = false
             closeButton.enabled = true
@@ -253,7 +253,7 @@ DWindow {
             //deepin-feedback-results will only upload when "Send" button click
             //so ignore other error here
             if (filePath.indexOf("deepin-feedback-results") > 0) {
-                print ("Post data error:",message)
+                console.warn ("Post data error:", message)
                 sendButton.text = dsTr("Resend")
                 sending = false
                 closeButton.enabled = true
@@ -521,7 +521,6 @@ DWindow {
                 width: textItem.contentWidth < 40 ? 60 : textItem.contentWidth + 50
                 text: dsTr("Send")
                 enabled: {
-                    print (titleTextinput.text)
                     if (titleTextinput.text != "" && !titleTextinput.inWarningState
                             && appComboBox.text != ""
                             && adjunctPanel.getDescriptionDetails() !== ""
@@ -560,7 +559,7 @@ DWindow {
 
                     //genera system infomation,then send data to server
                     feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text), helpCheck.checked)
-                    print("[Info:]Generating system infomation archive...")
+                    console.log ("Generating system infomation archive...")
                 }
             }
         }

@@ -10,7 +10,7 @@ DataSender::DataSender(QObject *parent) :
 
 void DataSender::postFeedbackData(const QString &jsonData)
 {
-    qDebug()<< "---------------" << "Start send process..."<<jsonData << "---------------";
+    qDebug()<< "Sending feedback data...{JSON--" << jsonData << "--JSON}";
 
     QNetworkRequest request;
     request.setUrl(QUrl(JSONRPC_HOST));
@@ -46,7 +46,7 @@ void DataSender::closeNotification(quint32 id)
 
 void DataSender::slotGotError(QNetworkReply::NetworkError error)
 {
-    qDebug() << "Post failed!";
+    qWarning() << "Send feedback failed! QNetworkReply::NetworkError:" << error;
     emit postError(QString::number(error));
 }
 
@@ -60,16 +60,18 @@ void DataSender::slotPostFinish(QNetworkReply *reply)
         if (replyStr.indexOf("error") != -1)
         {
             emit postError(QString("Error"));
-            qWarning() << "Post Error:" << replyStr;
+            qWarning() << "Sending feedback data failed: " << replyStr;
         }
         else
         {
             emit postFinish();
-            qWarning() << "Post finish!" << statusCode << replyStr;
+            qWarning() << "Sending feedback data success!" << statusCode << replyStr;
         }
     }
-    else
+    else {
         emit postError("Error Status Code:" + QString::number(statusCode));
+        qWarning() << "Sending feedback data failed,Reply status code: " << statusCode;
+    }
 
 }
 

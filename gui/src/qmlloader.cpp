@@ -125,7 +125,7 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     }
     else
     {
-        qDebug() << "Open simple entries file error!";
+        qWarning() << "Open simple entries file error: " << (targetPath + "/" + SIMPLE_ENTRIES_FILE_NAME);
         return false;
     }
 
@@ -138,7 +138,7 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     }
     else
     {
-        qDebug() << "Open content file error!";
+        qWarning() << "Open content file error: " << (targetPath + "/" + CONTENT_FILE_NAME);
         return false;
     }
 
@@ -166,7 +166,7 @@ QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 {
     if (QFile::exists(target))
     {
-        qDebug() << "==>[Warning] Target already exist!" << target;
+        qWarning() << "Attachment already exist: " << target;
         return "";
     }
 
@@ -424,7 +424,7 @@ void QmlLoader::saveEmail(const QString &email)
         file.close();
     }
     else
-        qDebug() << "Open emails list file error!";
+        qWarning() << "Open emails list file error!";
 }
 
 QStringList QmlLoader::getEmails()

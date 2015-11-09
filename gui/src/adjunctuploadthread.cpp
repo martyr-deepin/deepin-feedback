@@ -47,7 +47,7 @@ void AdjunctUploadThread::run()
     gUploadFile = new QFile(gFilePath);
     if (!gUploadFile->open(QIODevice::ReadOnly))
     {
-        qDebug() << "Open upload-file error";
+        qWarning() << "Open upload-file faileed:" << gUploadFile->errorString();
         emit uploadFailed(gFilePath, "Open upload-file faileed");
         this->terminate();
         this->wait();
@@ -105,13 +105,13 @@ void AdjunctUploadThread::getServerAccessResult(QNetworkReply * reply)
 
     if (statusCode != 200)
     {
-        qWarning() << "Create Resource Error:" << tmpArray;
+        qWarning() << "Attachment Server Create Resource Error: " << tmpArray;
         emit uploadFailed(gFilePath,"Requrest error!");
         return;
     }
     else
     {
-        qWarning() << statusCode << tmpArray << "====";
+        qDebug() << "Attachment Server Create Resource Success!";
     }
 
     parseJsonData(tmpArray, &gResponeData);
@@ -167,7 +167,7 @@ void AdjunctUploadThread::slotUploadFinish(QNetworkReply * reply)
 {
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    qDebug() << "Upload finish!" << statusCode << gResourceUrl;
+    qDebug() << "Upload finish:" << statusCode << gResourceUrl;
 
     if ((statusCode == 302 || statusCode == 301) && gResourceUrl != BUCKET_HOST)
         emit uploadFinish(gFilePath, gResourceUrl);
@@ -190,7 +190,7 @@ void AdjunctUploadThread::slotUploadProgress(qint64 value1, qint64 value2)
 
 void AdjunctUploadThread::slotGotError(QNetworkReply::NetworkError code)
 {
-    qDebug() << "Upload failed:" << gFilePath;
+    qWarning() << "Upload failed:" << gFilePath;
     emit uploadFailed(gFilePath, QString::number(code));
 }
 
@@ -215,7 +215,7 @@ void AdjunctUploadThread::uploadTimeout()
         gUploadReply->abort();
     }
 
-    qWarning()<<"upload timeout";
+    qWarning()<<"Upload timeout";
 }
 
 AdjunctUploadThread::~AdjunctUploadThread()
