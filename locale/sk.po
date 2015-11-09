@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
 "Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/linuxdeepin/deepin-feedback/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -64,103 +64,111 @@ msgstr "Neviem"
 
 #: ../daemon/feedback_daemon.go:69
 msgid "Deepin Web"
+msgstr "Deepin Web"
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
 msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:44
-msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "Nepodarilo sa pridať prílohu: Jedna príloha nemôže mať viac ako 15M."
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
 msgstr "Prosím, vyberte prílohu"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
-#: ../gui/src/views/MainWindow.qml:310
+#: ../gui/src/views/MainWindow.qml:324
 msgid "Total attachments have reached limit. "
 msgstr "Celkový počet príloh dosiahol limit."
 
-#: ../gui/src/views/AdjunctPanel.qml:256
+#: ../gui/src/views/AdjunctPanel.qml:259
 msgid "Please describe your problem in detail"
 msgstr "Opíšte váš problém podrobne"
 
-#: ../gui/src/views/AdjunctPanel.qml:257
+#: ../gui/src/views/AdjunctPanel.qml:260
 msgid "Please upload related screenshots or files"
 msgstr "Prosím nahrajte súvisiace snímky obrazovky alebo súbory"
 
-#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
 msgid "Single attachment can not exceed 15M"
 msgstr "Jedna príloha nemôže prekročiť 15M"
 
-#: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
 msgid "The total number of attachments is not more than six"
 msgstr "Celkový počet príloh nie je viac ako šesť"
 
-#: ../gui/src/views/AdjunctPanel.qml:279
+#: ../gui/src/views/AdjunctPanel.qml:285
 msgid "Please describe your idea in detail"
 msgstr "Opíšte váš nápad podrobne"
 
-#: ../gui/src/views/AdjunctPanel.qml:280
+#: ../gui/src/views/AdjunctPanel.qml:286
 msgid "Please upload related attachments"
 msgstr "Prosím nahrajte súvisiace prílohy"
 
-#: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
 msgid "Send"
 msgstr "Odoslať"
 
-#: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
-#: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
 msgstr "Deepin Spätná väzba užívateľov"
 
-#: ../gui/src/views/MainWindow.qml:197
+#: ../gui/src/views/MainWindow.qml:208
 msgid "Your feedback has been sent successfully, thanks for your support!"
 msgstr "Vaša spätná väzba bola úspešne odoslaná, vďaka za vašu podporu!"
 
-#: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
-#: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
 msgid "Resend"
 msgstr "Odoslať znova"
 
-#: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
 msgid "Failed to send your feedback, resend?"
 msgstr "Zlyhalo odosielanie vašej spätnej väzby, znova odoslať?"
 
-#: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
 msgid "Sending ..."
 msgstr "Odosielanie ..."
 
-#: ../gui/src/views/MainWindow.qml:353
+#: ../gui/src/views/MainWindow.qml:367
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr "Návrh %1 bol uložený."
 
-#: ../gui/src/views/MainWindow.qml:375
+#: ../gui/src/views/MainWindow.qml:390
 msgid "Please input the problem title"
 msgstr "Zadajte prosím názov problému"
 
-#: ../gui/src/views/MainWindow.qml:376
+#: ../gui/src/views/MainWindow.qml:391
 msgid "Please describe your idea simply"
 msgstr "Opíšte váš nápad jednoducho"
 
-#: ../gui/src/views/MainWindow.qml:379
+#: ../gui/src/views/MainWindow.qml:394
 msgid "Title words have reached limit."
 msgstr "Počet slov v názve dosiahol limit."
 
-#: ../gui/src/views/MainWindow.qml:412
+#: ../gui/src/views/MainWindow.qml:428
 msgid "Please fill in email to get the feedback progress."
 msgstr "Vyplňte prosím email, aby ste prešli ďalej k spätnej väzbe."
 
-#: ../gui/src/views/MainWindow.qml:415
+#: ../gui/src/views/MainWindow.qml:431
 msgid "Email is invalid."
 msgstr "Email je neplatný."
 
-#: ../gui/src/views/MainWindow.qml:472
+#: ../gui/src/views/MainWindow.qml:488
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr "Prial by som si, aby som sa mohol pripojiť k plánu spätnej väzby používateľov pre rýchle zlepšenie systému bez zberu osobných údajov."
 
-#: ../gui/src/views/MainWindow.qml:490
+#: ../gui/src/views/MainWindow.qml:506
 msgid "Close"
 msgstr "Zatvoriť"
 
@@ -176,6 +184,6 @@ msgstr "Mám dobrý nápad"
 msgid "Upload failed, please retry."
 msgstr "Nahrávanie zlyhalo, prosím skúste to znova."
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
 msgid "Please select feedback project firstly "
 msgstr "Prosím, vyberte najprv projekt spätnej väzby"
