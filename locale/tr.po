@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
 "Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/linuxdeepin/deepin-feedback/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -66,101 +66,109 @@ msgstr "Bilmiyorum"
 msgid "Deepin Web"
 msgstr ""
 
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr ""
+
 #: ../gui/src/views/AdjunctPanel.qml:44
-msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "Ek dosyasının yüklenmesinde hata. Tek bir ekin boyutu 15Mb dan büyük olamaz."
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
 msgstr "Lütfen ek dosyasını seçin."
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
-#: ../gui/src/views/MainWindow.qml:310
+#: ../gui/src/views/MainWindow.qml:324
 msgid "Total attachments have reached limit. "
 msgstr "Toplam ek dosya limitine ulaşıldı"
 
-#: ../gui/src/views/AdjunctPanel.qml:256
+#: ../gui/src/views/AdjunctPanel.qml:259
 msgid "Please describe your problem in detail"
 msgstr "Lütfen sorununuzu ayrıntılı bir biçimde anlatın."
 
-#: ../gui/src/views/AdjunctPanel.qml:257
+#: ../gui/src/views/AdjunctPanel.qml:260
 msgid "Please upload related screenshots or files"
 msgstr "Lütfen ilgili dosya veya ekran görüntüsünü yükleyin."
 
-#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
 msgid "Single attachment can not exceed 15M"
 msgstr "Tek ek dosya boyutu 15Mb'ı geçemez"
 
-#: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
 msgid "The total number of attachments is not more than six"
 msgstr "Toplam ek sayısı altıdan fazla olamaz."
 
-#: ../gui/src/views/AdjunctPanel.qml:279
+#: ../gui/src/views/AdjunctPanel.qml:285
 msgid "Please describe your idea in detail"
 msgstr "Lütfen fikrinizi ayrıntılı bir biçimde anlatın."
 
-#: ../gui/src/views/AdjunctPanel.qml:280
+#: ../gui/src/views/AdjunctPanel.qml:286
 msgid "Please upload related attachments"
 msgstr "Lütfen ilgili ek dosyasını yükleyin."
 
-#: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
 msgid "Send"
 msgstr "Gönder"
 
-#: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
-#: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
 msgstr "Deepin Kullanıcı Geribildirimi"
 
-#: ../gui/src/views/MainWindow.qml:197
+#: ../gui/src/views/MainWindow.qml:208
 msgid "Your feedback has been sent successfully, thanks for your support!"
 msgstr "Geribildirimizin başarılı bir biçimde gönderildi. Desteğiniz için teşekkürler!"
 
-#: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
-#: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
 msgid "Resend"
 msgstr "Tekrar Gönder"
 
-#: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
 msgid "Failed to send your feedback, resend?"
 msgstr "Geribildirimin gönderilmesinde hata. Tekrar göndermek ister misiniz?"
 
-#: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
 msgid "Sending ..."
 msgstr "Gönderiliyor ..."
 
-#: ../gui/src/views/MainWindow.qml:353
+#: ../gui/src/views/MainWindow.qml:367
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr "%1 taslağı kaydedildi."
 
-#: ../gui/src/views/MainWindow.qml:375
+#: ../gui/src/views/MainWindow.qml:390
 msgid "Please input the problem title"
 msgstr "Lütfen sorun başlığını girin."
 
-#: ../gui/src/views/MainWindow.qml:376
+#: ../gui/src/views/MainWindow.qml:391
 msgid "Please describe your idea simply"
 msgstr "Lüftfen fikrinizi basitçe anlatın."
 
-#: ../gui/src/views/MainWindow.qml:379
+#: ../gui/src/views/MainWindow.qml:394
 msgid "Title words have reached limit."
 msgstr "Başlık kelime sınırına ulaşıldı."
 
-#: ../gui/src/views/MainWindow.qml:412
+#: ../gui/src/views/MainWindow.qml:428
 msgid "Please fill in email to get the feedback progress."
 msgstr "Geribildirim durumu için lütfen eposta adresinizi girin."
 
-#: ../gui/src/views/MainWindow.qml:415
+#: ../gui/src/views/MainWindow.qml:431
 msgid "Email is invalid."
 msgstr "Eposta geçersiz."
 
-#: ../gui/src/views/MainWindow.qml:472
+#: ../gui/src/views/MainWindow.qml:488
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr "Hiçbir kişisel verim toplanmadan sistemin geliştirilmesine yardımcı olmak için, Kullanıcı Geribildirim Yardım Programı 'na katılmak istiyorum. "
 
-#: ../gui/src/views/MainWindow.qml:490
+#: ../gui/src/views/MainWindow.qml:506
 msgid "Close"
 msgstr "Kapat"
 
@@ -176,6 +184,6 @@ msgstr "İyi bir fikrim var"
 msgid "Upload failed, please retry."
 msgstr "Yükleme başarısız, tekrar deneyin."
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
 msgid "Please select feedback project firstly "
 msgstr "Lütfen önce geribildirim projesini seçin"

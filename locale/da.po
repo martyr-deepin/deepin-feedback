@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carl Andersen <carl@manjaro.dk>, 2015
+# Carl Andersen <carl@blue-dane.org>, 2015
+# Carl Andersen <carl@blue-dane.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 05:35+0000\n"
-"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-06 09:51+0000\n"
+"Last-Translator: Carl Andersen <carl@blue-dane.org>\n"
 "Language-Team: Danish (http://www.transifex.com/linuxdeepin/deepin-feedback/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,10 +65,18 @@ msgstr "Jeg ved det ikke"
 
 #: ../daemon/feedback_daemon.go:69
 msgid "Deepin Web"
-msgstr ""
+msgstr "Deepin Web"
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr "Rapporter en fejl for <target>."
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr "fejl"
 
 #: ../gui/src/views/AdjunctPanel.qml:44
-msgid "Failed to add attachment: Single attachment cann't be more than 15M."
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
 msgstr "Kunne ikke tilføje vedhæftet fil: Enkelt vedhæftning kan ikke være mere end 15M."
 
 #: ../gui/src/views/AdjunctPanel.qml:134
@@ -75,92 +84,92 @@ msgid "Please select attachment"
 msgstr "Vælg venligst fil"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
-#: ../gui/src/views/MainWindow.qml:310
+#: ../gui/src/views/MainWindow.qml:324
 msgid "Total attachments have reached limit. "
 msgstr "Total vedhæftede filer har nået grænsen."
 
-#: ../gui/src/views/AdjunctPanel.qml:256
+#: ../gui/src/views/AdjunctPanel.qml:259
 msgid "Please describe your problem in detail"
 msgstr "Beskriv dit problem i detaljer"
 
-#: ../gui/src/views/AdjunctPanel.qml:257
+#: ../gui/src/views/AdjunctPanel.qml:260
 msgid "Please upload related screenshots or files"
 msgstr "Upload relaterede skærmbilleder eller filer"
 
-#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
 msgid "Single attachment can not exceed 15M"
 msgstr "Enkelt vedhæftet fil kan ikke overstige 15M"
 
-#: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
 msgid "The total number of attachments is not more than six"
 msgstr "Det samlede antal af vedhæftede filer kan ikke være mere end seks"
 
-#: ../gui/src/views/AdjunctPanel.qml:279
+#: ../gui/src/views/AdjunctPanel.qml:285
 msgid "Please describe your idea in detail"
 msgstr "Beskriv din idé i detaljer"
 
-#: ../gui/src/views/AdjunctPanel.qml:280
+#: ../gui/src/views/AdjunctPanel.qml:286
 msgid "Please upload related attachments"
 msgstr "Upload venligst relaterede vedhæftede filer"
 
-#: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
 msgid "Send"
 msgstr "Send"
 
-#: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
-#: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
 msgstr "Deepin Bruger Feedback"
 
-#: ../gui/src/views/MainWindow.qml:197
+#: ../gui/src/views/MainWindow.qml:208
 msgid "Your feedback has been sent successfully, thanks for your support!"
 msgstr "Feedback er sendt, tak for din støtte!"
 
-#: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
-#: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
 msgid "Resend"
 msgstr "Send igen"
 
-#: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
 msgid "Failed to send your feedback, resend?"
 msgstr "Kunne ikke sende din feedback, send igen?"
 
-#: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
 msgid "Sending ..."
 msgstr "Sender ..."
 
-#: ../gui/src/views/MainWindow.qml:353
+#: ../gui/src/views/MainWindow.qml:367
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr "Udkastet til %1 er blevet gemt."
 
-#: ../gui/src/views/MainWindow.qml:375
+#: ../gui/src/views/MainWindow.qml:390
 msgid "Please input the problem title"
 msgstr "Skriv venligst problem titel"
 
-#: ../gui/src/views/MainWindow.qml:376
+#: ../gui/src/views/MainWindow.qml:391
 msgid "Please describe your idea simply"
 msgstr "Beskriv din idé ganske enkelt"
 
-#: ../gui/src/views/MainWindow.qml:379
+#: ../gui/src/views/MainWindow.qml:394
 msgid "Title words have reached limit."
 msgstr "Titel ord har nået grænsen."
 
-#: ../gui/src/views/MainWindow.qml:412
+#: ../gui/src/views/MainWindow.qml:428
 msgid "Please fill in email to get the feedback progress."
 msgstr "Udfyld venligst email for at få feedback fremskridt."
 
-#: ../gui/src/views/MainWindow.qml:415
+#: ../gui/src/views/MainWindow.qml:431
 msgid "Email is invalid."
 msgstr "E-mail er ugyldig."
 
-#: ../gui/src/views/MainWindow.qml:472
+#: ../gui/src/views/MainWindow.qml:488
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr "Jeg ønsker at deltage i Bruger Feedback, forhurtigt at forbedre systemet uden at nogen personlige oplysninger indsamles."
 
-#: ../gui/src/views/MainWindow.qml:490
+#: ../gui/src/views/MainWindow.qml:506
 msgid "Close"
 msgstr "Luk"
 
@@ -176,6 +185,6 @@ msgstr "Jeg har en god idé"
 msgid "Upload failed, please retry."
 msgstr "Upload mislykkedes, prøv igen."
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
 msgid "Please select feedback project firstly "
 msgstr "Vælg venligst tilbagemeldingsprojekt først"

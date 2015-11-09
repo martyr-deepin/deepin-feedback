@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
 "Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
 "Language-Team: Galician (http://www.transifex.com/linuxdeepin/deepin-feedback/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -67,101 +67,109 @@ msgstr "Non o sei"
 msgid "Deepin Web"
 msgstr ""
 
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr ""
+
 #: ../gui/src/views/AdjunctPanel.qml:44
-msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "Erro ao engadir o documento adxunto: O documento adxunto individual non pode conter máis de 15M."
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
 msgstr "Por favor selecciona un anexo"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
-#: ../gui/src/views/MainWindow.qml:310
+#: ../gui/src/views/MainWindow.qml:324
 msgid "Total attachments have reached limit. "
 msgstr "Acadouse o limite de anexos."
 
-#: ../gui/src/views/AdjunctPanel.qml:256
+#: ../gui/src/views/AdjunctPanel.qml:259
 msgid "Please describe your problem in detail"
 msgstr "Por favor describe o teu problema con máis detalle"
 
-#: ../gui/src/views/AdjunctPanel.qml:257
+#: ../gui/src/views/AdjunctPanel.qml:260
 msgid "Please upload related screenshots or files"
 msgstr "Por favor sube capturas de pantalla ou ficheiros relacionados"
 
-#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
 msgid "Single attachment can not exceed 15M"
 msgstr "Un único anexo non pode exceder dos 15M"
 
-#: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
 msgid "The total number of attachments is not more than six"
 msgstr "O número total de documentos adxuntos é non máis de seis"
 
-#: ../gui/src/views/AdjunctPanel.qml:279
+#: ../gui/src/views/AdjunctPanel.qml:285
 msgid "Please describe your idea in detail"
 msgstr "Por favor describe a túa idea con máis detalle"
 
-#: ../gui/src/views/AdjunctPanel.qml:280
+#: ../gui/src/views/AdjunctPanel.qml:286
 msgid "Please upload related attachments"
 msgstr "Por favor sube anexos relacionados"
 
-#: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
 msgid "Send"
 msgstr "Enviar"
 
-#: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
-#: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
 msgstr "Comentarios dos usuarios de Deepin"
 
-#: ../gui/src/views/MainWindow.qml:197
+#: ../gui/src/views/MainWindow.qml:208
 msgid "Your feedback has been sent successfully, thanks for your support!"
 msgstr "Comentario enviado correctamente, grazas pola túa axuda!"
 
-#: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
-#: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
 msgid "Resend"
 msgstr "Volver enviar"
 
-#: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
 msgid "Failed to send your feedback, resend?"
 msgstr "Produciuse un erro enviando o teu comentario, volver enviar?"
 
-#: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
 msgid "Sending ..."
 msgstr "Enviando ..."
 
-#: ../gui/src/views/MainWindow.qml:353
+#: ../gui/src/views/MainWindow.qml:367
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr "O borrador %1 foi gardado."
 
-#: ../gui/src/views/MainWindow.qml:375
+#: ../gui/src/views/MainWindow.qml:390
 msgid "Please input the problem title"
 msgstr "Por favor escribe o título do problema"
 
-#: ../gui/src/views/MainWindow.qml:376
+#: ../gui/src/views/MainWindow.qml:391
 msgid "Please describe your idea simply"
 msgstr "Por favor describe a túa idea de forma sinxela"
 
-#: ../gui/src/views/MainWindow.qml:379
+#: ../gui/src/views/MainWindow.qml:394
 msgid "Title words have reached limit."
 msgstr "Acadouse o limite de caracteres para o título."
 
-#: ../gui/src/views/MainWindow.qml:412
+#: ../gui/src/views/MainWindow.qml:428
 msgid "Please fill in email to get the feedback progress."
 msgstr "Por favor, enche o correo electrónico para obter o progreso de suxestións."
 
-#: ../gui/src/views/MainWindow.qml:415
+#: ../gui/src/views/MainWindow.qml:431
 msgid "Email is invalid."
 msgstr "Correo electrónico non válido."
 
-#: ../gui/src/views/MainWindow.qml:472
+#: ../gui/src/views/MainWindow.qml:488
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr "Desexo unirme ao plan de axuda de suxestións de usuario para mellorar rápidamente o sistema sen ningún tipo de información persoal recopilada."
 
-#: ../gui/src/views/MainWindow.qml:490
+#: ../gui/src/views/MainWindow.qml:506
 msgid "Close"
 msgstr "Pechar"
 
@@ -177,6 +185,6 @@ msgstr "Teño unha boa idea"
 msgid "Upload failed, please retry."
 msgstr "Produciuse un erro ao subir, por favor téntao de novo."
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
 msgid "Please select feedback project firstly "
 msgstr "Por favor, seleccione proxecto de suxestións en primeiro lugar"

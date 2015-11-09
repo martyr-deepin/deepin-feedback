@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Pablo Alessandro Barbosa Viana <pablo.alessandro@gmail.com>, 2015
+# RAFAEL GAUNA <rafaelgt.mbin@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: deepin-feedback\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 10:32+0800\n"
-"PO-Revision-Date: 2015-09-17 05:35+0000\n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
 "Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/linuxdeepin/deepin-feedback/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -20,35 +21,35 @@ msgstr ""
 
 #: ../daemon/feedback_daemon.go:58
 msgid "Deepin Desktop Environment"
-msgstr "Deepin Ambiente Desktop"
+msgstr "Deepin Desktop Environment"
 
 #: ../daemon/feedback_daemon.go:59
 msgid "Deepin Control Center"
-msgstr "Deepin Centro de Controle"
+msgstr "Central de Controle Deepin"
 
 #: ../daemon/feedback_daemon.go:60
 msgid "System Configuration (startup / repository / drive)"
-msgstr "Configuração de Sistema (inicialização / repositório / drive)"
+msgstr "Configuração de Sistema (inicialização / repositório / disco)"
 
 #: ../daemon/feedback_daemon.go:61
 msgid "Deepin Installer"
-msgstr "Deepin Instalador"
+msgstr "Deepin Installer"
 
 #: ../daemon/feedback_daemon.go:62
 msgid "Deepin Store"
-msgstr "Deepin Loja"
+msgstr "Deepin Store"
 
 #: ../daemon/feedback_daemon.go:63
 msgid "Deepin Music"
-msgstr "Deepin Música"
+msgstr "Deepin Music"
 
 #: ../daemon/feedback_daemon.go:64
 msgid "Deepin Movie"
-msgstr "Deepin Filmes"
+msgstr "Deepin Movie"
 
 #: ../daemon/feedback_daemon.go:65
 msgid "Deepin Screenshot"
-msgstr "Deepin Captura de Tela"
+msgstr "Deepin Screenshot"
 
 #: ../daemon/feedback_daemon.go:66
 msgid "Deepin Terminal"
@@ -56,7 +57,7 @@ msgstr "Deepin Terminal"
 
 #: ../daemon/feedback_daemon.go:67
 msgid "Deepin Translator"
-msgstr "Deepin Tradutor"
+msgstr "Deepin Translator"
 
 #: ../daemon/feedback_daemon.go:68
 msgid "I don't know"
@@ -64,103 +65,111 @@ msgstr "Eu não sei"
 
 #: ../daemon/feedback_daemon.go:69
 msgid "Deepin Web"
+msgstr "Deepin Web"
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
 msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:44
-msgid "Failed to add attachment: Single attachment cann't be more than 15M."
-msgstr "Falha ao adicionar o anexo: Cada anexo não pode exceder 15MB"
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
 
 #: ../gui/src/views/AdjunctPanel.qml:134
 msgid "Please select attachment"
 msgstr "Por favor selecione o anexo"
 
 #: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
-#: ../gui/src/views/MainWindow.qml:310
+#: ../gui/src/views/MainWindow.qml:324
 msgid "Total attachments have reached limit. "
 msgstr "O limite de anexos foi atingido."
 
-#: ../gui/src/views/AdjunctPanel.qml:256
+#: ../gui/src/views/AdjunctPanel.qml:259
 msgid "Please describe your problem in detail"
 msgstr "Por favor descreva seu problema em detalhes"
 
-#: ../gui/src/views/AdjunctPanel.qml:257
+#: ../gui/src/views/AdjunctPanel.qml:260
 msgid "Please upload related screenshots or files"
 msgstr "Por favor nos envie capturas de tela ou arquivos relacionados"
 
-#: ../gui/src/views/AdjunctPanel.qml:258 ../gui/src/views/AdjunctPanel.qml:281
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
 msgid "Single attachment can not exceed 15M"
 msgstr "Cada anexo não pode exceder 15MB"
 
-#: ../gui/src/views/AdjunctPanel.qml:259 ../gui/src/views/AdjunctPanel.qml:282
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
 msgid "The total number of attachments is not more than six"
-msgstr "O número total de anexos não pode ser mais que seis"
+msgstr "O número total de anexos não pode ser maior que seis"
 
-#: ../gui/src/views/AdjunctPanel.qml:279
+#: ../gui/src/views/AdjunctPanel.qml:285
 msgid "Please describe your idea in detail"
 msgstr "Por favor descreva sua ideia em detalhes"
 
-#: ../gui/src/views/AdjunctPanel.qml:280
+#: ../gui/src/views/AdjunctPanel.qml:286
 msgid "Please upload related attachments"
 msgstr "Por favor envie anexos relacionados"
 
-#: ../gui/src/views/MainWindow.qml:83 ../gui/src/views/MainWindow.qml:502
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
 msgid "Send"
 msgstr "Enviar"
 
-#: ../gui/src/views/MainWindow.qml:196 ../gui/src/views/MainWindow.qml:214
-#: ../gui/src/views/MainWindow.qml:252 ../gui/src/views/TitleRow.qml:28
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
 msgid "Deepin User Feedback"
-msgstr "Deepin Feedback do Usuário"
+msgstr "Feedback do Usuário Deepin"
 
-#: ../gui/src/views/MainWindow.qml:197
+#: ../gui/src/views/MainWindow.qml:208
 msgid "Your feedback has been sent successfully, thanks for your support!"
 msgstr "Seu feedback foi enviado com sucesso, obrigado pela sua ajuda!"
 
-#: ../gui/src/views/MainWindow.qml:203 ../gui/src/views/MainWindow.qml:216
-#: ../gui/src/views/MainWindow.qml:241 ../gui/src/views/MainWindow.qml:254
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
 msgid "Resend"
 msgstr "Reenviar"
 
-#: ../gui/src/views/MainWindow.qml:215 ../gui/src/views/MainWindow.qml:253
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
 msgid "Failed to send your feedback, resend?"
-msgstr "Falha ao enviar o feedback, reenviar?"
+msgstr "Falhou ao enviar o feedback, reenviar?"
 
-#: ../gui/src/views/MainWindow.qml:221 ../gui/src/views/MainWindow.qml:525
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
 msgid "Sending ..."
 msgstr "Enviando ..."
 
-#: ../gui/src/views/MainWindow.qml:353
+#: ../gui/src/views/MainWindow.qml:367
 #, qt-format
 msgid "The draft of %1 has been saved."
 msgstr "Rascunho de %1 foi salvo."
 
-#: ../gui/src/views/MainWindow.qml:375
+#: ../gui/src/views/MainWindow.qml:390
 msgid "Please input the problem title"
-msgstr "Por favor insira um título para o problema"
+msgstr "Por favor insira o título do problema"
 
-#: ../gui/src/views/MainWindow.qml:376
+#: ../gui/src/views/MainWindow.qml:391
 msgid "Please describe your idea simply"
-msgstr "Por favor descreva sua ideia de forma objetiva"
+msgstr "Por favor descreva sua ideia de forma simples"
 
-#: ../gui/src/views/MainWindow.qml:379
+#: ../gui/src/views/MainWindow.qml:394
 msgid "Title words have reached limit."
 msgstr "O limite de palavras do título foi atingido."
 
-#: ../gui/src/views/MainWindow.qml:412
+#: ../gui/src/views/MainWindow.qml:428
 msgid "Please fill in email to get the feedback progress."
 msgstr "Por favor preencha o e-mail para receber o progresso do feedback."
 
-#: ../gui/src/views/MainWindow.qml:415
+#: ../gui/src/views/MainWindow.qml:431
 msgid "Email is invalid."
 msgstr "Email inválido."
 
-#: ../gui/src/views/MainWindow.qml:472
+#: ../gui/src/views/MainWindow.qml:488
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
 msgstr "Eu desejo aderir ao Plano de Feedback do Usuário para ajudar a melhorar o sistema sem enviar nenhuma informação pessoal. "
 
-#: ../gui/src/views/MainWindow.qml:490
+#: ../gui/src/views/MainWindow.qml:506
 msgid "Close"
 msgstr "Fechar"
 
@@ -174,8 +183,8 @@ msgstr "Eu tenho uma boa ideia"
 
 #: ../gui/src/views/Widgets/AdjunctTray.qml:218
 msgid "Upload failed, please retry."
-msgstr "Envio falhou, por favor tente novamente"
+msgstr "Falha no envio, por favor tente novamente"
 
-#: ../gui/src/views/Widgets/AppComboBox.qml:76
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
 msgid "Please select feedback project firstly "
-msgstr "Por favor primeiro selecione o projeto de feedback"
+msgstr "Por favor, primeiro selecione o projeto de feedback"
