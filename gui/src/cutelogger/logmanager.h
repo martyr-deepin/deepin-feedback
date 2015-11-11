@@ -28,8 +28,6 @@ public slots:
 private:
     QString m_format;
     QString m_logPath;
-    ConsoleAppender* m_consoleAppender;
-    RollingFileAppender* m_rollingFileAppender;
 
 
     explicit LogManager();

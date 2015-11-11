@@ -9,10 +9,13 @@ LogManager::LogManager()
 }
 
 void LogManager::initConsoleAppender(){
-    m_consoleAppender = new ConsoleAppender;
-    m_consoleAppender->setFormat(m_format);
-    logger->registerAppender(m_consoleAppender);
-    logger->registerCategoryAppender("qml", m_consoleAppender);
+    ConsoleAppender *defaultAppender = new ConsoleAppender;
+    defaultAppender->setFormat(m_format);
+    logger->registerAppender(defaultAppender);
+
+    ConsoleAppender *qmlAppender = new ConsoleAppender;
+    qmlAppender->setFormat(m_format);
+    logger->registerCategoryAppender("qml", qmlAppender);
 }
 
 void LogManager::initRollingFileAppender(){
@@ -21,12 +24,18 @@ void LogManager::initRollingFileAppender(){
         QDir(cachePath).mkpath(cachePath);
     }
     m_logPath = joinPath(cachePath, QString("%1.log").arg(qApp->applicationName()));
-    m_rollingFileAppender = new RollingFileAppender(m_logPath);
-    m_rollingFileAppender->setFormat(m_format);
-    m_rollingFileAppender->setLogFilesLimit(5);
-    m_rollingFileAppender->setDatePattern(RollingFileAppender::DailyRollover);
-    logger->registerAppender(m_rollingFileAppender);
-    logger->registerCategoryAppender("qml", m_consoleAppender);
+
+    RollingFileAppender * defaultAppender = new RollingFileAppender(m_logPath);
+    defaultAppender->setFormat(m_format);
+    defaultAppender->setLogFilesLimit(5);
+    defaultAppender->setDatePattern(RollingFileAppender::DailyRollover);
+    logger->registerAppender(defaultAppender);
+
+    RollingFileAppender * qmlAppender = new RollingFileAppender(m_logPath);
+    qmlAppender->setFormat(m_format);
+    qmlAppender->setLogFilesLimit(5);
+    qmlAppender->setDatePattern(RollingFileAppender::DailyRollover);
+    logger->registerCategoryAppender("qml", qmlAppender);
 }
 
 void LogManager::debug_log_console_on(){

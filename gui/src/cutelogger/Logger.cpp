@@ -795,7 +795,7 @@ void Logger::registerCategoryAppender(const QString& category, AbstractAppender*
   QMutexLocker locker(&d->loggerMutex);
 
   if (!d->categoryAppenders.values().contains(appender))
-    d->categoryAppenders.insert(category, appender);
+      d->categoryAppenders.insert(category, appender);
   else
     std::cerr << "Trying to register appender that was already registered" << std::endl;
 }
@@ -893,8 +893,10 @@ void Logger::write(const QDateTime& timeStamp, LogLevel logLevel, const char* fi
     }
     else
     {
-      foreach (AbstractAppender* appender, appenders)
-        appender->write(timeStamp, logLevel, file, line, function, logCategory, message);
+      foreach (AbstractAppender* appender, appenders) {
+          if (appender)
+            appender->write(timeStamp, logLevel, file, line, function, logCategory, message);
+      }
       wasWritten = true;
     }
   }
