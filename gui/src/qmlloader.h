@@ -15,6 +15,7 @@
 #include <QDBusAbstractAdaptor>
 #include <QDBusConnection>
 #include <QDebug>
+#include <QPointer>
 #include "dataconverter.h"
 #include "adjunctaide.h"
 
@@ -25,6 +26,7 @@
 #define PROPERTY_IFCE "org.freedesktop.DBus.Properties"
 
 class QmlLoaderDBus;
+class QProcess;
 
 struct Draft{
     DataConverter::FeedbackType feedbackType;
@@ -92,15 +94,20 @@ public Q_SLOTS:
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private:
     void init();
 
-    Draft getDraft(const QString &targetApp);
+    void showManual();
     void parseJsonData(const QByteArray &byteArray, Draft * draft);
     void parseJsonArray(const QByteArray &byteArray, QStringList * emailsList);
-    QString getFileNameFromPath(const QString &filePath);
+    Draft getDraft(const QString &targetApp);
     qint64 getAdjunctsSize(const QString &target);
+    QString getFileNameFromPath(const QString &filePath);
 private:
+    QPointer<QProcess> m_manualPro;
     AdjunctAide * adjunctAide;
     QmlLoaderDBus * mDbusProxyer;
 };

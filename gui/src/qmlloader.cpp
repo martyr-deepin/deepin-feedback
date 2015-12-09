@@ -1,4 +1,7 @@
 #include "qmlloader.h"
+#include <QProcess>
+#include <QKeyEvent>
+#include <QApplication>
 
 QmlLoader::QmlLoader(QObject *parent)
     :QObject(parent)
@@ -9,6 +12,8 @@ QmlLoader::QmlLoader(QObject *parent)
     this->mDbusProxyer = new QmlLoaderDBus(this);
 
     init();
+
+    qApp->installEventFilter(this);
 }
 
 QmlLoader::~QmlLoader()
@@ -143,6 +148,17 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     }
 
     return true;
+}
+
+void QmlLoader::showManual()
+{
+    if (m_manualPro.isNull()) {
+        const QString pro = "dman";
+        const QStringList args("deepin-feedback");
+        m_manualPro = new QProcess(this);
+        connect(m_manualPro.data(), SIGNAL(finished(int)), m_manualPro.data(), SLOT(deleteLater()));
+        m_manualPro->start(pro, args);
+    }
 }
 
 void QmlLoader::clearAllDraft()
@@ -450,6 +466,20 @@ QString QmlLoader::getMatchEmailPart(const QString &text)
     }
 
     return "";
+}
+
+bool QmlLoader::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_F1) {
+            qDebug() << "show manual for help...";
+            showManual();
+            return true;
+        }
+    }
+    // standard event processing
+    return QObject::eventFilter(obj, event);
 }
 
 QmlLoaderDBus::QmlLoaderDBus(QmlLoader *parent):

@@ -36,6 +36,8 @@ install: install-mo
 	install -m0755 deepin-feedback.desktop ${DESTDIR}${PREFIX}/share/applications/
 	install -dm0755 ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps
 	install -m0644 misc/deepin-feedback.svg ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/
+	mkdir -p ${DESTDIR}${PREFIX}/share/dman/deepin-feedback/
+	cp -rf  gui/manuals/* ${DESTDIR}${PREFIX}/share/dman/deepin-feedback/
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
