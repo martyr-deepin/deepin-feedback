@@ -120,6 +120,11 @@ sliceinfo_basic() {
     msg_title "Linux Release"
     msg_code "$(lsb_release -a 2>&1)"
 
+    if [ -f /etc/deepin-version ]; then
+        msg_title "Deepin Release"
+        msg_code "$(cat /etc/deepin-version)"
+    fi
+
     msg_title "Linux Kernel"
     msg_code "$(uname -a)"
 
@@ -128,6 +133,9 @@ sliceinfo_basic() {
 
     msg_title "Computer Model"
     msg_code "$(do_sliceinfo_basic_computer_model)"
+
+    msg_title "Locale Specific Information"
+    msg_code "$(locale)"
 }
 do_sliceinfo_basic_computer_model() {
     # need root permission
@@ -139,7 +147,14 @@ do_sliceinfo_basic_computer_model() {
 }
 
 sliceinfo_service() {
-    initctl list | column -t
+    if type -a systemctl &>/dev/null; then
+        msg_title "Systemd Services"
+        msg_code "$(systemctl list-unit-files)"
+    fi
+    if type -a initctl &>/dev/null; then
+        msg_title "Sysvinit Services"
+        msg_code "$(initctl list | column -t)"
+    fi
 }
 
 sliceinfo_env() {
@@ -167,6 +182,8 @@ sliceinfo_device() {
     # need root permission
     msg_title "Hardware Lister(lshw)"
     msg_code "$(lshw 2>/dev/null)"
+    msg_title "SMBIOS/DMI (dmidecode)"
+    msg_code "$(dmidecode 2>/dev/null)"
 }
 
 sliceinfo_driver() {
@@ -220,12 +237,15 @@ sliceinfo_video() {
 
     msg_title "Video Driver Packages"
     msg_code "$(dpkg -l | grep -e xorg-video -e catalyst -e nvidia)"
+
+    msg_title "Xrandr Infromation"
+    msg_code "$(xrandr --verbose)"
 }
 
 sliceinfo_network() {
     msg_title "Network Devices"
     if ! is_sliceinfo_device_will_run; then
-        msg_code "$(lshw -C network 2>/dev/null)"
+        msg_code "$(lshw -C network 2>/dev/null)" # need root permission
     fi
     msg_code "$(lspci -vvnn | grep_block '[nN]etwork|[eE]thernet')"
     msg_code "$(lsusb -v 2>/dev/null | grep_block '[nN]et|[eE]thernet')"
@@ -235,18 +255,31 @@ sliceinfo_network() {
     msg_code "$(iwconfig 2>/dev/null)"
 
     msg_title "NetworkManager State"
-    msg_code "$(nmcli nm status)"
-    msg_code "$(nmcli con list)"
-    msg_code "$(nm-tool)"
+    msg_code "$(nmcli general status)"
+
+    msg_title "NetworkManager Hotname"
+    msg_code "$(nmcli general hostname)"
+
+    msg_title "NetworkManager Permissions"
+    msg_code "$(nmcli general permissions)"
+
+    msg_title "NetworkManager Logging"
+    msg_code "$(nmcli general logging)"
+
+    msg_title "NetworkManager Connections"
+    msg_code "$(nmcli connection)"
+
+    msg_title "NetworkManager Devices"
+    msg_code "$(nmcli device status)"
+
+    msg_title "NetworkManager Wireless Access Points"
+    msg_code "$(nmcli device wifi)"
 
     msg_title "ModemManager State"
     msg_code "$(mmcli -L)"
 
     msg_title "Wireless Device Switches(rfkill)"
     msg_code "$(rfkill list all)"
-
-    msg_title "Wireless Access Points"
-    msg_code "$(iwlist scan 2>/dev/null)"
 
     msg_title "Network Interface File"
     msg_code "$(cat /etc/network/interfaces)"
@@ -275,6 +308,9 @@ sliceinfo_bootmgr() {
         msg_title "EFI Information"
         msg_code "$(efibootmgr -v)"
     fi
+
+    msg_title "Boot Info Script"
+    msg_code "$(bootinfoscript --stdout)" # need root permission
 }
 
 sliceinfo_disk() {
@@ -285,6 +321,14 @@ sliceinfo_disk() {
 
     msg_title "Disk Partition Table"
     msg_code "$(lsblk)"
+}
+
+sliceinfo_fonts() {
+    fc-list
+}
+
+sliceinfo_gsettings() {
+    gsettings list-recursively | grep com.deepin
 }
 
 sliceinfo_aptlog() {
@@ -298,10 +342,19 @@ sliceinfo_apttermlog() {
 }
 
 sliceinfo_syslog() {
-    if [ ${#opt_syslog_include[@]} -gt 0 ]; then
-        cat /var/log/syslog{.1,} 2>/dev/null | grep -i ${opt_syslog_include[@]}
+    # user journalctl firstly
+    if type -a journalctl &>/dev/null; then
+        if [ ${#opt_syslog_include[@]} -gt 0 ]; then
+            journalctl --system --user 2>/dev/null | grep -i ${opt_syslog_include[@]}
+        else
+            journalctl --system --user 2>/dev/null
+        fi
     else
-        cat /var/log/syslog{.1,} 2>/dev/null
+        if [ ${#opt_syslog_include[@]} -gt 0 ]; then
+            cat /var/log/syslog{.1,} 2>/dev/null | grep -i ${opt_syslog_include[@]}
+        else
+            cat /var/log/syslog{.1,} 2>/dev/null
+        fi
     fi
 }
 include_syslog_keyword() {
@@ -334,17 +387,19 @@ exec_sliceinfo_funcs() {
     for f in ${opt_sliceinfo_func_list[@]}; do
         msg2 "executing ${f}..."
         case "${f}" in
-            "sliceinfo_service") "${f}" >> "${file_service}";;
-            "sliceinfo_env")     "${f}" >> "${file_env}";;
-            "sliceinfo_package") "${f}" >> "${file_package}";;
-            "sliceinfo_bootmgr") "${f}" >> "${file_bootmgr}";;
-            "sliceinfo_device")  "${f}" >> "${file_device}";;
-            "sliceinfo_driver")  "${f}" >> "${file_driver}";;
-            "sliceinfo_kernel")  "${f}" >> "${file_kernel}";;
-            "sliceinfo_aptlog")  "${f}" >> "${file_aptlog}";;
+            "sliceinfo_service") "${f}"     >> "${file_service}";;
+            "sliceinfo_env")     "${f}"     >> "${file_env}";;
+            "sliceinfo_package") "${f}"     >> "${file_package}";;
+            "sliceinfo_bootmgr") "${f}"     >> "${file_bootmgr}";;
+            "sliceinfo_device")  "${f}"     >> "${file_device}";;
+            "sliceinfo_gsettings") "${f}"   >> "${file_gsettings}";;
+            "sliceinfo_driver")  "${f}"     >> "${file_driver}";;
+            "sliceinfo_fonts")    "${f}"    >> "${file_fonts}";;
+            "sliceinfo_kernel")  "${f}"     >> "${file_kernel}";;
+            "sliceinfo_aptlog")  "${f}"     >> "${file_aptlog}";;
             "sliceinfo_apttermlog")  "${f}" >> "${file_apttermlog}";;
-            "sliceinfo_syslog")  "${f}" >> "${file_syslog}";;
-            *)              "${f}" >> "${file_master}";;
+            "sliceinfo_syslog")  "${f}"     >> "${file_syslog}";;
+            *)              "${f}"          >> "${file_master}";;
         esac
     done
 }
@@ -382,56 +437,22 @@ subcategory_background() {
     include_sliceinfo "syslog"
     include_syslog_keyword "com.deepin.SessionManager"
     include_syslog_keyword "com.deepin.daemon.ThemeManager"
-    # TODO gsettings path will be changed after deepin-wm released
-    msg_title "GSettings Key-Values for Background" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.wrap.gnome.desktop.background)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.personalization)" >> "${file_gsettings}"
 }
 subcategory_dde-desktop() {
     collect_file "desktop" "/tmp/dde-desktop.log"
-    msg_title "GSettings Key-Values for dde-desktop" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.desktop)" >> "${file_gsettings}"
 }
 subcategory_dde-dock() {
     include_sliceinfo "syslog"
     include_syslog_keyword "com.deepin.daemon.Dock"
     collect_file "dock" "/tmp/dde-dock.log"
-    msg_title "GSettings Key-Values for dde-dock" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.dock)" >> "${file_gsettings}"
 }
 subcategory_dde-launcher() {
     include_sliceinfo "syslog"
     include_syslog_keyword "dde-daemon/launcher-daemon"
     collect_file "launcher" "/tmp/dde-launcher.log"
-    msg_title "GSettings Key-Values for dde-launcher" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.launcher)" >> "${file_gsettings}"
 }
 
 category_dde-control-center() {
-    msg_title "GSettings Key-Values for dde-control-center" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.daemon.power)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.daemon)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.datetime)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.desktop)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.dock)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.launcher)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.keybinding)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.keybinding.custom:/)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.keybinding.mediakey)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.keybinding.system)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.keyboard)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.mouse)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.peripherals)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.peripherals.input-devices)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.peripherals.keyboard)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.peripherals.mouse)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.peripherals.touchpad)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.peripherals.touchscreen)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.personalization)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.proxy)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.touchpad)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.wacom)" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.zone)" >> "${file_gsettings}"
     subcategory_bootmgr
     subcategory_background
     subcategory_display
@@ -441,6 +462,9 @@ category_dde-control-center() {
     # catch all syslog for dde-daemon
     include_sliceinfo "syslog"
     include_syslog_keyword "com.deepin.daemon"
+
+    include_sliceinfo "fonts"
+    include_sliceinfo "gsettings"
 }
 subcategory_bootmgr() {
     if [ ! "${arg_privacymode}" ]; then
@@ -450,7 +474,6 @@ subcategory_bootmgr() {
     include_sliceinfo "syslog"
     include_syslog_keyword "com.deepin.daemon.Grub2"
     include_syslog_keyword "com.deepin.daemon.Grub2Ext"
-    collect_file "bootmgr" /boot/grub/grub.cfg
     collect_file "bootmgr" /etc/default/grub
     collect_file "bootmgr" /var/cache/deepin/grub2.json
 }
@@ -488,8 +511,6 @@ subcategory_network() {
     include_syslog_keyword "dnsmasq"
     include_syslog_keyword "avahi-daemon"
     collect_file "network" "~/.config/deepin/network.json"
-    msg_title "GSettings Key-Values for proxy" >> "${file_gsettings}"
-    msg_code "$(gsettings list-recursively com.deepin.dde.proxy)" >> "${file_gsettings}"
 }
 
 category_system() {
@@ -644,12 +665,13 @@ if [ "${arg_category}" ]; then
     file_aptlog="${dest_dir}/aptlog"
     file_apttermlog="${dest_dir}/apttermlog"
     file_syslog="${dest_dir}/syslog"
-    file_service="${dest_dir}/services"
+    file_service="${dest_dir}/services.md"
     file_env="${dest_dir}/env"
     file_package="${dest_dir}/packages"
     file_bootmgr="${dest_dir}/bootmgr.md"
     file_device="${dest_dir}/devices.md"
     file_driver="${dest_dir}/drivers.md"
+    file_fonts="${dest_dir}/fonts"
     file_kernel="${dest_dir}/dmesg"
     file_gsettings="${dest_dir}/gsettings.md"
 
