@@ -96,6 +96,14 @@ grep_block() {
     awk -v keyword="${keyword}" 'BEGIN{RS="\n\n"; n=0} $0 ~ keyword{print ""; print; n++} END{print n, "of", NR, "matched", keyword}' $files
 }
 
+is_cmd_exists() {
+    if type -a "${1}" &>/dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # collect_file <category> <files...>
 collect_file() {
     local category="${1}"; shift
@@ -147,11 +155,11 @@ do_sliceinfo_basic_computer_model() {
 }
 
 sliceinfo_service() {
-    if type -a systemctl &>/dev/null; then
+    if is_cmd_exists systemctl; then
         msg_title "Systemd Services"
         msg_code "$(systemctl list-unit-files)"
     fi
-    if type -a initctl &>/dev/null; then
+    if is_cmd_exists initctl; then
         msg_title "Sysvinit Services"
         msg_code "$(initctl list | column -t)"
     fi
@@ -175,6 +183,7 @@ sliceinfo_device() {
 
     msg_title "USB Devices"
     msg_code "$(lsusb)"
+    msg_code "$(usb-devices)"
 
     msg_title "PCI Devices"
     msg_code "$(lspci -vvnn)"
@@ -190,8 +199,10 @@ sliceinfo_driver() {
     msg_title "Loaded Drivers"
     msg_code "$(lsmod)"
 
-    msg_title "Driver Modules File"
-    msg_code "$(cat /etc/modules)"
+    if [ -f /etc/modules ]; then
+        msg_title "Driver Modules File"
+        msg_code "$(cat /etc/modules)"
+    fi
 
     msg_title "Driver Blacklist File"
     msg_code "$(do_sliceinfo_driver_blacklist)"
@@ -281,8 +292,10 @@ sliceinfo_network() {
     msg_title "Wireless Device Switches(rfkill)"
     msg_code "$(rfkill list all)"
 
-    msg_title "Network Interface File"
-    msg_code "$(cat /etc/network/interfaces)"
+    if [ -f /etc/network/interfaces ]; then
+        msg_title "Network Interface File"
+        msg_code "$(cat /etc/network/interfaces)"
+    fi
 
     msg_title "DNS Configuration(resolv.conf)"
     msg_code "$(cat /etc/resolv.conf)"
@@ -309,8 +322,10 @@ sliceinfo_bootmgr() {
         msg_code "$(efibootmgr -v)"
     fi
 
-    msg_title "Boot Info Script"
-    msg_code "$(bootinfoscript --stdout)" # need root permission
+    if is_cmd_exists bootinfoscript; then
+        msg_title "Boot Info Script"
+        msg_code "$(bootinfoscript --stdout)" # need root permission
+    fi
 }
 
 sliceinfo_disk() {
@@ -343,7 +358,7 @@ sliceinfo_apttermlog() {
 
 sliceinfo_syslog() {
     # user journalctl firstly
-    if type -a journalctl &>/dev/null; then
+    if is_cmd_exists  journalctl; then
         if [ ${#opt_syslog_include[@]} -gt 0 ]; then
             journalctl --system --user 2>/dev/null | grep -i ${opt_syslog_include[@]}
         else
