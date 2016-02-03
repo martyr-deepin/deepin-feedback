@@ -151,7 +151,7 @@ do_sliceinfo_basic_computer_model() {
     # need root permission
     for f in /sys/class/dmi/id/*; do
         if [ -f "${f}" -a -r "${f}" ]; then
-            printf "%s:\t%s\n" $f "$(cat $f)";
+            printf "%s:\t%s\n" $f "$(cat $f)"
         fi
     done
 }

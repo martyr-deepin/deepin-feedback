@@ -7,7 +7,7 @@ else
    GOBUILD = go build -compiler gccgo -gccgoflags "${LDFLAGS}"
 endif
 
-build: configure
+build: check configure
 	(cd daemon; ${GOBUILD} -o deepin-feedback-daemon)
 	(cd gui; qmake; make)
 
@@ -48,6 +48,9 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/share/dbus-1/system-services/com.deepin.Feedback.service
 	rm -f ${DESTDIR}${PREFIX}/share/applications/deepin-feedback.desktop
 	rm -f ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/deepin-feedback.svg
+
+check:
+	bash --norc -n -- cli/deepin-feedback-cli.sh
 
 clean:
 	rm -f daemon/deepin-feedback-daemon
