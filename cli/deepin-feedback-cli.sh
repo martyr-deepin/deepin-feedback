@@ -560,7 +560,8 @@ category_deepin-installer() {
     fi
 }
 category_deepin-store() {
-    collect_file "deepin-store" "~/.config/deepin-software-center/config_info.ini"
+    collect_file "deepin-store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache)
+    collect_file "deepin-store" "/etc/apt"
     if [ ! "${arg_privacymode}" ]; then
         include_sliceinfo "aptlog"
         include_sliceinfo "apttermlog"
