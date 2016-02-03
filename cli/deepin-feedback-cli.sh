@@ -20,6 +20,8 @@ LC_ALL=C
 
 app_file="${0}"
 app_name="$(basename $0)"
+distro_name=`lsb_release -s -i`
+distro_release=`lsb_release -s -r`
 
 real_home="${HOME}"
 if [ "${SUDO_USER}" ]; then
@@ -674,7 +676,7 @@ if [ "${arg_category}" ]; then
     fi
 
     # global variables
-    result_tag="${app_name}-results-${arg_category}-$(date "+%Y%m%d-%s")"
+    result_tag="${app_name}-${distro_name}-${distro_release}-${arg_category}-$(date "+%Y%m%d-%H%M%S")"
     dest_dir="/tmp/${result_tag}"
     result_archive="${arg_outputfile:-${result_tag}.tar.gz}"
     file_master="${dest_dir}/sysinfo.md"
