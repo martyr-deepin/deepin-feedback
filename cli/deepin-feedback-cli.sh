@@ -456,17 +456,17 @@ subcategory_background() {
     include_syslog_keyword "com.deepin.daemon.ThemeManager"
 }
 subcategory_dde-desktop() {
-    collect_file "desktop" "/tmp/dde-desktop.log"
+    collect_file "desktop" "~/.cache/deepin/dde-desktop/dde-desktop.log"
 }
 subcategory_dde-dock() {
     include_sliceinfo "syslog"
     include_syslog_keyword "com.deepin.daemon.Dock"
-    collect_file "dock" "/tmp/dde-dock.log"
+    collect_file "dock" "~/.cache/deepin/dde-dock/dde-dock.log"
 }
 subcategory_dde-launcher() {
     include_sliceinfo "syslog"
     include_syslog_keyword "dde-daemon/launcher-daemon"
-    collect_file "launcher" "/tmp/dde-launcher.log"
+    collect_file "launcher" "~/.cache/deepin/dde-launcher/dde-launcher.log"
 }
 
 category_dde-control-center() {
@@ -482,6 +482,7 @@ category_dde-control-center() {
 
     include_sliceinfo "fonts"
     include_sliceinfo "gsettings"
+    collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
 }
 subcategory_bootmgr() {
     if [ ! "${arg_privacymode}" ]; then
