@@ -1,11 +1,12 @@
-/*************************************************************
-*File Name: TitleRow.qml
-*Author: Match
-*Email: Match.YangWanQing@gmail.com
-*Created Time: 2015年06月19日 星期五 09时46分30秒
-*Description:
-*
-*************************************************************/
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
+
 import QtQuick 2.1
 
 Item {
