@@ -139,7 +139,7 @@ sliceinfo_basic() {
     msg_code "$(uname -a)"
 
     msg_title "Installed Deepin Packages"
-    msg_code "$(dpkg -l | grep -i -e 'deepin-' -e '-deepin' -e 'dde-' -e '-dde')"
+    msg_code "$(dpkg -l | grep -i -e 'deepin-' -e '-deepin' -e 'dde-' -e '-dde' -e 'lastore')"
 
     msg_title "Computer Model"
     msg_code "$(do_sliceinfo_basic_computer_model)"
@@ -565,6 +565,8 @@ category_deepin-installer() {
 category_deepin-store() {
     collect_file "deepin-store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache)
     collect_file "deepin-store" "/etc/apt"
+    collect_file "deepin-store" "/var/log/lastore"
+    collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
     if [ ! "${arg_privacymode}" ]; then
         include_sliceinfo "aptlog"
         include_sliceinfo "apttermlog"
