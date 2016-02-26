@@ -1,21 +1,10 @@
 /**
- * Copyright (c) 2015 Deepin, Inc.
- *
- * Author:      Xu FaSheng <fasheng.xu@gmail.com>
- * Maintainer:  Xu FaSheng <fasheng.xu@gmail.com>
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
  **/
 
 package main
@@ -25,10 +14,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"path/filepath"
-	"pkg.linuxdeepin.com/lib/dbus"
-	. "pkg.linuxdeepin.com/lib/gettext"
-	"pkg.linuxdeepin.com/lib/utils"
+	"pkg.deepin.io/lib/dbus"
+	. "pkg.deepin.io/lib/gettext"
+	"pkg.deepin.io/lib/utils"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -44,31 +35,34 @@ const (
 )
 
 type category struct {
-	Value string
-	Name  string
+	Value           string
+	BugzillaProject string
+	Name            string
 }
 
 var categories []category
 
 func initCategories() {
 	categories = []category{
-		{Value: "all", Name: Tr("All")},
-		{Value: "background", Name: Tr("Background")},
-		{Value: "bluetooth", Name: Tr("Bluetooth")},
-		{Value: "bootmgr", Name: Tr("Boot Interface")},
-		{Value: "desktop", Name: Tr("Desktop")},
-		{Value: "display", Name: Tr("Display")},
-		{Value: "dock", Name: Tr("Dock")},
-		{Value: "launcher", Name: Tr("Launcher")},
-		{Value: "login", Name: Tr("User Login Interface")},
-		{Value: "network", Name: Tr("Network")},
+		{Value: "dde", BugzillaProject: "深度桌面环境", Name: Tr("Deepin Desktop Environment")},
+		{Value: "dde-control-center", BugzillaProject: "深度控制中心", Name: Tr("Deepin Control Center")},
+		{Value: "system", BugzillaProject: "系统配置(启动/仓库/驱动)", Name: Tr("System Configuration (startup / repository / drive)")},
+		{Value: "deepin-installer", BugzillaProject: "系统安装", Name: Tr("Deepin Installer")},
+		{Value: "deepin-store", BugzillaProject: "深度商店", Name: Tr("Deepin Store")},
+		{Value: "deepin-music", BugzillaProject: "深度音乐", Name: Tr("Deepin Music")},
+		{Value: "deepin-movie", BugzillaProject: "深度影院", Name: Tr("Deepin Movie")},
+		{Value: "deepin-screenshot", BugzillaProject: "深度截图", Name: Tr("Deepin Screenshot")},
+		{Value: "deepin-terminal", BugzillaProject: "深度终端", Name: Tr("Deepin Terminal")},
+		{Value: "deepin-translator", BugzillaProject: "深度翻译", Name: Tr("Deepin Translator")},
+		{Value: "none", BugzillaProject: "深度网站", Name: Tr("Deepin Web")},
+		{Value: "all", BugzillaProject: "我不清楚", Name: Tr("I don't know")},
 	}
 }
 
 type FeedbackDaemon struct {
 	WorkingSet             map[uint64]bool
 	sorkingSetMutex        sync.Mutex
-	GenerateReportFinished func(requstID uint64, files []string)
+	GenerateReportFinished func(requstID uint64, filesJSON string)
 }
 
 func NewFeedbackDaemon() (fd *FeedbackDaemon) {
@@ -89,11 +83,13 @@ func (fd *FeedbackDaemon) addWorkingRequest(requestID uint64) {
 	fd.sorkingSetMutex.Lock()
 	defer fd.sorkingSetMutex.Unlock()
 	fd.WorkingSet[requestID] = true
+	dbus.NotifyChange(fd, "WorkingSet")
 }
 func (fd *FeedbackDaemon) removeWorkingRequest(requestID uint64) {
 	fd.sorkingSetMutex.Lock()
 	defer fd.sorkingSetMutex.Unlock()
 	delete(fd.WorkingSet, requestID)
+	dbus.NotifyChange(fd, "WorkingSet")
 }
 func (fd *FeedbackDaemon) isInWorking() bool {
 	fd.sorkingSetMutex.Lock()
@@ -105,16 +101,18 @@ func (fd *FeedbackDaemon) isInWorking() bool {
 // supported, each category contains several keywords to help to
 // searching in front-end.
 func (fd *FeedbackDaemon) GetCategories() (jsonCategories string, err error) {
-	jsonCategoriesBytes, err := json.Marshal(categories)
-	if err != nil {
-		logger.Error(err)
-	}
-	jsonCategories = string(jsonCategoriesBytes)
+	jsonCategories = marshalJSON(categories)
 	return
 }
 
 // GenerateBugReport notify to generate bug report for target category.
-func (fd *FeedbackDaemon) GenerateReport(category string) (requstID uint64, err error) {
+func (fd *FeedbackDaemon) GenerateReport(dmsg dbus.DMessage, category string, allowPrivacy bool) (requstID uint64, err error) {
+	username, err := getDBusCallerUsername(dmsg)
+	if err != nil {
+		logger.Error(err)
+		return
+	}
+
 	defer func() {
 		if err := recover(); err != nil {
 			logger.Error(err)
@@ -127,11 +125,15 @@ func (fd *FeedbackDaemon) GenerateReport(category string) (requstID uint64, err 
 
 	outputFilename := fmt.Sprintf("deepin-feedback-results-%s-%s-%d.tar.gz", category, time.Now().Format("2006-01-02"), time.Now().UnixNano()/1e9)
 	outputFilepath := filepath.Join(os.TempDir(), outputFilename)
-	logger.Info("generate report begin:", outputFilepath)
+	args := []string{"--username", username, "--output", outputFilepath, category}
+	if !allowPrivacy {
+		args = append(args, "--privacy-mode")
+	}
+	logger.Info("generate report begin", deepinFeedbackCliExe, args)
 	fd.addWorkingRequest(requstID)
 
 	go func() {
-		_, _, err = utils.ExecAndWait(600, deepinFeedbackCliExe, "--output", outputFilepath, category)
+		_, _, err = utils.ExecAndWait(600, deepinFeedbackCliExe, args...)
 		if err != nil {
 			logger.Error(err)
 		}
@@ -149,9 +151,35 @@ func (fd *FeedbackDaemon) GenerateReport(category string) (requstID uint64, err 
 			}
 		}
 
-		dbus.Emit(fd, "GenerateReportFinished", requstID, files)
-		logger.Info("generate report end:", outputFilepath)
+		dbus.Emit(fd, "GenerateReportFinished", requstID, marshalJSON(files))
+		logger.Info("generate report end", deepinFeedbackCliExe, args)
 		fd.removeWorkingRequest(requstID)
 	}()
+	return
+}
+
+func getDBusCallerUsername(dmsg dbus.DMessage) (username string, err error) {
+	if dbusDaemon == nil {
+		err = fmt.Errorf("intialize dbus daemon failed")
+		return
+	}
+	uid, err := dbusDaemon.GetConnectionUnixUser(dmsg.GetSender())
+	if err != nil {
+		return
+	}
+	user, err := user.LookupId(strconv.Itoa(int(uid)))
+	if err != nil {
+		return
+	}
+	username = user.Username
+	return
+}
+
+func marshalJSON(v interface{}) (str string) {
+	bytes, err := json.Marshal(v)
+	if err != nil {
+		logger.Error(err)
+	}
+	str = string(bytes)
 	return
 }

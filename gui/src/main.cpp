@@ -1,91 +1,78 @@
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
+
+#include <QtQml>
 #include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QtQml>
+#include <QCommandLineParser>
+#include <QDBusConnection>
+#include <QDBusInterface>
+
+#include "logmanager.h"
+#include "Logger.h"
 #include "qmlloader.h"
 #include "dataconverter.h"
-#include <QDBusConnection>
-#include <QDebug>
-
-void showVersion()
-{
-    qDebug() << "1.0";
-}
-
-void showHelpTip()
-{
-    qWarning() << "Usage:";
-    qWarning() << "\tdeepin-feedback  \t\t\tDo not specify a target_app";
-    qWarning() << "\tdeepin-feedback -v   \t\t\tPrint version";
-    qWarning() << "\tdeepin-feedback -h   \t\t\tShow this message";
-    qWarning() << "\tdeepin-feedback -t <target_app>\t\tReport target_app's bug\n";
-}
-
+#include "adjunctuploader.h"
+#include "datasender.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("deepin-feedback");
 
-    if (argc == 1)
-    {
-        if (!QDBusConnection::sessionBus().registerService("com.deepin.user.feedback"))
-        {
-            qDebug() << "Warning: process is running...";
-            return 0;
-        }
-    }
-    else if(argc == 2)
-    {
-        QString order = argv[1];
-        if(order == "-v" || order == "--version")
-        {
-            showVersion();
-        }
-        else
-        {
-            showHelpTip();
-        }
-        return 0;
-    }
-    else if (argc == 3 && QString(argv[1]) == "-t")
-    {
-        QString target = argv[2];
-        if (!QDBusConnection::sessionBus().registerService("com.deepin.user.feedback." + target))
-        {
-            qDebug() << "Warning: process is running...";
-            return 0;
-        }
-    }
-    else
-    {
-        showHelpTip();
-        return 0;
-    }
+    //Add command line option
+    QCommandLineParser parser;
+//    parser.setApplicationDescription("Feedback helper");
+    parser.addHelpOption();
+    parser.addOptions({
+                          {{"t", "target"},
+                           QObject::tr("Report a bug for <target>."),
+                           QObject::tr("target")}
+                      });
 
-    qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
+    parser.process(app);
 
-    QmlLoader* qmlLoader = new QmlLoader();
-    qmlLoader->rootContext->setContextProperty("mainObject", qmlLoader);
-    qmlLoader->load(QUrl(QStringLiteral("qrc:/views/main.qml")));
-    QObject::connect(qmlLoader->engine, SIGNAL(quit()), QApplication::instance(), SLOT(quit()));
+    LogManager::instance()->debug_log_console_on();
+    LOG_INFO() << LogManager::instance()->getlogFilePath();
 
-    if (argc == 1)
-    {
-        qmlLoader->reportBug();
+    QString reportTarget = parser.value("target");
+
+    if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
+
+        AdjunctUploader::getInstance();
+        qmlRegisterType<DataConverter>("DataConverter", 1, 0, "DataConverter");
+        qmlRegisterType<DataSender>("DataSender",1,0,"DataSender");
+
+        QmlLoader* qmlLoader = new QmlLoader();
+        qmlLoader->rootContext->setContextProperty("mainObject", qmlLoader);
+        qmlLoader->load(QUrl(QStringLiteral("qrc:/views/main.qml")));
+        QObject::connect(qmlLoader->engine, SIGNAL(quit()), QApplication::instance(), SLOT(quit()));
+
+
+        if (reportTarget.isEmpty()) {
+            //TODO  clear project
+            qmlLoader->reportBug();
+        }
+        else {
+            qmlLoader->reportBug(reportTarget);
+        }
+
+        return app.exec();
     }
-    else if (argc == 3 && QString(argv[1]) == "-t")
-    {
-        //report bug target
-        QString target = argv[2];
-        QStringList supportList = qmlLoader->getSupportAppList();
-        if (supportList.indexOf(target) != -1)
-        {
-            qmlLoader->reportBug(target);
-        }
-        else
-        {
-            qmlLoader->reportBug("other");
-        }
+    else if (!reportTarget.isEmpty()) {
+        QDBusInterface iface(DBUS_NAME, DBUS_PATH, DBUS_NAME, QDBusConnection::sessionBus());
+        iface.call("switchProject", reportTarget);
+    }
+    else {
+        qWarning() << "deepin-feedback is running...";
     }
 
-    return app.exec();
+    return 0;
 }

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Exec=deepin-feedback
+Name=Deepin User Feedback
+Icon=deepin-feedback
+Name[zh_CN]=深度用户反馈
+Icon[zh_CN]=deepin-feedback
+Type=Application
+Comment=Feedback tools for Deepin users.

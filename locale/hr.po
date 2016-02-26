@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Marino Vuletić <vuletic.marino1@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: deepin-feedback\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
+"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"Language-Team: Croatian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: ../daemon/feedback_daemon.go:58
+msgid "Deepin Desktop Environment"
+msgstr "Deepin Okruženje Radne površine"
+
+#: ../daemon/feedback_daemon.go:59
+msgid "Deepin Control Center"
+msgstr "Deepin Kontrolni Centar"
+
+#: ../daemon/feedback_daemon.go:60
+msgid "System Configuration (startup / repository / drive)"
+msgstr "Konfiguracija sustava (pokretanje /  repozitorij / pogon)"
+
+#: ../daemon/feedback_daemon.go:61
+msgid "Deepin Installer"
+msgstr "Deepin Installer"
+
+#: ../daemon/feedback_daemon.go:62
+msgid "Deepin Store"
+msgstr "Deepin Trgovina"
+
+#: ../daemon/feedback_daemon.go:63
+msgid "Deepin Music"
+msgstr "Deepin Glazba"
+
+#: ../daemon/feedback_daemon.go:64
+msgid "Deepin Movie"
+msgstr "Deepin film"
+
+#: ../daemon/feedback_daemon.go:65
+msgid "Deepin Screenshot"
+msgstr "Deepin Slike Zaslona"
+
+#: ../daemon/feedback_daemon.go:66
+msgid "Deepin Terminal"
+msgstr "Deepin Terminal"
+
+#: ../daemon/feedback_daemon.go:67
+msgid "Deepin Translator"
+msgstr "Deepin Prevoditelj"
+
+#: ../daemon/feedback_daemon.go:68
+msgid "I don't know"
+msgstr "Ne znam"
+
+#: ../daemon/feedback_daemon.go:69
+msgid "Deepin Web"
+msgstr ""
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:44
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:134
+msgid "Please select attachment"
+msgstr "Molimo, odaberite privitak"
+
+#: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
+#: ../gui/src/views/MainWindow.qml:324
+msgid "Total attachments have reached limit. "
+msgstr "Ukupan broj privitaka je dosegao limit."
+
+#: ../gui/src/views/AdjunctPanel.qml:259
+msgid "Please describe your problem in detail"
+msgstr "Molimo, opišite detaljno svoj problem"
+
+#: ../gui/src/views/AdjunctPanel.qml:260
+msgid "Please upload related screenshots or files"
+msgstr "Molimo, priložite vezane slike zaslona ili datoteke"
+
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
+msgid "Single attachment can not exceed 15M"
+msgstr "Jedan privitak ne može biti veći od 15M"
+
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
+msgid "The total number of attachments is not more than six"
+msgstr "Ukupan broj privitaka je manji od šest"
+
+#: ../gui/src/views/AdjunctPanel.qml:285
+msgid "Please describe your idea in detail"
+msgstr "Molimo, opišite detaljno svoju ideju"
+
+#: ../gui/src/views/AdjunctPanel.qml:286
+msgid "Please upload related attachments"
+msgstr "Molimo, priložite povezane privitke"
+
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
+msgid "Send"
+msgstr "Pošalji"
+
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
+msgid "Deepin User Feedback"
+msgstr "Deepin Povratne Informacije Korisnika"
+
+#: ../gui/src/views/MainWindow.qml:208
+msgid "Your feedback has been sent successfully, thanks for your support!"
+msgstr "Vaše povratne informacije su uspješno poslane. Hvala Vam na podršci!"
+
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
+msgid "Resend"
+msgstr "Ponovo pošalji"
+
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
+msgid "Failed to send your feedback, resend?"
+msgstr "Neuspjelo slanje povratnih informacija. Želite li ponovo poslati?"
+
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
+msgid "Sending ..."
+msgstr "Slanje..."
+
+#: ../gui/src/views/MainWindow.qml:367
+#, qt-format
+msgid "The draft of %1 has been saved."
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:390
+msgid "Please input the problem title"
+msgstr "Molimo, upišite naslov problema."
+
+#: ../gui/src/views/MainWindow.qml:391
+msgid "Please describe your idea simply"
+msgstr "Molimo, opišite svoju ideju što jednostavnije"
+
+#: ../gui/src/views/MainWindow.qml:394
+msgid "Title words have reached limit."
+msgstr "Broj riječi u naslovu je dosegao limit."
+
+#: ../gui/src/views/MainWindow.qml:428
+msgid "Please fill in email to get the feedback progress."
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:431
+msgid "Email is invalid."
+msgstr "Adresa elektroničke pošte nije ispravna."
+
+#: ../gui/src/views/MainWindow.qml:488
+msgid ""
+"I wish to join in User Feedback Help Plan to quickly improve the system "
+"without any personal information collected."
+msgstr ""
+
+#: ../gui/src/views/MainWindow.qml:506
+msgid "Close"
+msgstr "Zatvori"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:24
+msgid "I have a problem"
+msgstr "Imam problem"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:35
+msgid "I have a good idea"
+msgstr "Imam dobru ideju"
+
+#: ../gui/src/views/Widgets/AdjunctTray.qml:218
+msgid "Upload failed, please retry."
+msgstr "Prijenos nije uspio, molimo pokušajte ponovo."
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
+msgid "Please select feedback project firstly "
+msgstr ""

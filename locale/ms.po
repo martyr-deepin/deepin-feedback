@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# abuyop <abuyop@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: deepin-feedback\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
+"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"Language-Team: Malay (http://www.transifex.com/linuxdeepin/deepin-feedback/language/ms/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ms\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../daemon/feedback_daemon.go:58
+msgid "Deepin Desktop Environment"
+msgstr "Persekitaran Desktop Deepin"
+
+#: ../daemon/feedback_daemon.go:59
+msgid "Deepin Control Center"
+msgstr "Pusat Kawalan Deepin"
+
+#: ../daemon/feedback_daemon.go:60
+msgid "System Configuration (startup / repository / drive)"
+msgstr "Konfigurasi Sistem (permulaan / repositori / pemacu)"
+
+#: ../daemon/feedback_daemon.go:61
+msgid "Deepin Installer"
+msgstr "Pemasang Deepin"
+
+#: ../daemon/feedback_daemon.go:62
+msgid "Deepin Store"
+msgstr "Kedai Deepin"
+
+#: ../daemon/feedback_daemon.go:63
+msgid "Deepin Music"
+msgstr "Muzik Deepin"
+
+#: ../daemon/feedback_daemon.go:64
+msgid "Deepin Movie"
+msgstr "Cereka Deepin"
+
+#: ../daemon/feedback_daemon.go:65
+msgid "Deepin Screenshot"
+msgstr "Cekupan Skrin Deepin"
+
+#: ../daemon/feedback_daemon.go:66
+msgid "Deepin Terminal"
+msgstr "Terminal Deepin"
+
+#: ../daemon/feedback_daemon.go:67
+msgid "Deepin Translator"
+msgstr "Penterjemah Deepin"
+
+#: ../daemon/feedback_daemon.go:68
+msgid "I don't know"
+msgstr "Saya tidak tahu"
+
+#: ../daemon/feedback_daemon.go:69
+msgid "Deepin Web"
+msgstr "Sesawang Deepin"
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:44
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:134
+msgid "Please select attachment"
+msgstr "Sila pilih lampiran"
+
+#: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
+#: ../gui/src/views/MainWindow.qml:324
+msgid "Total attachments have reached limit. "
+msgstr "Jumlah lampiran telah melebihi had."
+
+#: ../gui/src/views/AdjunctPanel.qml:259
+msgid "Please describe your problem in detail"
+msgstr "Sila jelaskan masalah anda secara terperinci"
+
+#: ../gui/src/views/AdjunctPanel.qml:260
+msgid "Please upload related screenshots or files"
+msgstr "Sila muat naik cekupan skrin atau fail berkaitan"
+
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
+msgid "Single attachment can not exceed 15M"
+msgstr "Satu lampiran tidak boleh melebihi 15M"
+
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
+msgid "The total number of attachments is not more than six"
+msgstr "Jumlah lampiran telah boleh melebihi enam lampiran"
+
+#: ../gui/src/views/AdjunctPanel.qml:285
+msgid "Please describe your idea in detail"
+msgstr "Sila jelaskan idea anda secara terperinci"
+
+#: ../gui/src/views/AdjunctPanel.qml:286
+msgid "Please upload related attachments"
+msgstr "Sila muat naik lampiran berkaitan"
+
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
+msgid "Send"
+msgstr "Hantar"
+
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
+msgid "Deepin User Feedback"
+msgstr "Maklumbalas Pengguna Deepin"
+
+#: ../gui/src/views/MainWindow.qml:208
+msgid "Your feedback has been sent successfully, thanks for your support!"
+msgstr "Maklumbalas anda berjaya dihantar, terima kasih atas sokongan anda!"
+
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
+msgid "Resend"
+msgstr "Hantar Semula"
+
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
+msgid "Failed to send your feedback, resend?"
+msgstr "Gagal menghantar maklumbalas anda, hantar semula?"
+
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
+msgid "Sending ..."
+msgstr "Menghantar ..."
+
+#: ../gui/src/views/MainWindow.qml:367
+#, qt-format
+msgid "The draft of %1 has been saved."
+msgstr "Draf %1 telah disimpan."
+
+#: ../gui/src/views/MainWindow.qml:390
+msgid "Please input the problem title"
+msgstr "Sila masukkan tajuk masalah"
+
+#: ../gui/src/views/MainWindow.qml:391
+msgid "Please describe your idea simply"
+msgstr "Sila jelaskan idea anda secara ringkas"
+
+#: ../gui/src/views/MainWindow.qml:394
+msgid "Title words have reached limit."
+msgstr "Jumlah perkataan tajuk telah melebihi had."
+
+#: ../gui/src/views/MainWindow.qml:428
+msgid "Please fill in email to get the feedback progress."
+msgstr "Sila isikan emel untuk dapatkan kemajuan maklumbalas."
+
+#: ../gui/src/views/MainWindow.qml:431
+msgid "Email is invalid."
+msgstr "Emel tidak sah."
+
+#: ../gui/src/views/MainWindow.qml:488
+msgid ""
+"I wish to join in User Feedback Help Plan to quickly improve the system "
+"without any personal information collected."
+msgstr "Saya mahu menyertai Pelan Bantuan Maklumbalas Pengguna untuk menambahbaik sistem dengan lebih pantas tanpa apa-apa maklumat peribadi dikutip."
+
+#: ../gui/src/views/MainWindow.qml:506
+msgid "Close"
+msgstr "Tutup"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:24
+msgid "I have a problem"
+msgstr "Saya menghadapi masalah"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:35
+msgid "I have a good idea"
+msgstr "Saya mempunyai idea berkenaan Deepin"
+
+#: ../gui/src/views/Widgets/AdjunctTray.qml:218
+msgid "Upload failed, please retry."
+msgstr "Muat naik gagal, cuba sekali lagi."
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
+msgid "Please select feedback project firstly "
+msgstr "Sila pilih projek maklumbalas terlebih dahulu"

@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Vasilii Rusu <basil_russu@hotmail.com>, 2015
+# Анатолий Валерианович <ffox909@mail.ru>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: deepin-feedback\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 08:58+0000\n"
+"Last-Translator: Анатолий Валерианович <ffox909@mail.ru>\n"
+"Language-Team: Russian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../daemon/feedback_daemon.go:58
+msgid "Deepin Desktop Environment"
+msgstr "Окружение Рабочего Стола Deepin"
+
+#: ../daemon/feedback_daemon.go:59
+msgid "Deepin Control Center"
+msgstr "Панель управления Deepin"
+
+#: ../daemon/feedback_daemon.go:60
+msgid "System Configuration (startup / repository / drive)"
+msgstr "Конфигурация Системы (запуск / репозиторий / драйвер)"
+
+#: ../daemon/feedback_daemon.go:61
+msgid "Deepin Installer"
+msgstr "Инсталлятор Deepin"
+
+#: ../daemon/feedback_daemon.go:62
+msgid "Deepin Store"
+msgstr "Магазин Deepin"
+
+#: ../daemon/feedback_daemon.go:63
+msgid "Deepin Music"
+msgstr "Музыкальный проигрыватель Deepin"
+
+#: ../daemon/feedback_daemon.go:64
+msgid "Deepin Movie"
+msgstr "Видео проигрыватель Deepin"
+
+#: ../daemon/feedback_daemon.go:65
+msgid "Deepin Screenshot"
+msgstr "Deepin скриншотер"
+
+#: ../daemon/feedback_daemon.go:66
+msgid "Deepin Terminal"
+msgstr " Терминал Deepin "
+
+#: ../daemon/feedback_daemon.go:67
+msgid "Deepin Translator"
+msgstr "Переводчик Deepin"
+
+#: ../daemon/feedback_daemon.go:68
+msgid "I don't know"
+msgstr "Я не знаю"
+
+#: ../daemon/feedback_daemon.go:69
+msgid "Deepin Web"
+msgstr "Deepin Web"
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr "Сообщить об ошибке на <target>."
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr "цель"
+
+#: ../gui/src/views/AdjunctPanel.qml:44
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr "Не удалось добавить вложение: Одно вложение не может превышать 15 Мб."
+
+#: ../gui/src/views/AdjunctPanel.qml:134
+msgid "Please select attachment"
+msgstr "Выберите файл для прикрепления"
+
+#: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
+#: ../gui/src/views/MainWindow.qml:324
+msgid "Total attachments have reached limit. "
+msgstr "Прикрепленные файлы достигли общего лимита."
+
+#: ../gui/src/views/AdjunctPanel.qml:259
+msgid "Please describe your problem in detail"
+msgstr "Пожалуйста, опишите свою проблему подробно"
+
+#: ../gui/src/views/AdjunctPanel.qml:260
+msgid "Please upload related screenshots or files"
+msgstr "Пожалуйста загрузите соответствующие снимки экрана или файлы"
+
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
+msgid "Single attachment can not exceed 15M"
+msgstr "Прикрепленный файл не должен быть больше 15 Мб"
+
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
+msgid "The total number of attachments is not more than six"
+msgstr "Общее количество прикрепленных файлов не более шести."
+
+#: ../gui/src/views/AdjunctPanel.qml:285
+msgid "Please describe your idea in detail"
+msgstr "Пожалуйста, опишите свою идею подробно"
+
+#: ../gui/src/views/AdjunctPanel.qml:286
+msgid "Please upload related attachments"
+msgstr "Пожалуйста прикрепите соответствующие файлы"
+
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
+msgid "Send"
+msgstr "Отправить"
+
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
+msgid "Deepin User Feedback"
+msgstr "Обратная связь с пользователем Deepin"
+
+#: ../gui/src/views/MainWindow.qml:208
+msgid "Your feedback has been sent successfully, thanks for your support!"
+msgstr "Ваш отзыв успешно отправлен, спасибо!"
+
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
+msgid "Resend"
+msgstr "Переслать"
+
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
+msgid "Failed to send your feedback, resend?"
+msgstr "Не удалось отправить отзыв, переслать?"
+
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
+msgid "Sending ..."
+msgstr "Отправка..."
+
+#: ../gui/src/views/MainWindow.qml:367
+#, qt-format
+msgid "The draft of %1 has been saved."
+msgstr "Черновик  %1  сохранен."
+
+#: ../gui/src/views/MainWindow.qml:390
+msgid "Please input the problem title"
+msgstr "Пожалуйста, введите наименование проблемы"
+
+#: ../gui/src/views/MainWindow.qml:391
+msgid "Please describe your idea simply"
+msgstr "Опишите свою идею просто"
+
+#: ../gui/src/views/MainWindow.qml:394
+msgid "Title words have reached limit."
+msgstr "Количество слов в заголовке достигло предела."
+
+#: ../gui/src/views/MainWindow.qml:428
+msgid "Please fill in email to get the feedback progress."
+msgstr "Пожалуйста введите свой электронный адрес чтобы завершить."
+
+#: ../gui/src/views/MainWindow.qml:431
+msgid "Email is invalid."
+msgstr "Введенный электронный адрес не действителен."
+
+#: ../gui/src/views/MainWindow.qml:488
+msgid ""
+"I wish to join in User Feedback Help Plan to quickly improve the system "
+"without any personal information collected."
+msgstr "Я желаю присоединится к Плану Поддержки и Обратной Связи с Пользователем с целью улучшения системы, без сбора личной информации."
+
+#: ../gui/src/views/MainWindow.qml:506
+msgid "Close"
+msgstr "Закрыть"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:24
+msgid "I have a problem"
+msgstr "У меня возникла проблема"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:35
+msgid "I have a good idea"
+msgstr "У меня возникла хорошая идея"
+
+#: ../gui/src/views/Widgets/AdjunctTray.qml:218
+msgid "Upload failed, please retry."
+msgstr "Загрузка не удалась, пожалуйста попробуйте заново."
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
+msgid "Please select feedback project firstly "
+msgstr "Пожалуйста, сначала выберите проект по которому хотите отослать отзыв"

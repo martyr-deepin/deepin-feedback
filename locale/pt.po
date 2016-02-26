@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Luis Neves <luisjneves@gmail.com>, 2015
+# Ricardo Simões <xmcorporation@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: deepin-feedback\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-05 10:25+0800\n"
+"PO-Revision-Date: 2015-11-05 02:52+0000\n"
+"Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
+"Language-Team: Portuguese (http://www.transifex.com/linuxdeepin/deepin-feedback/language/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../daemon/feedback_daemon.go:58
+msgid "Deepin Desktop Environment"
+msgstr "Ambiente de Trabalho Deepin"
+
+#: ../daemon/feedback_daemon.go:59
+msgid "Deepin Control Center"
+msgstr "Centro de Controlo Deepin"
+
+#: ../daemon/feedback_daemon.go:60
+msgid "System Configuration (startup / repository / drive)"
+msgstr "Configuração de Sistema (arranque / repositório / dispositivo)"
+
+#: ../daemon/feedback_daemon.go:61
+msgid "Deepin Installer"
+msgstr "Instalador Deepin"
+
+#: ../daemon/feedback_daemon.go:62
+msgid "Deepin Store"
+msgstr "Loja Deepin"
+
+#: ../daemon/feedback_daemon.go:63
+msgid "Deepin Music"
+msgstr "Música Deepin"
+
+#: ../daemon/feedback_daemon.go:64
+msgid "Deepin Movie"
+msgstr "Deepin Filme"
+
+#: ../daemon/feedback_daemon.go:65
+msgid "Deepin Screenshot"
+msgstr "Captura de ecrã Deepin"
+
+#: ../daemon/feedback_daemon.go:66
+msgid "Deepin Terminal"
+msgstr "Terminal Deepin"
+
+#: ../daemon/feedback_daemon.go:67
+msgid "Deepin Translator"
+msgstr "Tradutor Deepin"
+
+#: ../daemon/feedback_daemon.go:68
+msgid "I don't know"
+msgstr "Eu não sei"
+
+#: ../daemon/feedback_daemon.go:69
+msgid "Deepin Web"
+msgstr "Web Deepin"
+
+#: ../gui/src/main.cpp:25
+msgid "Report a bug for <target>."
+msgstr ""
+
+#: ../gui/src/main.cpp:26
+msgid "target"
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:44
+msgid "Failed to add attachment: Single attachment can not be more than 15M."
+msgstr ""
+
+#: ../gui/src/views/AdjunctPanel.qml:134
+msgid "Please select attachment"
+msgstr "Por favor selecione anexo"
+
+#: ../gui/src/views/AdjunctPanel.qml:169 ../gui/src/views/AdjunctPanel.qml:190
+#: ../gui/src/views/MainWindow.qml:324
+msgid "Total attachments have reached limit. "
+msgstr "Total de anexos atingiu o limite."
+
+#: ../gui/src/views/AdjunctPanel.qml:259
+msgid "Please describe your problem in detail"
+msgstr "Por favor descreva detalhadamente o seu problema"
+
+#: ../gui/src/views/AdjunctPanel.qml:260
+msgid "Please upload related screenshots or files"
+msgstr "Por favor envie as capturas de ecrã ou ficheiros relacionados "
+
+#: ../gui/src/views/AdjunctPanel.qml:261 ../gui/src/views/AdjunctPanel.qml:287
+msgid "Single attachment can not exceed 15M"
+msgstr "Anexo único não pode exceder 15M"
+
+#: ../gui/src/views/AdjunctPanel.qml:262 ../gui/src/views/AdjunctPanel.qml:288
+msgid "The total number of attachments is not more than six"
+msgstr "O número total de anexos não pode ser mais do que seis"
+
+#: ../gui/src/views/AdjunctPanel.qml:285
+msgid "Please describe your idea in detail"
+msgstr "Por favor descreva detalhadamente a sua ideia"
+
+#: ../gui/src/views/AdjunctPanel.qml:286
+msgid "Please upload related attachments"
+msgstr "Por favor carregue os anexos relacionados."
+
+#: ../gui/src/views/MainWindow.qml:87 ../gui/src/views/MainWindow.qml:518
+msgid "Send"
+msgstr "Enviar"
+
+#: ../gui/src/views/MainWindow.qml:207 ../gui/src/views/MainWindow.qml:227
+#: ../gui/src/views/MainWindow.qml:266 ../gui/src/views/TitleRow.qml:28
+msgid "Deepin User Feedback"
+msgstr "Comentários de Utilizador Deepin"
+
+#: ../gui/src/views/MainWindow.qml:208
+msgid "Your feedback has been sent successfully, thanks for your support!"
+msgstr "O seu comentário foi enviado com sucesso, obrigado pelo seu apoio!"
+
+#: ../gui/src/views/MainWindow.qml:214 ../gui/src/views/MainWindow.qml:229
+#: ../gui/src/views/MainWindow.qml:254 ../gui/src/views/MainWindow.qml:268
+msgid "Resend"
+msgstr "Reenviar"
+
+#: ../gui/src/views/MainWindow.qml:228 ../gui/src/views/MainWindow.qml:267
+msgid "Failed to send your feedback, resend?"
+msgstr "Falha ao enviar o seu comentário, reenviar?"
+
+#: ../gui/src/views/MainWindow.qml:234 ../gui/src/views/MainWindow.qml:541
+msgid "Sending ..."
+msgstr "A enviar ..."
+
+#: ../gui/src/views/MainWindow.qml:367
+#, qt-format
+msgid "The draft of %1 has been saved."
+msgstr "O rascunho de %1 foi salvo."
+
+#: ../gui/src/views/MainWindow.qml:390
+msgid "Please input the problem title"
+msgstr "Por favor insira o título do problema"
+
+#: ../gui/src/views/MainWindow.qml:391
+msgid "Please describe your idea simply"
+msgstr "Por favor descreva a sua ideia de forma simples"
+
+#: ../gui/src/views/MainWindow.qml:394
+msgid "Title words have reached limit."
+msgstr "As palavras do título chegaram ao limite."
+
+#: ../gui/src/views/MainWindow.qml:428
+msgid "Please fill in email to get the feedback progress."
+msgstr "Por favor preencha o email para obter o progresso dos comentários."
+
+#: ../gui/src/views/MainWindow.qml:431
+msgid "Email is invalid."
+msgstr "Email é inválido."
+
+#: ../gui/src/views/MainWindow.qml:488
+msgid ""
+"I wish to join in User Feedback Help Plan to quickly improve the system "
+"without any personal information collected."
+msgstr "Eu desejo aderir ao Plano de Ajuda de Comentários do Utilizador para rapidamente melhorar o sistema sem que seja guardada qualquer informação pessoal."
+
+#: ../gui/src/views/MainWindow.qml:506
+msgid "Close"
+msgstr "Fechar"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:24
+msgid "I have a problem"
+msgstr "Eu tenho um problema"
+
+#: ../gui/src/views/ReportTypeButtonRow.qml:35
+msgid "I have a good idea"
+msgstr "Eu tenho uma boa ideia"
+
+#: ../gui/src/views/Widgets/AdjunctTray.qml:218
+msgid "Upload failed, please retry."
+msgstr "Falha no envio, por favor tente outra vez."
+
+#: ../gui/src/views/Widgets/AppComboBox.qml:81
+msgid "Please select feedback project firstly "
+msgstr "Por favor seleccione o projecto de comentários em primeiro lugar"

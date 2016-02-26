@@ -1,4 +1,16 @@
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
+
 #include "qmlloader.h"
+#include <QProcess>
+#include <QKeyEvent>
+#include <QApplication>
 
 QmlLoader::QmlLoader(QObject *parent)
     :QObject(parent)
@@ -6,12 +18,16 @@ QmlLoader::QmlLoader(QObject *parent)
     engine = new QQmlEngine(this);
     component = new QQmlComponent(engine, this);
     rootContext = new QQmlContext(engine, this);
+    this->mDbusProxyer = new QmlLoaderDBus(this);
 
     init();
+
+    qApp->installEventFilter(this);
 }
 
 QmlLoader::~QmlLoader()
 {
+    delete this->mDbusProxyer;
     delete this->rootContext;
     delete this->component;
     delete this->engine;
@@ -47,7 +63,7 @@ void QmlLoader::reportBug(const QString &target)
     QVariant contentValue = QVariant(target);
     QMetaObject::invokeMethod(
                 this->rootObject,
-                "setTarget",
+                "switchProject",
                 Q_ARG(QVariant, contentValue)
                 );
 
@@ -123,7 +139,7 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     }
     else
     {
-        qDebug() << "Open simple entries file error!";
+        qWarning() << "Open simple entries file error: " << (targetPath + "/" + SIMPLE_ENTRIES_FILE_NAME);
         return false;
     }
 
@@ -136,11 +152,22 @@ bool QmlLoader::saveDraft(const QString &targetApp,
     }
     else
     {
-        qDebug() << "Open content file error!";
+        qWarning() << "Open content file error: " << (targetPath + "/" + CONTENT_FILE_NAME);
         return false;
     }
 
     return true;
+}
+
+void QmlLoader::showManual()
+{
+    if (m_manualPro.isNull()) {
+        const QString pro = "dman";
+        const QStringList args("deepin-feedback");
+        m_manualPro = new QProcess(this);
+        connect(m_manualPro.data(), SIGNAL(finished(int)), m_manualPro.data(), SLOT(deleteLater()));
+        m_manualPro->start(pro, args);
+    }
 }
 
 void QmlLoader::clearAllDraft()
@@ -155,19 +182,27 @@ void QmlLoader::clearDraft(const QString &targetApp)
     AdjunctAide::removeDirWidthContent(DRAFT_SAVE_PATH_NARMAL + targetApp);
 }
 
+void QmlLoader::clearSysAdjuncts(const QString &targetApp)
+{
+    AdjunctAide::removeSysAdjuncts(DRAFT_SAVE_PATH_NARMAL + targetApp + "/Adjunct");
+}
+
 QString QmlLoader::addAdjunct(const QString &filePath, const QString &target)
 {
     if (QFile::exists(target))
-        return "";
-
-    QFileInfo tmpFileInfo(filePath);
-    if (tmpFileInfo.size() + getAdjunctsSize(target) >= ADJUNCTS_MAX_SIZE)
     {
-        qDebug() << "Warning: File too large!";
+        qWarning() << "Attachment already exist: " << target;
         return "";
     }
 
-    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    QString targetPath = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME;
+    QDir tmpDir;
+    if (!tmpDir.exists(targetPath))
+    {
+        tmpDir.mkpath(targetPath);
+    }
+
+    QString targetFileName = targetPath + getFileNameFromPath(filePath);
     //copy file from target path to draft location
     if (QFile::copy(filePath, targetFileName))
         return targetFileName;
@@ -182,7 +217,19 @@ void QmlLoader::removeAdjunct(const QString &filePath)
 
 bool QmlLoader::draftTargetExist(const QString &target)
 {
-    return QFile::exists(DRAFT_SAVE_PATH_NARMAL + target);
+    QDir tmpDir(DRAFT_SAVE_PATH_NARMAL + target);
+    tmpDir.setFilter(QDir::Files |QDir::Dirs | QDir::Hidden | QDir::NoDotAndDotDot);
+    return tmpDir.exists() && tmpDir.entryList().length() > 0;
+}
+
+bool QmlLoader::draftNotEmpty(const QString &target)
+{
+    //get draft
+    Draft draft = getDraft(target);
+
+    return draft.title != "" || draft.content != "" || draft.email != "" ||
+            draft.feedbackType != DataConverter::DFeedback_Bug ||
+            draft.helpDeepin != true || draft.adjunctPathList.length() > 0;
 }
 
 void QmlLoader::updateUiDraftData(const QString &target)
@@ -274,6 +321,8 @@ Draft QmlLoader::getDraft(const QString &targetApp)
                     tmpDraft.adjunctPathList.append(infoList.at(i).filePath());
             }
         }
+
+        return tmpDraft;
     }
 }
 
@@ -314,6 +363,22 @@ void QmlLoader::parseJsonData(const QByteArray &byteArray, Draft *draft)
     }
 }
 
+void QmlLoader::parseJsonArray(const QByteArray &byteArray, QStringList *emailsList)
+{
+    QJsonParseError jsonError;
+    QJsonDocument parseDoucment = QJsonDocument::fromJson(byteArray, &jsonError);
+    if(jsonError.error == QJsonParseError::NoError && parseDoucment.isArray())
+    {
+        QJsonArray array = parseDoucment.array();
+        int arrayLength = array.count();
+
+        for (int i = 0; i < arrayLength; i ++)
+        {
+            emailsList->append(array.at(i).toString());
+        }
+    }
+}
+
 QString QmlLoader::getFileNameFromPath(const QString &filePath)
 {
     int tmpIndex = filePath.lastIndexOf("/");
@@ -341,4 +406,104 @@ qint64 QmlLoader::getAdjunctsSize(const QString &target)
     }
     else
         return 0;
+}
+
+qint64 QmlLoader::getAdjunctSize(const QString &fileName)
+{
+    QFile tmpFile(fileName);
+    return tmpFile.size();
+}
+
+bool QmlLoader::adjunctExist(const QString &filePath, const QString &target)
+{
+    QString targetFileName = DRAFT_SAVE_PATH_NARMAL + target + "/" + ADJUNCT_DIR_NAME + getFileNameFromPath(filePath);
+    if (QFile::exists(targetFileName))
+        return true;
+    else
+        return false;
+}
+
+void QmlLoader::saveEmail(const QString &email)
+{
+    QFile file(EMAILS_LIST_FILE_NAME);
+    if (!file.exists(EMAILS_LIST_FILE_NAME))
+    {
+        file.open(QIODevice::WriteOnly);
+        file.close();
+    }
+
+    QStringList emailsList = getEmails();
+    int oldIndex = emailsList.indexOf(email);
+    if (oldIndex != -1)//already exist
+    {
+        emailsList.removeAt(oldIndex);
+    }
+    emailsList.insert(0, email);
+
+    QJsonDocument jsonDocument;
+    jsonDocument.setArray(QJsonArray::fromStringList(emailsList));
+
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        file.write(jsonDocument.toJson(QJsonDocument::Compact));
+        file.close();
+    }
+    else
+        qWarning() << "Open emails list file error!";
+}
+
+QStringList QmlLoader::getEmails()
+{
+    QStringList emailsList;
+    QFile entriesFile(EMAILS_LIST_FILE_NAME);
+    if (entriesFile.open(QIODevice::ReadOnly))
+    {
+        QByteArray tmpByteArry = entriesFile.readAll();
+        parseJsonArray(tmpByteArry,&emailsList);
+        entriesFile.close();
+    }
+
+    return emailsList;
+}
+
+QString QmlLoader::getMatchEmailPart(const QString &text)
+{
+    QStringList emailList = getEmails();
+    foreach (QString email, emailList) {
+        if (email.indexOf(text, 0, Qt::CaseInsensitive) == 0)
+            return email.mid(text.length());
+    }
+
+    return "";
+}
+
+bool QmlLoader::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_F1) {
+            qDebug() << "show manual for help...";
+            showManual();
+            return true;
+        }
+    }
+    // standard event processing
+    return QObject::eventFilter(obj, event);
+}
+
+QmlLoaderDBus::QmlLoaderDBus(QmlLoader *parent):
+    QDBusAbstractAdaptor(parent),
+    m_parent(parent)
+{
+    QDBusConnection::sessionBus().registerObject(DBUS_PATH, parent);
+}
+
+QmlLoaderDBus::~QmlLoaderDBus()
+{
+
+}
+
+void QmlLoaderDBus::switchProject(QString name)
+{
+    m_parent->reportBug(name);
 }

@@ -1,11 +1,12 @@
-/*************************************************************
-*File Name: ReportTypeButton.qml
-*Author: Match
-*Email: Match.YangWanQing@gmail.com
-*Created Time: Fri 30 Jan 2015 05:45:35 PM CST
-*Description:
-*
-*************************************************************/
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
+
 import QtQuick 2.1
 import Deepin.Widgets 1.0
 
@@ -39,14 +40,13 @@ Item {
             width: 40
             height: 40
             anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 25
+            anchors.right: text_item.left
         }
 
         Text {
             id:text_item
-            anchors.left: typeIcon.right
-            width: parent.width
+            anchors.centerIn: parent
+            width: contentWidth
             height: parent.height
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter

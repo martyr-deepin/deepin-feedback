@@ -46,5 +46,20 @@
         <file>views/Widgets/images/zoomout_hover.png</file>
         <file>views/Widgets/images/zoomout_normal.png</file>
         <file>views/Widgets/images/zoomout_press.png</file>
+        <file>views/Widgets/images/adjunct_disable.png</file>
+        <file>views/Widgets/images/screenshot_disable.png</file>
+        <file>views/Widgets/images/add-adjunct.png</file>
+        <file>views/Widgets/Tooltip.qml</file>
+        <file>views/Widgets/images/checkbox-checked-insensitive.png</file>
+        <file>views/Widgets/images/checkbox-unchecked-insensitive.png</file>
+        <file>views/Widgets/images/deepin-feedback.png</file>
+        <file>views/Widgets/images/retry-angle.png</file>
+        <file>views/Widgets/SingleLineTipCreator.js</file>
+        <file>views/Widgets/SingleLineTip.qml</file>
+        <file>views/Widgets/ButtonFrame.qml</file>
+        <file>views/WindowButtonRow.qml</file>
+        <file>views/TitleRow.qml</file>
+        <file>views/ReportTypeButtonRow.qml</file>
+        <file>views/Widgets/images/draft.png</file>
     </qresource>
 </RCC>

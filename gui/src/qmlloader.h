@@ -1,3 +1,12 @@
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
+
 #ifndef QMLLOADER_H
 #define QMLLOADER_H
 
@@ -9,12 +18,24 @@
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QDir>
 #include <QFile>
+#include <QDBusAbstractAdaptor>
+#include <QDBusConnection>
 #include <QDebug>
+#include <QPointer>
 #include "dataconverter.h"
 #include "adjunctaide.h"
 
+
+
+#define DBUS_NAME "com.deepin.dde.UserFeedback"
+#define DBUS_PATH "/com/deepin/dde/UserFeedback"
+#define PROPERTY_IFCE "org.freedesktop.DBus.Properties"
+
+class QmlLoaderDBus;
+class QProcess;
 
 struct Draft{
     DataConverter::FeedbackType feedbackType;
@@ -65,26 +86,53 @@ public Q_SLOTS:
                    const QString &content);
     void clearAllDraft();
     void clearDraft(const QString &targetApp);
+    void clearSysAdjuncts(const QString &targetApp);
     QString addAdjunct(const QString &filePath, const QString &target);
     void removeAdjunct(const QString &filePath);
     bool draftTargetExist(const QString &target);
+    bool draftNotEmpty(const QString &target);
     void updateUiDraftData(const QString &target);
     void getScreenShot(const QString &target);
     bool canAddAdjunct(const QString &target);
+    qint64 getAdjunctSize(const QString &fileName);
+    bool adjunctExist(const QString &filePath, const QString &target);
+    void saveEmail(const QString &email);
+    QStringList getEmails();
+    QString getMatchEmailPart(const QString &text);
 
 Q_SIGNALS:
     void getScreenshotFinish(QString fileName);
-    void submitCompleted(bool succeeded);
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     void init();
 
-    Draft getDraft(const QString &targetApp);
+    void showManual();
     void parseJsonData(const QByteArray &byteArray, Draft * draft);
-    QString getFileNameFromPath(const QString &filePath);
+    void parseJsonArray(const QByteArray &byteArray, QStringList * emailsList);
+    Draft getDraft(const QString &targetApp);
     qint64 getAdjunctsSize(const QString &target);
+    QString getFileNameFromPath(const QString &filePath);
 private:
+    QPointer<QProcess> m_manualPro;
     AdjunctAide * adjunctAide;
+    QmlLoaderDBus * mDbusProxyer;
 };
 
+
+class QmlLoaderDBus : public QDBusAbstractAdaptor {
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", DBUS_NAME)
+
+public:
+    QmlLoaderDBus(QmlLoader* parent);
+    ~QmlLoaderDBus();
+
+    Q_SLOT void switchProject(QString name);
+
+private:
+    QmlLoader* m_parent;
+};
 #endif // QMLLOADER_H

@@ -1,3 +1,11 @@
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
 import QtQuick 2.1
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.0
@@ -9,17 +17,19 @@ Item {
 
     property bool hovered: false
     property bool pressed: false
+    property bool settingText: false
 
     property alias text: currentLabel.text
     property alias menu: menu
 
     property var parentWindow
-    property var labels:supportAppList
+    property var labels:projectNameList
     property int selectIndex: -1
 
-    property string searchMd5: ""
+    property string _searchMd5: ""
 
     signal clicked
+    signal searchResultCountChanged(int count)
     signal menuSelect(int index)
 
     onSelectIndexChanged: menu.currentIndex = selectIndex
@@ -29,10 +39,11 @@ Item {
             menu.currentIndex = selectIndex
         }
 
-        searchMd5 = dbusSearch.NewSearchWithStrList(supportAppList)[0]
+        _searchMd5 = dbusSearch.NewSearchWithStrList(projectNameList.concat(projectEnNameList))[0]
     }
 
     onClicked: {
+        currentLabel.forceActiveFocus()
         showMenu()
     }
 
@@ -51,7 +62,17 @@ Item {
 
     function hideMenu(){
         menu.visible = false
-        combobox.labels = supportAppList
+        combobox.labels = projectNameList
+    }
+
+    function setText(value){
+        settingText = true
+        currentLabel.text = value
+        settingText = false
+    }
+
+    function setTextInputState(value) {
+        currentLabel.state = value
     }
 
     Item {
@@ -61,42 +82,76 @@ Item {
 
         AppTextInput {
             id:currentLabel
-            width: combobox.width - downArrow.width
+            state: "normal"
+            width: combobox.width
             height: parent.height
             anchors.left: parent.left
-            tip: qsTr("Write down where the probleam occur")
+            tip: dsTr("Please select feedback project firstly ")
 
             onTextChange: {
+                if (settingText)
+                    return
+
                 if(text == ""){
-                    combobox.labels = supportAppList
+                    combobox.labels = projectNameList
+                    mainWindow.disableTextInput()
+                    mainWindow.saveDraft()
+                    mainWindow.lastTarget = ""
+                    mainWindow.clearDraft()
                 }
                 else{
-                    var searchResult = dbusSearch.SearchString(text, searchMd5)
+                    var inEnLang = dsslocale.lang.indexOf("en_") != -1
+                    var searchResult =searchResult = dbusSearch.SearchString(text, _searchMd5)
                     var appList = new Array()
-                    for(var i in searchResult){
-                        appList.push(searchResult[i])
+
+                    for(var i in searchResult) {
+                        var v = inEnLang ? searchResult[i] : dsTr(searchResult[i]);
+                        if (appList.indexOf(v) != -1)
+                            break;
+                        appList.push(v)
                     }
 
+                    combobox.searchResultCountChanged(appList.length)
                     combobox.labels = appList
 
-                    if (!menu.visible){
+                    if (!menu.visible && appList.length > 0) {
                         showMenu()
+                    }
+                    else if(appList.length <= 0) {
+                        hideMenu()
                     }
                 }
             }
-        }
-
-        Rectangle {
-            id:downArrow
-            width: 33
-            height: parent.height
-            color: bgNormalColor
-            border.color: buttonBorderColor
-            anchors.left: currentLabel.right
-            anchors.leftMargin: -1
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    currentLabel.forceActiveFocus()
+                    showMenu()
+                }
+            }
+            Keys.onPressed: {
+                switch (event.key )
+                {
+                case Qt.Key_Escape:
+                    hideMenu()
+                    break
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                    menu.selectMenu()
+                    break
+                case Qt.Key_Up:
+                    menu.menuUp()
+                    break
+                case Qt.Key_Down:
+                    menu.menuDown()
+                    break
+                default:
+                    break
+                }
+            }
 
             Image {
-                anchors.centerIn: parent
+                anchors.right: parent.right
 
                 source: "qrc:///views/Widgets/images/arrow_down_normal.png"
 
@@ -128,6 +183,14 @@ Item {
                         combobox.clicked()
                     }
                 }
+
+                Rectangle {
+                    anchors.left: parent.left
+                    width: 1
+                    height: parent.height
+                    visible: currentLabel.focus
+                    color: buttonBorderActiveColor
+                }
             }
         }
     }
@@ -137,7 +200,8 @@ Item {
         parentWindow: combobox.parentWindow
         labels: combobox.labels
         onMenuSelect: {
-            combobox.menuSelect(index)
+            var truelly_index = projectNameList.indexOf(menu.labels[index])
+            combobox.menuSelect(truelly_index)
             selectIndex = index
             combobox.text = menu.labels[selectIndex]
 

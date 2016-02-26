@@ -1,3 +1,12 @@
+/**
+ * Copyright (C) 2015 Deepin Technology Co., Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ **/
+
 #include "adjunctaide.h"
 
 AdjunctAide::AdjunctAide(QObject *parent) : QObject(parent)
@@ -12,14 +21,13 @@ AdjunctAide::~AdjunctAide()
 
 void AdjunctAide::getScreenShot(const QString &target)
 {
-    QString targetFileName = "/tmp/" + target + TMP_SCREENSHOT_FILENAME;
+    tmpFileName = "/tmp/" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".png";
     screenShotProcess = new QProcess(this);
     connect(screenShotProcess, SIGNAL(finished(int)), this, SLOT(finishGetScreenShot()));
-    connect(screenShotProcess, SIGNAL(finished(int)), screenShotProcess, SLOT(deleteLater()));
 
     QStringList arguments;
 
-    arguments << "-s" << targetFileName;
+    arguments << "-s" << tmpFileName;
     screenShotProcess->start("deepin-screenshot", arguments);
 }
 
@@ -53,6 +61,8 @@ bool AdjunctAide::removeDirWidthContent(const QString &dirName)
                 }
                 else if(currentFile->isFile())
                 {
+                    AdjunctAide tmpAide;
+                    tmpAide.deleteFromUploadedList(currentFile->filePath());
                     if(!tmpDir.remove(currentFile->fileName()))
                     {
                         return false;
@@ -73,34 +83,115 @@ bool AdjunctAide::removeDirWidthContent(const QString &dirName)
     return true;
 }
 
+void AdjunctAide::removeSysAdjuncts(const QString &dirName)
+{
+    QDir tmpDir(dirName);
+    QFileInfoList infoList;
+
+    infoList = tmpDir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot ,QDir::Name);
+    for (int i = 0; i < infoList.count(); i++)
+    {
+        if (infoList.at(i).fileName().startsWith("deepin-feedback-results"))
+        {
+            QString tmpPath = infoList.at(i).filePath();
+            QFile::remove(tmpPath);
+            AdjunctAide tmpAide;
+            tmpAide.deleteFromUploadedList(tmpPath);
+        }
+    }
+}
+
 void AdjunctAide::finishGetScreenShot()
 {
-    QString outPut = QString(screenShotProcess->readAllStandardOutput());
+    if (screenShotProcess->exitCode() == 0)
+        emit getScreenshotFinish(tmpFileName);
+    else
+        emit getScreenshotFinish("");
 
-    emit getScreenshotFinish(getFileNameFromFeedback(outPut));
-    qDebug() << "Get screenshot process finish!";
+    qDebug() << "Get screenshot process finish!" << screenShotProcess->exitCode();
+    screenShotProcess->deleteLater();
+    tmpFileName = "";
 }
 
-QString AdjunctAide::getFileNameFromFeedback(const QString &result)
+void AdjunctAide::insertToUploadedList(const QString &filePath, const QString &bucketUrl)
 {
-    int startIndex = result.indexOf(FILENAME_FLAG);
-    if (startIndex == -1)
-        return "";
-    int endIndex = result.indexOf("\n",startIndex);
-    startIndex += FILENAME_FLAG.length();
-    int subStrLength = endIndex - startIndex;
+    QDir tmpDir;
+    if (!tmpDir.exists(DRAFT_SAVE_PATH))
+        tmpDir.mkpath(DRAFT_SAVE_PATH);
 
-    return result.mid(startIndex,subStrLength).trimmed();
+    QJsonDocument jsonDocument;
+    QJsonObject jsonObj = getJsonObjFromFile();
+    jsonObj.insert(filePath,QJsonValue(bucketUrl));
+
+    jsonDocument.setObject(jsonObj);
+
+    QFile uploadRecordFile(UPLOAD_RECORD_FILE);
+    if (uploadRecordFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        uploadRecordFile.write(jsonDocument.toJson(QJsonDocument::Compact));
+        uploadRecordFile.close();
+    }
 }
 
-bool AdjunctAide::getScreenShotStateFromFeedback(const QString &result)
+void AdjunctAide::deleteFromUploadedList(const QString &filePath)
 {
-    int startIndex = result.indexOf(SCREENSHOT_STATE_HEAD_FLAG);
-    if (startIndex == -1)
+    if (!QFile::exists(UPLOAD_RECORD_FILE))
+        return;
+
+    QJsonDocument parseDoc;
+    QJsonObject tmpObj = getJsonObjFromFile();
+
+    int tmpIndex = tmpObj.keys().indexOf(filePath);
+    if (tmpIndex != -1)
+        tmpObj.remove(filePath);
+
+    parseDoc.setObject(tmpObj);
+
+    QFile uploadRecordFile(UPLOAD_RECORD_FILE);
+    if (uploadRecordFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        uploadRecordFile.write(parseDoc.toJson(QJsonDocument::Compact));
+        uploadRecordFile.close();
+    }
+}
+
+QJsonObject AdjunctAide::getJsonObjFromFile()
+{
+    QJsonObject jsonObj;
+    if (!QFile::exists(UPLOAD_RECORD_FILE))
+        return jsonObj;
+
+    QFile recordFile(UPLOAD_RECORD_FILE);
+    if (!recordFile.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Open upload record file to read error: " << UPLOAD_RECORD_FILE;
+        return jsonObj;
+    }
+
+    QByteArray tmpByteArray = recordFile.readAll();
+    recordFile.close();
+\
+    QJsonDocument parseDoc = QJsonDocument::fromJson(tmpByteArray);
+    if (parseDoc.isObject())
+        jsonObj = parseDoc.object();
+
+    return jsonObj;
+}
+
+QString AdjunctAide::getBucketUrl(const QString &filePath)
+{
+    return getJsonObjFromFile().value(filePath).toString();
+}
+
+bool AdjunctAide::isInUploadedList(const QString &filePath)
+{
+    if (!QFile::exists(UPLOAD_RECORD_FILE))
         return false;
-    int endIndex = result.indexOf("\n",startIndex);
-    startIndex += SCREENSHOT_STATE_HEAD_FLAG.length();
-    int subStrLength = endIndex - startIndex;
 
-    return result.mid(startIndex,subStrLength).trimmed() == SCREENSHOT_STATE_SUCCESS_FLAG ? true : false;
+    QJsonObject tmpObj = getJsonObjFromFile();
+    if (tmpObj.isEmpty())
+        return false;
+
+    int tmpIndex = tmpObj.keys().indexOf(filePath);
+    return tmpIndex != -1;
 }
