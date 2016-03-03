@@ -440,24 +440,24 @@ category_dde() {
 }
 subcategory_startdde() {
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.SessionManager"
+    include_syslog_keyword "startdde"
 }
 subcategory_background() {
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.SessionManager"
-    include_syslog_keyword "com.deepin.daemon.ThemeManager"
+    include_syslog_keyword "startdde"
+    include_syslog_keyword "daemon/appearance"
 }
 subcategory_dde-desktop() {
     collect_file "desktop" "~/.cache/deepin/dde-desktop/dde-desktop.log"
 }
 subcategory_dde-dock() {
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.daemon.Dock"
+    include_syslog_keyword "daemon/dock"
     collect_file "dock" "~/.cache/deepin/dde-dock/dde-dock.log"
 }
 subcategory_dde-launcher() {
     include_sliceinfo "syslog"
-    include_syslog_keyword "dde-daemon/launcher-daemon"
+    include_syslog_keyword "daemon/launcher-daemon"
     collect_file "launcher" "~/.cache/deepin/dde-launcher/dde-launcher.log"
 }
 
@@ -470,7 +470,7 @@ category_dde-control-center() {
 
     # catch all syslog for dde-daemon
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.daemon"
+    include_syslog_keyword "daemon/"
 
     include_sliceinfo "fonts"
     include_sliceinfo "gsettings"
@@ -482,8 +482,7 @@ subcategory_bootmgr() {
         include_sliceinfo "disk"
     fi
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.daemon.Grub2"
-    include_syslog_keyword "com.deepin.daemon.Grub2Ext"
+    include_syslog_keyword "daemon/grub"
     collect_file "bootmgr" /etc/default/grub
     collect_file "bootmgr" /var/cache/deepin/grub2.json
 }
@@ -492,8 +491,8 @@ subcategory_display() {
         include_sliceinfo "video"
     fi
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.SessionManager"
-    include_syslog_keyword "com.deepin.daemon.Display"
+    include_syslog_keyword "startdde"
+    include_syslog_keyword "daemon/display"
     collect_file "display" "~/.config/deepin_monitors.json"
 }
 subcategory_bluetooth() {
@@ -503,7 +502,7 @@ subcategory_bluetooth() {
         include_sliceinfo "driver"
     fi
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.daemon.Bluetooth"
+    include_syslog_keyword "daemon/bluetooth"
     include_syslog_keyword "bluetooth"
     collect_file "bluetooth" "~/.config/deepin/bluetooth.json"
 }
@@ -513,7 +512,7 @@ subcategory_network() {
         include_sliceinfo "driver"
     fi
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.daemon.Network"
+    include_syslog_keyword "daemon/network"
     include_syslog_keyword "NetworkManager"
     include_syslog_keyword "ModemManager"
     include_syslog_keyword "wpa_supplicant"
@@ -538,8 +537,8 @@ category_system() {
 }
 subcategory_login() {
     include_sliceinfo "syslog"
-    include_syslog_keyword "com.deepin.SessionManager"
-    include_syslog_keyword "com.deepin.daemon.Display"
+    include_syslog_keyword "startdde"
+    include_syslog_keyword "daemon/display"
     if [ ! "${arg_privacymode}" ]; then
         collect_file "login" "~/.xsession-errors"
         collect_file "login" "/etc/lightdm/lightdm.conf"
