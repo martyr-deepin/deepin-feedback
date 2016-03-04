@@ -484,6 +484,7 @@ subcategory_bootmgr() {
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/grub"
     collect_file "bootmgr" /etc/default/grub
+    collect_file "bootmgr" /boot/grub/grub.cfg
     collect_file "bootmgr" /var/cache/deepin/grub2.json
 }
 subcategory_display() {
