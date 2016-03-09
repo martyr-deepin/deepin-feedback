@@ -12,8 +12,6 @@ LC_ALL=C
 
 app_file="${0}"
 app_name="$(basename $0)"
-distro_name=`lsb_release -s -i`
-distro_release=`lsb_release -s -r`
 
 real_home="${HOME}"
 if [ "${SUDO_USER}" ]; then
@@ -22,6 +20,8 @@ fi
 
 opt_sliceinfo_func_list=("sliceinfo_basic")
 opt_syslog_include=()
+
+pkgcmd=(dpkg -l)
 
 ###* Help Functions
 msg() {
@@ -98,6 +98,14 @@ is_cmd_exists() {
     fi
 }
 
+run() {
+    if is_cmd_exists "${1}"; then
+        "${@}" 2>&1
+    else
+        printf "command not found: %s" "${1}"
+    fi
+}
+
 # collect_file <category> <files...>
 collect_file() {
     local category="${1}"; shift
@@ -120,24 +128,24 @@ do_collect_file() {
 ###* Functions to Get Certain System Information
 sliceinfo_basic() {
     msg_title "Linux Release"
-    msg_code "$(lsb_release -a 2>&1)"
+    msg_code "$(run lsb_release -a 2>&1)"
 
     if [ -f /etc/deepin-version ]; then
         msg_title "Deepin Release"
-        msg_code "$(cat /etc/deepin-version)"
+        msg_code "$(run cat /etc/deepin-version)"
     fi
 
     msg_title "Linux Kernel"
-    msg_code "$(uname -a)"
+    msg_code "$(run uname -a)"
 
     msg_title "Installed Deepin Packages"
-    msg_code "$(dpkg -l | grep -i -e 'deepin-' -e '-deepin' -e 'dde-' -e '-dde' -e 'lastore')"
+    msg_code "$(run ${pkgcmd[@]} | grep -i -e 'deepin-' -e '-deepin' -e 'dde-' -e '-dde' -e 'lastore')"
 
     msg_title "Computer Model"
-    msg_code "$(do_sliceinfo_basic_computer_model)"
+    msg_code "$(run do_sliceinfo_basic_computer_model)"
 
     msg_title "Locale Specific Information"
-    msg_code "$(locale)"
+    msg_code "$(run locale)"
 }
 do_sliceinfo_basic_computer_model() {
     # need root permission
@@ -151,11 +159,11 @@ do_sliceinfo_basic_computer_model() {
 sliceinfo_service() {
     if is_cmd_exists systemctl; then
         msg_title "Systemd Services"
-        msg_code "$(systemctl list-unit-files)"
+        msg_code "$(run systemctl list-unit-files)"
     fi
     if is_cmd_exists initctl; then
         msg_title "Sysvinit Services"
-        msg_code "$(initctl list | column -t)"
+        msg_code "$(run initctl list | column -t)"
     fi
 }
 
@@ -164,45 +172,51 @@ sliceinfo_env() {
 }
 
 sliceinfo_package() {
-    dpkg -l
+    if is_cmd_exists dpkg; then
+        msg_title "DPKG Packages"
+        msg_code "$(run dpkg -l)"
+    fi
+    if is_cmd_exists pacman; then
+        msg_title "Pacman Packages"
+        msg_code "$(run pacman -Qs)"
+    fi
 }
 
 sliceinfo_device() {
     msg_title "CPU"
-    msg_code "$(cat /proc/cpuinfo)"
+    msg_code "$(run cat /proc/cpuinfo)"
 
     msg_title "Memory"
-    msg_code "$(free -t -h)"
-    msg_code "$(cat /proc/meminfo)"
+    msg_code "$(run free -t -h)"
+    msg_code "$(run cat /proc/meminfo)"
 
     msg_title "USB Devices"
-    msg_code "$(lsusb)"
-    msg_code "$(usb-devices)"
+    msg_code "$(run lsusb)"
+    msg_code "$(run usb-devices)"
 
     msg_title "PCI Devices"
-    msg_code "$(lspci -vvnn)"
+    msg_code "$(run lspci -vvnn)"
 
-    # need root permission
     msg_title "Hardware Lister(lshw)"
-    msg_code "$(lshw 2>/dev/null)"
+    msg_code "$(run lshw)" # need root permission
     msg_title "SMBIOS/DMI (dmidecode)"
-    msg_code "$(dmidecode 2>/dev/null)"
+    msg_code "$(run dmidecode)" # need root permission
 }
 
 sliceinfo_driver() {
     msg_title "Loaded Drivers"
-    msg_code "$(lsmod)"
+    msg_code "$(run lsmod)"
 
     if [ -f /etc/modules ]; then
         msg_title "Driver Modules File"
-        msg_code "$(cat /etc/modules)"
+        msg_code "$(run cat /etc/modules)"
     fi
 
     msg_title "Driver Blacklist File"
-    msg_code "$(do_sliceinfo_driver_blacklist)"
+    msg_code "$(run do_sliceinfo_driver_blacklist)"
 
     msg_title "Installed Driver Packages"
-    msg_code "$(dpkg -l | grep -e driver -e catalyst -e nvidia)"
+    msg_code "$(run ${pkgcmd[@]} | grep -e driver -e catalyst -e nvidia -e drm -e mesa)"
 }
 do_sliceinfo_driver_blacklist() {
     for f in /etc/modprobe.d/*; do
@@ -221,115 +235,113 @@ sliceinfo_kernel() {
 
 sliceinfo_audio() {
     msg_title "Audio Devices"
-    msg_code "$(lspci -vvnn | grep_block 'Audio')"
+    msg_code "$(run lspci -vvnn | grep_block 'Audio')"
 
     msg_title "PulseAudio Version"
-    msg_code "$(pulseaudio --version)"
+    msg_code "$(run pulseaudio --version)"
 
     msg_title "PulseAudio Configurations"
-    msg_code "$(pulseaudio --dump-conf)"
+    msg_code "$(run pulseaudio --dump-conf)"
 
     msg_title "PulseAudio Modules"
-    msg_code "$(pulseaudio --dump-modules)"
+    msg_code "$(run pulseaudio --dump-modules)"
 
     msg_title "PulseAudio Resample Methods"
-    msg_code "$(pulseaudio --dump-resample-methods)"
+    msg_code "$(run pulseaudio --dump-resample-methods)"
 }
 
 sliceinfo_video() {
     msg_title "Video Devices"
-    msg_code "$(lspci -vvnn | grep_block 'VGA ')"
+    msg_code "$(run lspci -vvnn | grep_block 'VGA ')"
 
     msg_title "Video Driver Packages"
-    msg_code "$(dpkg -l | grep -e xorg-video -e catalyst -e nvidia)"
+    msg_code "$(run ${pkgcmd[@]} | grep -e xorg-video -e catalyst -e nvidia -e drm -e mesa)"
 
     msg_title "Xrandr Infromation"
-    msg_code "$(xrandr --verbose)"
+    msg_code "$(run xrandr --verbose)"
 }
 
 sliceinfo_network() {
     msg_title "Network Devices"
     if ! is_sliceinfo_device_will_run; then
-        msg_code "$(lshw -C network 2>/dev/null)" # need root permission
+        msg_code "$(run lshw -C network)" # need root permission
     fi
-    msg_code "$(lspci -vvnn | grep_block '[nN]etwork|[eE]thernet')"
-    msg_code "$(lsusb -v 2>/dev/null | grep_block '[nN]et|[eE]thernet')"
+    msg_code "$(run lspci -vvnn | grep_block '[nN]etwork|[eE]thernet')"
+    msg_code "$(run lsusb -v | grep_block '[nN]et|[eE]thernet')"
 
     msg_title "Network Status"
-    msg_code "$(ifconfig -v -a)"
-    msg_code "$(iwconfig 2>/dev/null)"
+    msg_code "$(run ifconfig -v -a)"
+    msg_code "$(run iwconfig)"
 
     msg_title "NetworkManager State"
-    msg_code "$(nmcli general status)"
+    msg_code "$(run nmcli general status)"
 
     msg_title "NetworkManager Hotname"
-    msg_code "$(nmcli general hostname)"
+    msg_code "$(run nmcli general hostname)"
 
     msg_title "NetworkManager Permissions"
-    msg_code "$(nmcli general permissions)"
+    msg_code "$(run nmcli general permissions)"
 
     msg_title "NetworkManager Logging"
-    msg_code "$(nmcli general logging)"
+    msg_code "$(run nmcli general logging)"
 
     msg_title "NetworkManager Connections"
-    msg_code "$(nmcli connection)"
+    msg_code "$(run nmcli connection)"
 
     msg_title "NetworkManager Devices"
-    msg_code "$(nmcli device status)"
+    msg_code "$(run nmcli device status)"
 
     msg_title "NetworkManager Wireless Access Points"
-    msg_code "$(nmcli device wifi)"
+    msg_code "$(run nmcli device wifi)"
 
     msg_title "ModemManager State"
-    msg_code "$(mmcli -L)"
+    msg_code "$(run mmcli -L)"
 
     msg_title "Wireless Device Switches(rfkill)"
-    msg_code "$(rfkill list all)"
+    msg_code "$(run rfkill list all)"
 
     if [ -f /etc/network/interfaces ]; then
         msg_title "Network Interface File"
-        msg_code "$(cat /etc/network/interfaces)"
+        msg_code "$(run cat /etc/network/interfaces)"
     fi
 
     msg_title "DNS Configuration(resolv.conf)"
-    msg_code "$(cat /etc/resolv.conf)"
+    msg_code "$(run cat /etc/resolv.conf)"
 
     msg_title "Route Table"
-    msg_code "$(route)"
+    msg_code "$(run route)"
 }
 
 sliceinfo_bluetooth() {
     msg_title "Bluetooth Devices"
-    msg_code "$(hciconfig -a)"
-    msg_code "$(lspci -vvnn | grep_block '[bB]luetooth')"
-    msg_code "$(lsusb | grep -i bluetooth)"
+    msg_code "$(run hciconfig -a)"
+    msg_code "$(run lspci -vvnn | grep_block '[bB]luetooth')"
+    msg_code "$(run lsusb | grep -i bluetooth)"
 
     msg_title "Loaded Bluetooth Drivers"
-    msg_code "$(lsmod | grep -e btusb -e bluetooth -e hidp -e rfcomm)"
+    msg_code "$(run lsmod | grep -e btusb -e bluetooth -e hidp -e rfcomm)"
 }
 
 sliceinfo_bootmgr() {
     msg_title "Boot Files"
-    msg_code "$(find /boot)"
+    msg_code "$(run find /boot)"
     if [ -d "/sys/firmware/efi" ]; then
         msg_title "EFI Information"
-        msg_code "$(efibootmgr -v)"
+        msg_code "$(run efibootmgr -v)"
     fi
 
-    if is_cmd_exists bootinfoscript; then
-        msg_title "Boot Info Script"
-        msg_code "$(bootinfoscript --stdout)" # need root permission
-    fi
+    msg_title "Boot Info Script"
+    msg_code "$(run bootinfoscript --stdout)" # need root permission
 }
 
 sliceinfo_disk() {
     if ! is_sliceinfo_device_will_run; then
         msg_title "Disk Devices"
-        msg_code "$(lshw -C disk -C storage 2>/dev/null)" # need root permission
+        msg_code "$(run lshw -C disk -C storage)" # need root permission
     fi
 
     msg_title "Disk Partition Table"
-    msg_code "$(lsblk)"
+    msg_code "$(run lsblk)"
 }
 
 sliceinfo_fonts() {
@@ -340,19 +352,9 @@ sliceinfo_gsettings() {
     gsettings list-recursively | grep com.deepin
 }
 
-sliceinfo_aptlog() {
-    zcat /var/log/apt/history.log.1.gz 2>/dev/null
-    cat /var/log/apt/history.log 2>/dev/null
-}
-
-sliceinfo_apttermlog() {
-    zcat /var/log/apt/term.log.1.gz 2>/dev/null
-    cat /var/log/apt/term.log 2>/dev/null
-}
-
 sliceinfo_syslog() {
     # user journalctl firstly
-    if is_cmd_exists  journalctl; then
+    if is_cmd_exists journalctl; then
         if [ ${#opt_syslog_include[@]} -gt 0 ]; then
             journalctl --system --user 2>/dev/null | grep -i ${opt_syslog_include[@]}
         else
@@ -405,8 +407,6 @@ exec_sliceinfo_funcs() {
             "sliceinfo_driver")  "${f}"     >> "${file_driver}";;
             "sliceinfo_fonts")    "${f}"    >> "${file_fonts}";;
             "sliceinfo_kernel")  "${f}"     >> "${file_kernel}";;
-            "sliceinfo_aptlog")  "${f}"     >> "${file_aptlog}";;
-            "sliceinfo_apttermlog")  "${f}" >> "${file_apttermlog}";;
             "sliceinfo_syslog")  "${f}"     >> "${file_syslog}";;
             *)              "${f}"          >> "${file_master}";;
         esac
@@ -467,6 +467,7 @@ category_dde-control-center() {
     subcategory_display
     subcategory_bluetooth
     subcategory_network
+    subcategory_pkglog
 
     # catch all syslog for dde-daemon
     include_sliceinfo "syslog"
@@ -522,11 +523,20 @@ subcategory_network() {
     include_syslog_keyword "avahi-daemon"
     collect_file "network" "~/.config/deepin/network.json"
 }
+subcategory_pkglog() {
+    # debian
+    collect_file "pkglog" /var/log/apt/history.log.1.gz
+    collect_file "pkglog" /var/log/apt/history.log
+    collect_file "pkglog" /var/log/apt/term.log.1.gz
+    collect_file "pkglog" /var/log/apt/term.log
+
+    # archlinux
+    collect_file "pkglog" /var/log/pacman.log
+}
 
 category_system() {
     if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "aptlog"
-        include_sliceinfo "apttermlog"
+        subcategory_pkglog
         include_sliceinfo "package"
         include_sliceinfo "device"
         include_sliceinfo "driver"
@@ -560,8 +570,7 @@ category_deepin-store() {
     collect_file "deepin-store" "/var/log/lastore"
     collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
     if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "aptlog"
-        include_sliceinfo "apttermlog"
+        subcategory_pkglog
         include_sliceinfo "package"
     fi
 }
@@ -593,6 +602,31 @@ category_deepin-translator() {
 }
 
 ###* Main
+
+# override variables
+if is_cmd_exists pacman; then
+    pkgcmd=(pacman -Q)
+fi
+
+if is_cmd_exists lsb_release; then
+    distro_name=$(lsb_release -s -i)
+    distro_release=$(lsb_release -s -r)
+
+    # fix distro name to keep same with the IDs in bugzilla
+    if [ "${distro_name}" = "Arch" ]; then
+        distro_name="Arch Linux"
+    fi
+    if [ "${distro_name}" = "ManjaroLinux" ]; then
+        distro_name="Manjaro"
+    fi
+    if [ "${distro_name}" = "SUSE LINUX" ]; then
+        distro_name="SUSE"
+    fi
+else
+    distro_name="Other"
+    distro_release="Other"
+fi
+
 arg_username=""
 arg_privacymode=
 arg_category="all"              # if no arguments, just execute rules in category_all()
@@ -600,6 +634,8 @@ arg_outputfile=
 arg_maxsize=5242880             # 5MB
 arg_sliceinfo_type=
 arg_complete_opt=
+arg_distro_name=
+arg_distro_release=
 arg_help=
 
 show_usage() {
@@ -612,6 +648,8 @@ Options:
 $(get_sliceinfo_funcs)
     -o, --output, customize the output file
     -m, --maxsize, set single archive file's maximize size
+    --distro-name, print current distributor name
+    --distro-release, print current distributor release version
     -h, --help, show this message
 
     If there is no other arguments, ${app_name} will collect debug
@@ -619,7 +657,6 @@ $(get_sliceinfo_funcs)
     current directory, the category could be (default: all):
 $(get_category_funcs)
 EOF
-    exit 1
 }
 
 # dispatch arguments
@@ -630,6 +667,8 @@ while [ ${#} -gt 0 ]; do
         -d|--dump) arg_sliceinfo_type="${2}"; arg_category=""; shift; shift; break;;
         -o|--output) arg_outputfile="${2}"; shift; shift;;
         -m|--maxsize) arg_maxsize="${2}"; shift; shift;;
+        --distro-name) arg_distro_name=t; break;;
+        --distro-release) arg_distro_release=t; break;;
         -h|--help) arg_help=t; break;;
         -C|--complete) arg_complete_opt="${2}"; shift; shift; break;;
         *)  arg_category="${1}"; shift;;
@@ -638,6 +677,17 @@ done
 
 if [ "${arg_help}" ]; then
     show_usage
+    exit 1
+fi
+
+if [ "${arg_distro_name}" ]; then
+    printf "${distro_name}"
+    exit
+fi
+
+if [ "${arg_distro_release}" ]; then
+    printf "${distro_release}"
+    exit
 fi
 
 if [ "${arg_username}" ]; then
@@ -675,12 +725,10 @@ if [ "${arg_category}" ]; then
     dest_dir="/tmp/${result_tag}"
     result_archive="${arg_outputfile:-${result_tag}.tar.gz}"
     file_master="${dest_dir}/sysinfo.md"
-    file_aptlog="${dest_dir}/aptlog"
-    file_apttermlog="${dest_dir}/apttermlog"
     file_syslog="${dest_dir}/syslog"
     file_service="${dest_dir}/services.md"
     file_env="${dest_dir}/env"
-    file_package="${dest_dir}/packages"
+    file_package="${dest_dir}/packages.md"
     file_bootmgr="${dest_dir}/bootmgr.md"
     file_device="${dest_dir}/devices.md"
     file_driver="${dest_dir}/drivers.md"

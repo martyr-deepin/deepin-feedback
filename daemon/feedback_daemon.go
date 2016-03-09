@@ -27,7 +27,7 @@ import (
 
 var globalRequstID uint64 = 0
 
-const (
+var (
 	dbusDest             = "com.deepin.Feedback"
 	dbusObjectPath       = "/com/deepin/Feedback"
 	dbusInterface        = "com.deepin.Feedback"
@@ -97,6 +97,23 @@ func (fd *FeedbackDaemon) isInWorking() bool {
 	return len(fd.WorkingSet) > 0
 }
 
+// GetDistroInfo return current distributor name and release version.
+func (fd *FeedbackDaemon) GetDistroInfo() (distroName, distroRelease string, err error) {
+	args := []string{"--distro-name"}
+	distroName, errMsg, err := utils.ExecAndWait(10, deepinFeedbackCliExe, args...)
+	if err != nil {
+		logger.Error(errMsg)
+		logger.Error(err)
+	}
+	args = []string{"--distro-release"}
+	distroRelease, errMsg, err = utils.ExecAndWait(10, deepinFeedbackCliExe, args...)
+	if err != nil {
+		logger.Error(errMsg)
+		logger.Error(err)
+	}
+	return
+}
+
 // GetCategories return all categories that deepin-bug-reporter
 // supported, each category contains several keywords to help to
 // searching in front-end.
@@ -123,7 +140,10 @@ func (fd *FeedbackDaemon) GenerateReport(dmsg dbus.DMessage, category string, al
 	globalRequstID++
 	requstID = globalRequstID
 
-	outputFilename := fmt.Sprintf("deepin-feedback-results-%s-%s-%d.tar.gz", category, time.Now().Format("2006-01-02"), time.Now().UnixNano()/1e9)
+	distroName, distroRelease, _ := fd.GetDistroInfo()
+	dateFormat := time.Now().Format("20060102-15:04:05")
+	dateFormat = strings.Replace(dateFormat, ":", "", -1)
+	outputFilename := fmt.Sprintf("deepin-feedback-%s-%s-%s-%s.tar.gz", distroName, distroRelease, category, dateFormat)
 	outputFilepath := filepath.Join(os.TempDir(), outputFilename)
 	args := []string{"--username", username, "--output", outputFilepath, category}
 	if !allowPrivacy {
@@ -133,8 +153,9 @@ func (fd *FeedbackDaemon) GenerateReport(dmsg dbus.DMessage, category string, al
 	fd.addWorkingRequest(requstID)
 
 	go func() {
-		_, _, err = utils.ExecAndWait(600, deepinFeedbackCliExe, args...)
+		_, errMsg, err := utils.ExecAndWait(600, deepinFeedbackCliExe, args...)
 		if err != nil {
+			logger.Error(errMsg)
 			logger.Error(err)
 		}
 

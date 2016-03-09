@@ -28,14 +28,32 @@ collecting back-end. For advanced usage, run it under the terminal.
 - Qt5webkit
 - dde-qml-dbus-factory
 - [deepin-qml-widgets](https://github.com/linuxdeepin/deepin-qml-widgets)
-- efibootmgr
 - gzip
-- lshw
+- lsb-release
+- net-tools
+- pciutils
+- pulseaudio
 - qml-module-qtquick-dialogs
 - rfkill
-- wireless-tools
+- usbutils
 - x11
+- xorg-xrandr
 - xtst
+
+### Optional Dependencies
+
+- bluezutils
+- boot-info-script
+- dmidecode
+- dpkg
+- efibootmgr
+- lshw
+- modem-manager
+- network-manager
+- pacman
+- systemd
+- upstart
+- wireless-tools
 
 ## Installation
 
