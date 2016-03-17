@@ -341,6 +341,7 @@ sliceinfo_gsettings() {
 }
 
 sliceinfo_aptlog() {
+    cat /etc/apt/sources.list 2>/dev/null
     zcat /var/log/apt/history.log.1.gz 2>/dev/null
     cat /var/log/apt/history.log 2>/dev/null
 }
