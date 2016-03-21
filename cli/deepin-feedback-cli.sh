@@ -273,6 +273,9 @@ sliceinfo_network() {
     msg_code "$(run ifconfig -v -a)"
     msg_code "$(run iwconfig)"
 
+    msg_title "NetworkManager Configuration"
+    msg_code "$(run cat /etc/NetworkManager/NetworkManager.conf)"
+
     msg_title "NetworkManager State"
     msg_code "$(run nmcli general status)"
 
@@ -525,13 +528,17 @@ subcategory_network() {
 }
 subcategory_pkglog() {
     # debian
-    collect_file "pkglog" /var/log/apt/history.log.1.gz
-    collect_file "pkglog" /var/log/apt/history.log
-    collect_file "pkglog" /var/log/apt/term.log.1.gz
-    collect_file "pkglog" /var/log/apt/term.log
+    if is_cmd_exists apt; then
+        collect_file "pkglog" /var/log/apt/history.log.1.gz
+        collect_file "pkglog" /var/log/apt/history.log
+        collect_file "pkglog" /var/log/apt/term.log.1.gz
+        collect_file "pkglog" /var/log/apt/term.log
+    fi
 
     # archlinux
-    collect_file "pkglog" /var/log/pacman.log
+    if is_cmd_exists pacman; then
+        collect_file "pkglog" /var/log/pacman.log
+    fi
 }
 
 category_system() {
