@@ -277,6 +277,7 @@ sliceinfo_network() {
     msg_code "$(run cat /etc/NetworkManager/NetworkManager.conf)"
 
     msg_title "NetworkManager State"
+    msg_code "$(run nmcli --version)"
     msg_code "$(run nmcli general status)"
 
     msg_title "NetworkManager Hotname"
