@@ -477,6 +477,7 @@ category_dde-control-center() {
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/"
 
+    include_sliceinfo "device"
     include_sliceinfo "fonts"
     include_sliceinfo "gsettings"
     collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
@@ -551,7 +552,6 @@ subcategory_pkglog() {
 category_system() {
     category_dde-control-center
     subcategory_login
-    include_sliceinfo "device"
     include_sliceinfo "driver"
     include_sliceinfo "kernel"
     include_sliceinfo "service"
