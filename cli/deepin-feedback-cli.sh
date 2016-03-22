@@ -401,17 +401,17 @@ exec_sliceinfo_funcs() {
     for f in ${opt_sliceinfo_func_list[@]}; do
         msg2 "executing ${f}..."
         case "${f}" in
-            "sliceinfo_service") "${f}"     >> "${file_service}";;
-            "sliceinfo_env")     "${f}"     >> "${file_env}";;
-            "sliceinfo_package") "${f}"     >> "${file_package}";;
-            "sliceinfo_bootmgr") "${f}"     >> "${file_bootmgr}";;
-            "sliceinfo_device")  "${f}"     >> "${file_device}";;
+            "sliceinfo_service")   "${f}"   >> "${file_service}";;
+            "sliceinfo_env")       "${f}"   >> "${file_env}";;
+            "sliceinfo_package")   "${f}"   >> "${file_package}";;
+            "sliceinfo_bootmgr")   "${f}"   >> "${file_bootmgr}";;
+            "sliceinfo_device")    "${f}"   >> "${file_device}";;
             "sliceinfo_gsettings") "${f}"   >> "${file_gsettings}";;
-            "sliceinfo_driver")  "${f}"     >> "${file_driver}";;
-            "sliceinfo_fonts")    "${f}"    >> "${file_fonts}";;
-            "sliceinfo_kernel")  "${f}"     >> "${file_kernel}";;
-            "sliceinfo_syslog")  "${f}"     >> "${file_syslog}";;
-            *)              "${f}"          >> "${file_master}";;
+            "sliceinfo_driver")    "${f}"   >> "${file_driver}";;
+            "sliceinfo_fonts")     "${f}"   >> "${file_fonts}";;
+            "sliceinfo_kernel")    "${f}"   >> "${file_kernel}";;
+            "sliceinfo_syslog")    "${f}"   >> "${file_syslog}";;
+            *)                     "${f}"   >> "${file_master}";;
         esac
     done
 }
@@ -527,6 +527,12 @@ subcategory_network() {
     collect_file "network" "~/.config/deepin/network.json"
 }
 subcategory_pkglog() {
+    if [ "${arg_privacymode}" ]; then
+        return
+    fi
+
+    include_sliceinfo "package"
+
     # debian
     if is_cmd_exists apt; then
         collect_file "pkglog" /var/log/apt/history.log.1.gz
@@ -542,16 +548,12 @@ subcategory_pkglog() {
 }
 
 category_system() {
-    if [ ! "${arg_privacymode}" ]; then
-        subcategory_pkglog
-        include_sliceinfo "package"
-        include_sliceinfo "device"
-        include_sliceinfo "driver"
-        include_sliceinfo "kernel"
-        include_sliceinfo "service"
-    fi
+    category_dde-control-center
     subcategory_login
-    subcategory_bootmgr
+    include_sliceinfo "device"
+    include_sliceinfo "driver"
+    include_sliceinfo "kernel"
+    include_sliceinfo "service"
 }
 subcategory_login() {
     include_sliceinfo "syslog"
@@ -572,14 +574,11 @@ category_deepin-installer() {
     fi
 }
 category_deepin-store() {
+    subcategory_pkglog
     collect_file "deepin-store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache)
     collect_file "deepin-store" "/etc/apt"
     collect_file "deepin-store" "/var/log/lastore"
     collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
-    if [ ! "${arg_privacymode}" ]; then
-        subcategory_pkglog
-        include_sliceinfo "package"
-    fi
 }
 category_deepin-music() {
     collect_file "deepin-music" "~/.config/deepin-music-player/config"
