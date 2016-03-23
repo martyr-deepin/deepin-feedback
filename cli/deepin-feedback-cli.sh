@@ -334,8 +334,10 @@ sliceinfo_bootmgr() {
         msg_code "$(run efibootmgr -v)"
     fi
 
-    msg_title "Boot Info Script"
-    msg_code "$(run bootinfoscript --stdout)" # need root permission
+    if [ ! "${arg_privacymode}" ]; then
+        msg_title "Boot Info Script"
+        msg_code "$(run bootinfoscript --stdout)" # need root permission
+    fi
 }
 
 sliceinfo_disk() {
@@ -432,15 +434,13 @@ category_all() {
 }
 
 category_dde() {
+    # category_system include dde-control-center
+    category_system
     subcategory_startdde
     subcategory_background
     subcategory_dde-desktop
     subcategory_dde-dock
     subcategory_dde-launcher
-    if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "video"
-        include_sliceinfo "kernel"
-    fi
 }
 subcategory_startdde() {
     include_sliceinfo "syslog"
@@ -484,9 +484,9 @@ category_dde-control-center() {
 }
 subcategory_bootmgr() {
     if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "bootmgr"
         include_sliceinfo "disk"
     fi
+    include_sliceinfo "bootmgr"
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/grub"
     collect_file "bootmgr" /etc/default/grub
@@ -494,30 +494,24 @@ subcategory_bootmgr() {
     collect_file "bootmgr" /var/cache/deepin/grub2.json
 }
 subcategory_display() {
-    if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "video"
-    fi
+    include_sliceinfo "video"
     include_sliceinfo "syslog"
     include_syslog_keyword "startdde"
     include_syslog_keyword "daemon/display"
     collect_file "display" "~/.config/deepin_monitors.json"
 }
 subcategory_bluetooth() {
-    if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "bluetooth"
-        include_sliceinfo "kernel"
-        include_sliceinfo "driver"
-    fi
+    include_sliceinfo "bluetooth"
+    include_sliceinfo "kernel"
+    include_sliceinfo "driver"
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/bluetooth"
     include_syslog_keyword "bluetooth"
     collect_file "bluetooth" "~/.config/deepin/bluetooth.json"
 }
 subcategory_network() {
-    if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "network"
-        include_sliceinfo "driver"
-    fi
+    include_sliceinfo "network"
+    include_sliceinfo "driver"
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/network"
     include_syslog_keyword "NetworkManager"
@@ -554,7 +548,10 @@ category_system() {
     subcategory_login
     include_sliceinfo "driver"
     include_sliceinfo "kernel"
-    include_sliceinfo "service"
+    include_sliceinfo "video"
+    if [ ! "${arg_privacymode}" ]; then
+        include_sliceinfo "service"
+    fi
 }
 subcategory_login() {
     include_sliceinfo "syslog"
@@ -583,19 +580,15 @@ category_deepin-store() {
 }
 category_deepin-music() {
     collect_file "deepin-music" "~/.config/deepin-music-player/config"
-    if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "audio"
-        include_sliceinfo "driver"
-        include_sliceinfo "kernel"
-    fi
+    include_sliceinfo "audio"
+    include_sliceinfo "driver"
+    include_sliceinfo "kernel"
 }
 category_deepin-movie() {
     collect_file "deepin-movie" "~/.config/deepin-movie/config.ini"
-    if [ ! "${arg_privacymode}" ]; then
-        include_sliceinfo "video"
-        include_sliceinfo "driver"
-        include_sliceinfo "kernel"
-    fi
+    include_sliceinfo "video"
+    include_sliceinfo "driver"
+    include_sliceinfo "kernel"
 }
 
 category_deepin-screenshot() {
