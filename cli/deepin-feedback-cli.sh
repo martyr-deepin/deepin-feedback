@@ -608,9 +608,14 @@ if is_cmd_exists pacman; then
     pkgcmd=(pacman -Q)
 fi
 
+if [ -f /etc/deepin-version ]; then
+    distro_release="$(cat /etc/deepin-version | grep Version | awk -F'=' '{print $2}')"
+fi
 if is_cmd_exists lsb_release; then
-    distro_name=$(lsb_release -s -i)
-    distro_release=$(lsb_release -s -r)
+    distro_name="$(lsb_release -s -i)"
+    if [ -z "${distro_release}" ]; then
+        distro_release="$(lsb_release -s -r)"
+    fi
 
     # fix distro name to keep same with the IDs in bugzilla
     if [ "${distro_name}" = "Arch" ]; then
@@ -624,7 +629,9 @@ if is_cmd_exists lsb_release; then
     fi
 else
     distro_name="Other"
-    distro_release="Other"
+    if [ -z "${distro_release}" ]; then
+        distro_release="Other"
+    fi
 fi
 
 arg_username=""
