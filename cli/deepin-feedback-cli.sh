@@ -362,9 +362,11 @@ sliceinfo_syslog() {
     # user journalctl firstly
     if is_cmd_exists journalctl; then
         if [ ${#opt_syslog_include[@]} -gt 0 ]; then
-            journalctl --system --user 2>/dev/null | grep -i ${opt_syslog_include[@]}
+            journalctl --system --user --boot -1 2>/dev/null | grep -i ${opt_syslog_include[@]}
+            journalctl --system --user --boot 0  2>/dev/null | grep -i ${opt_syslog_include[@]}
         else
-            journalctl --system --user 2>/dev/null
+            journalctl --system --user --boot -1 2>/dev/null
+            journalctl --system --user --boot 0  2>/dev/null
         fi
     else
         if [ ${#opt_syslog_include[@]} -gt 0 ]; then
