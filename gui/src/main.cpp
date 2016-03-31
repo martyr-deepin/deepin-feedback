@@ -13,6 +13,7 @@
 #include <QCommandLineParser>
 #include <QDBusConnection>
 #include <QDBusInterface>
+#include <QNetworkProxyFactory>
 
 #include "logmanager.h"
 #include "Logger.h"
@@ -23,6 +24,8 @@
 
 int main(int argc, char *argv[])
 {
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
+
     QApplication app(argc, argv);
     app.setOrganizationName("deepin");
     app.setApplicationName("deepin-feedback");
