@@ -253,6 +253,7 @@ sliceinfo_audio() {
 sliceinfo_video() {
     msg_title "Video Devices"
     msg_code "$(run lspci -vvnn | grep_block 'VGA ')"
+    msg_code "$(run lspci -vvnn | grep_block '3D controller')"
 
     msg_title "Video Driver Packages"
     msg_code "$(run ${pkgcmd[@]} | grep -e xorg-video -e catalyst -e nvidia -e drm -e mesa)"
