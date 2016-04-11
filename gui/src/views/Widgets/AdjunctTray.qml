@@ -62,7 +62,7 @@ Rectangle {
     }
 
     function addAdjunct(filePath){
-        if (filePath.indexOf("deepin-feedback-results") > 0){
+        if (isBackendGenerateResult(filePath)){
             AdjunctUploader.uploadAdjunct(filePath)
         }
         else if (getIndexFromModel(filePath) == -1){
@@ -91,10 +91,6 @@ Rectangle {
 
             AdjunctUploader.cancelUpload(filePath)
         }
-    }
-
-    function getFileNameByPath(filePath){
-        return AdjunctUploader.getFileNameByPath(filePath)
     }
 
     function getMimeTypeByPath(filePath){
@@ -145,7 +141,7 @@ Rectangle {
             updateLoadPercent(filePath,progress / 100)
         }
         onUploadFinish: {
-            if (filePath.indexOf("deepin-feedback-results") > 0){
+            if (isBackendGenerateResult(filePath)){
                 sysAdjunctModel.append({
                                            "name": getFileNameByPath(filePath),
                                            "url":getBucketUrl(filePath),
@@ -165,7 +161,7 @@ Rectangle {
             }
         }
         onUploadFailed: {
-            if (filePath.indexOf("deepin-feedback-results") > 0){
+            if (isBackendGenerateResult(filePath)){
                 mainObject.clearSysAdjuncts(lastTarget)
             }
 

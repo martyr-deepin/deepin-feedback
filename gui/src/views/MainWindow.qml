@@ -191,11 +191,12 @@ DWindow {
         target:feedbackContent
         onGenerateReportFinished: {
             var packageList = unmarshalJSON(arg1)
+            console.log ("Genera system infomation archive complete! Packages count:", packageList.length)
             adjunctPanel.sysAdjunctCount = packageList.length
             for (var i = 0; i < packageList.length; i ++){
+                backendGenerateResult.push(getFileNameByPath(packageList[i]))
                 adjunctPanel.getAdjunct(packageList[i])
             }
-            console.log ("Genera system infomation archive complete! Packages count:", packageList.length)
         }
     }
 
@@ -241,6 +242,7 @@ DWindow {
                 disableAllInput()
                 appComboBox.enabled = false
 
+                backendGenerateResult = []
                 //genera system infomation,then send data to server
                 feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text), helpCheck.checked)
             }
@@ -251,9 +253,9 @@ DWindow {
         target: AdjunctUploader
 
         onUploadFailed:{
-            //deepin-feedback-results will only upload when "Send" button click
+            // BackendGenerateResult will only upload when "Send" button click
             //so ignore other error here
-            if (filePath.indexOf("deepin-feedback-results") > 0) {
+            if (isBackendGenerateResult(filePath)) {
                 console.warn ("Post data error:", message)
                 sendButton.text = dsTr("Resend")
                 sending = false
@@ -558,9 +560,10 @@ DWindow {
                     disableAllInput()
                     appComboBox.enabled = false
 
+                    console.log ("Generating system infomation archive...")
+                    backendGenerateResult = []
                     //genera system infomation,then send data to server
                     feedbackContent.GenerateReport(getProjectIDByName(appComboBox.text), helpCheck.checked)
-                    console.log ("Generating system infomation archive...")
                 }
             }
         }
