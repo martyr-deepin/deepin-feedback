@@ -85,6 +85,7 @@ QtObject {
         property int width: displayId.primaryRect[2]
         property int height: displayId.primaryRect[3]
     }
+    property var backendGenerateResult: []  // File path list
     property var feedbackContent: Feedback {}
     property var mainWindow: MainWindow {}
     property var dbusSearch: Search {}
@@ -94,6 +95,15 @@ QtObject {
         Component.onCompleted: {
             console.log ("Language:", dsslocale.lang)
         }
+    }
+
+
+    function isBackendGenerateResult(fullPath) {
+        return backendGenerateResult.indexOf(getFileNameByPath(fullPath)) >= 0;
+    }
+
+    function getFileNameByPath(fullPath) {
+        return fullPath.replace(/^.*[\\\/]/, '')
     }
 
     function getProjectIDByName(name){
