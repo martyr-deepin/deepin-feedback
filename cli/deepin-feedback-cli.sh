@@ -603,7 +603,22 @@ category_deepin-terminal() {
 category_deepin-translator() {
     collect_file "deepin-translator" "~/.config/deepin-translator/config.ini"
 }
-
+category_deepin-cloud-print() {
+    collect_file "deepin-cloud-print" "/var/log/cups/dcp_log"
+}
+category_deepin-cloud-scan() {
+    collect_file "deepin-cloud-scan" "~/.cache/deepin/deepin-cloud-scan-config-helper/deepin-cloud-scan-config-helper.log"
+    collect_file "deepin-cloud-scan" "~/.cache/deepin/deepin-cloud-scan/deepin-cloud-scan.log"
+}
+category_deepin-file-manager() {
+    collect_file "deepin-file-manager" "~/.cache/deepin/dde-file-manager/dde-file-manager.log"
+}
+category_deepin-image-viewer() {
+    collect_file "deepin-image-viewer" "~/.cache/deepin/deepin-image-viewer/deepin-image-viewer.log"
+}
+category_deepin-remote-assistance() {
+    collect_file "deepin-remote-assistance" "~/.cache/deepin/deepin-remote-assistance/deepin-remote-assistance.log"
+}
 ###* Main
 
 # override variables

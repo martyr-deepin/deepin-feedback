@@ -54,6 +54,11 @@ func initCategories() {
 		{Value: "deepin-screenshot", BugzillaProject: "深度截图", Name: Tr("Deepin Screenshot")},
 		{Value: "deepin-terminal", BugzillaProject: "深度终端", Name: Tr("Deepin Terminal")},
 		{Value: "deepin-translator", BugzillaProject: "深度翻译", Name: Tr("Deepin Translator")},
+        {Value: "deepin-cloud-print", BugzillaProject: "深度云打印", Name: Tr("Deepin Cloud Print")},
+        {Value: "deepin-cloud-scan", BugzillaProject: "深度云扫描", Name: Tr("Deepin Cloud Scan")},
+        {Value: "deepin-file-manager", BugzillaProject: "深度文件管理器", Name: Tr("Deepin File Manager")},
+        {Value: "deepin-image-viewer", BugzillaProject: "深度看图", Name: Tr("Deepin Image Viewer")},
+        {Value: "deepin-remote-assistance", BugzillaProject: "远程协助", Name: Tr("Deepin Remote Assistance")},
 		{Value: "none", BugzillaProject: "深度网站", Name: Tr("Deepin Web")},
 		{Value: "all", BugzillaProject: "我不清楚", Name: Tr("I don't know")},
 	}

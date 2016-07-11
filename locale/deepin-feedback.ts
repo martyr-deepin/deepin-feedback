@@ -4,23 +4,23 @@
 <context>
     <name>AdjunctPanel</name>
     <message>
-        <location filename="../gui/src/views/AdjunctPanel.qml" line="+44"/>
+        <location filename="../gui/src/views/AdjunctPanel.qml" line="+45"/>
         <source>Failed to add attachment: Single attachment can not be more than 15M.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+94"/>
         <source>Please select attachment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <location line="+21"/>
         <source>Total attachments have reached limit. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+90"/>
         <source>Please describe your problem in detail</source>
         <translation type="unfinished"></translation>
     </message>
@@ -55,7 +55,7 @@
 <context>
     <name>AdjunctTray</name>
     <message>
-        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+218"/>
+        <location filename="../gui/src/views/Widgets/AdjunctTray.qml" line="+215"/>
         <source>Upload failed, please retry.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -63,7 +63,7 @@
 <context>
     <name>AppComboBox</name>
     <message>
-        <location filename="../gui/src/views/Widgets/AppComboBox.qml" line="+81"/>
+        <location filename="../gui/src/views/Widgets/AppComboBox.qml" line="+89"/>
         <source>Please select feedback project firstly </source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,39 +71,39 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/src/views/MainWindow.qml" line="+207"/>
+        <location filename="../gui/src/views/MainWindow.qml" line="+209"/>
         <location line="+20"/>
-        <location line="+39"/>
+        <location line="+43"/>
         <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-62"/>
         <source>Your feedback has been sent successfully, thanks for your support!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+15"/>
-        <location line="+25"/>
+        <location line="+29"/>
         <location line="+14"/>
         <source>Resend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-40"/>
-        <location line="+39"/>
+        <location line="-44"/>
+        <location line="+43"/>
         <source>Failed to send your feedback, resend?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-33"/>
-        <location line="+307"/>
+        <location line="-37"/>
+        <location line="+311"/>
         <source>Sending ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-217"/>
+        <location line="-216"/>
         <source>Total attachments have reached limit. </source>
         <translation type="unfinished"></translation>
     </message>
@@ -148,8 +148,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-419"/>
-        <location line="+431"/>
+        <location line="-425"/>
+        <location line="+437"/>
         <source>Send</source>
         <translation type="unfinished"></translation>
     </message>
@@ -157,7 +157,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../gui/src/main.cpp" line="+25"/>
+        <location filename="../gui/src/main.cpp" line="+39"/>
         <source>Report a bug for &lt;target&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -170,7 +170,7 @@
 <context>
     <name>ReportTypeButtonRow</name>
     <message>
-        <location filename="../gui/src/views/ReportTypeButtonRow.qml" line="+24"/>
+        <location filename="../gui/src/views/ReportTypeButtonRow.qml" line="+25"/>
         <source>I have a problem</source>
         <translation type="unfinished"></translation>
     </message>
@@ -183,7 +183,7 @@
 <context>
     <name>TitleRow</name>
     <message>
-        <location filename="../gui/src/views/TitleRow.qml" line="+28"/>
+        <location filename="../gui/src/views/TitleRow.qml" line="+29"/>
         <source>Deepin User Feedback</source>
         <translation type="unfinished"></translation>
     </message>
