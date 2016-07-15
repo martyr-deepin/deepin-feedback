@@ -3,7 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Vasilii Rusu <basil_russu@hotmail.com>, 2015
+# AnandVivek, 2015
+# click4avi <avenish.dubey@gmail.com>, 2015
+# rupaklazarus <rupaklazarus@hotmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Deepin Feedback\n"
@@ -11,52 +13,52 @@ msgstr ""
 "POT-Creation-Date: 2016-07-11 16:31+0800\n"
 "PO-Revision-Date: 2016-07-12 07:03+0000\n"
 "Last-Translator: deepin_transifex <xiabin@linuxdeepin.com>\n"
-"Language-Team: Romanian (http://www.transifex.com/linuxdeepin/deepin-feedback/language/ro/)\n"
+"Language-Team: Hindi (India) (http://www.transifex.com/linuxdeepin/deepin-feedback/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../daemon/feedback_daemon.go:47
 msgid "Deepin Desktop Environment"
-msgstr "Spațiul de Lucru Deepin"
+msgstr "डीपइन डेस्कटॉप वातावरण"
 
 #: ../daemon/feedback_daemon.go:48
 msgid "Deepin Control Center"
-msgstr "Panou de Control Deepin"
+msgstr "डीपइन नियंत्रण केंद्र"
 
 #: ../daemon/feedback_daemon.go:49
 msgid "System Configuration (startup / repository / drive)"
-msgstr "Configurarea sistemului (start / repozitorii / driver)"
+msgstr "प्रणाली विन्यास (उद्घाटन /  संग्रह / ड्राइव)"
 
 #: ../daemon/feedback_daemon.go:50
 msgid "Deepin Installer"
-msgstr "Instalatorul Deepin"
+msgstr "डीपइन इंस्टॉलर"
 
 #: ../daemon/feedback_daemon.go:51
 msgid "Deepin Store"
-msgstr "Magazinul Deepin"
+msgstr "डीपइन दुकान"
 
 #: ../daemon/feedback_daemon.go:52
 msgid "Deepin Music"
-msgstr "Audio Player Deepin"
+msgstr "डीपइन संगीत"
 
 #: ../daemon/feedback_daemon.go:53
 msgid "Deepin Movie"
-msgstr "Video Player Deepin"
+msgstr "डीपइन चलचित्र"
 
 #: ../daemon/feedback_daemon.go:54
 msgid "Deepin Screenshot"
-msgstr "Captura de ecran Deepin"
+msgstr "डीपइन स्क्रीनशॉट"
 
 #: ../daemon/feedback_daemon.go:55
 msgid "Deepin Terminal"
-msgstr "Terminalul Deepin"
+msgstr "डीपइन टर्मिनल"
 
 #: ../daemon/feedback_daemon.go:56
 msgid "Deepin Translator"
-msgstr "Traducătorul Deepin"
+msgstr "डीपइन अनुवादक"
 
 #: ../daemon/feedback_daemon.go:57
 msgid "Deepin Cloud Print"
@@ -80,130 +82,130 @@ msgstr ""
 
 #: ../daemon/feedback_daemon.go:62
 msgid "Deepin Web"
-msgstr "Pagina web Deepin"
+msgstr "डीपइन वेब"
 
 #: ../daemon/feedback_daemon.go:63
 msgid "I don't know"
-msgstr "Nu știu"
+msgstr "मुझे नहीं पता"
 
 #: ../gui/src/main.cpp:39
 msgid "Report a bug for <target>."
-msgstr "Raportaţi o eroare pentru <target>."
+msgstr " <target> हेतु त्रुटि की सूचना दें।"
 
 #: ../gui/src/main.cpp:40
 msgid "target"
-msgstr "ţintă"
+msgstr "लक्ष्य"
 
 #: ../gui/src/views/AdjunctPanel.qml:45
 msgid "Failed to add attachment: Single attachment can not be more than 15M."
-msgstr "Nu a reuşit adăugarea ataşamentului: Un ataşament nu poate depăşi 15M."
+msgstr "सामग्री को जोड़ने में विफल: कृपया एक सामग्री जो 15एम से कम की हो, को डालें।"
 
 #: ../gui/src/views/AdjunctPanel.qml:139
 msgid "Please select attachment"
-msgstr "Selectați vă rog fișierul pentru a fi atașat."
+msgstr "कृपया सामग्री चुनें"
 
 #: ../gui/src/views/AdjunctPanel.qml:175 ../gui/src/views/AdjunctPanel.qml:196
 #: ../gui/src/views/MainWindow.qml:331
 msgid "Total attachments have reached limit. "
-msgstr "Fișierele pentru atașare au atins în total limita sa."
+msgstr "कुल सामग्री की सीमा समाप्त हो गई है।"
 
 #: ../gui/src/views/AdjunctPanel.qml:286
 msgid "Please describe your problem in detail"
-msgstr "Vă rugăm să descrieți problema dvs. în detalii."
+msgstr "कृपया अपनी परेशानी को विवरण सहित लिखें।"
 
 #: ../gui/src/views/AdjunctPanel.qml:287
 msgid "Please upload related screenshots or files"
-msgstr "Vă rugăm să încărcați fișierele  ce conțin capturi de ecran sau alte fișiere aferente."
+msgstr "कृपया इससे जुड़ी स्क्रीनशॉट और फ़ाइल को डालें"
 
 #: ../gui/src/views/AdjunctPanel.qml:288 ../gui/src/views/AdjunctPanel.qml:314
 msgid "Single attachment can not exceed 15M"
-msgstr "Un singur fișier pentru atașare nu poate depăși mărimea de 15 megaocteți"
+msgstr "एकल सामग्री का आकार 15एम से अधिक नहीं होना चाहिए।"
 
 #: ../gui/src/views/AdjunctPanel.qml:289 ../gui/src/views/AdjunctPanel.qml:315
 msgid "The total number of attachments is not more than six"
-msgstr "Numărul total de fișiere pentru atașare nu poate depăți șase"
+msgstr "सामग्री की कुल संख्या छः से अधिक नहीं होनी चाहिए।"
 
 #: ../gui/src/views/AdjunctPanel.qml:312
 msgid "Please describe your idea in detail"
-msgstr "Descrieți vă rog ideile dvs. in detalii"
+msgstr "कृपया अपने विचार पूरे विवरण के साथ दें"
 
 #: ../gui/src/views/AdjunctPanel.qml:313
 msgid "Please upload related attachments"
-msgstr " Descărcați vă rog fișiere relevante pentru atașare"
+msgstr "कृपया इससे जुड़े सामग्री को डालें"
 
 #: ../gui/src/views/MainWindow.qml:88 ../gui/src/views/MainWindow.qml:525
 msgid "Send"
-msgstr "Trimite"
+msgstr " भेजें"
 
 #: ../gui/src/views/MainWindow.qml:209 ../gui/src/views/MainWindow.qml:229
 #: ../gui/src/views/MainWindow.qml:272 ../gui/src/views/TitleRow.qml:29
 msgid "Deepin User Feedback"
-msgstr "Feedback-ul utilizatorului Deepin"
+msgstr "डीपइन प्रयोक्ता प्रतिक्रिया"
 
 #: ../gui/src/views/MainWindow.qml:210
 msgid "Your feedback has been sent successfully, thanks for your support!"
-msgstr "Feedback-ul dvs. a fost transmis cu succes. Mulțumim pentru suportul dvs!"
+msgstr "आपकी प्रतिक्रिया भेजी गई है, इसके लिए धन्यवाद!"
 
 #: ../gui/src/views/MainWindow.qml:216 ../gui/src/views/MainWindow.qml:231
 #: ../gui/src/views/MainWindow.qml:260 ../gui/src/views/MainWindow.qml:274
 msgid "Resend"
-msgstr "Trimite din nou"
+msgstr "पुनः भेजें"
 
 #: ../gui/src/views/MainWindow.qml:230 ../gui/src/views/MainWindow.qml:273
 msgid "Failed to send your feedback, resend?"
-msgstr "Eroare trimiterea  feedback-ului. Trimitem din nou?"
+msgstr "प्रतिक्रिया भेजने में विफल, पुनः भेजें?"
 
 #: ../gui/src/views/MainWindow.qml:236 ../gui/src/views/MainWindow.qml:547
 msgid "Sending ..."
-msgstr "Trimiterea..."
+msgstr "भेज रहा ..."
 
 #: ../gui/src/views/MainWindow.qml:374
 #, qt-format
 msgid "The draft of %1 has been saved."
-msgstr "Schița  %1 a fost salvată."
+msgstr "यह  %1 आलेख के रूप में सहेजा गया।"
 
 #: ../gui/src/views/MainWindow.qml:397
 msgid "Please input the problem title"
-msgstr "Inserați denumirea problemei"
+msgstr "कृपया परेशानी का शीर्षक डालें"
 
 #: ../gui/src/views/MainWindow.qml:398
 msgid "Please describe your idea simply"
-msgstr "Descrieți gândurile dvs. în mod simplist."
+msgstr "कृपया अपने विचार को विवरण सहित समझाएँ"
 
 #: ../gui/src/views/MainWindow.qml:401
 msgid "Title words have reached limit."
-msgstr "A fost atinsă limita de cuvinte din denumire"
+msgstr "शीर्षक में शब्द सीमा से अधिक हो गया।"
 
 #: ../gui/src/views/MainWindow.qml:435
 msgid "Please fill in email to get the feedback progress."
-msgstr "Introduceți email-ul dvs. pentru a finisa."
+msgstr "कृपया अपना ईमेल भरें जिससे प्रतिक्रिया को भेजने हो।"
 
 #: ../gui/src/views/MainWindow.qml:438
 msgid "Email is invalid."
-msgstr "Email-ul nu este valabil."
+msgstr "ईमेल अमान्य है।"
 
 #: ../gui/src/views/MainWindow.qml:495
 msgid ""
 "I wish to join in User Feedback Help Plan to quickly improve the system "
 "without any personal information collected."
-msgstr "Doresc să mă implic în procesul de îmbunătățire a sistemului fără să fie nevoie să introduc informație cu caracter personal."
+msgstr "में प्रणाली के विकास हेतु प्रयोक्ता प्रतिक्रिया सहायता से जुड़ना चाहता हूँ, बिना अपने किसी व्यक्तिगत जानकारी दिये।"
 
 #: ../gui/src/views/MainWindow.qml:513
 msgid "Close"
-msgstr "Închide"
+msgstr "बंद"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:25
 msgid "I have a problem"
-msgstr "Am o problemă"
+msgstr "मुझे एक समस्या है"
 
 #: ../gui/src/views/ReportTypeButtonRow.qml:36
 msgid "I have a good idea"
-msgstr "Am o bună ideie "
+msgstr "मेरे पास एक अच्छा विचार है"
 
 #: ../gui/src/views/Widgets/AdjunctTray.qml:215
 msgid "Upload failed, please retry."
-msgstr "Descărcarea eșuată, încercați din nou."
+msgstr "डालना विफल हुआ, कृपया पुनः प्रयास करें।"
 
 #: ../gui/src/views/Widgets/AppComboBox.qml:89
 msgid "Please select feedback project firstly "
-msgstr "Selectați mai întâi proiectul pentru care doriți să trimiteți un feedback."
+msgstr "कृपया पहले प्रतिक्रिया परियोजना को चुने।"
