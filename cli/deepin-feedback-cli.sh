@@ -576,7 +576,7 @@ category_deepin-installer() {
 }
 category_deepin-store() {
     subcategory_pkglog
-    collect_file "deepin-store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache)
+    collect_file "deepin-store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache | grep -v tree)
     collect_file "deepin-store" "/etc/apt"
     collect_file "deepin-store" "/var/log/lastore"
     collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
