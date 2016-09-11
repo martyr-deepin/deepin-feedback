@@ -598,7 +598,9 @@ category_deepin-screenshot() {
     collect_file "deepin-screenshot" "~/.config/deepin-screenshot/config.ini"
 }
 category_deepin-terminal() {
-    collect_file "deepin-terminal" "~/.config/deepin-terminal/config"
+    collect_file "deepin-terminal" "~/.config/deepin/deepin-terminal/config.conf"
+    collect_file "deepin-terminal" "~/.config/deepin/deepin-terminal/server-config.conf"
+    collect_file "deepin-terminal" "~/.cache/deepin/deepin-terminal/deepin-terminal.log"
 }
 category_deepin-translator() {
     collect_file "deepin-translator" "~/.config/deepin-translator/config.ini"
