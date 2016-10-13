@@ -527,7 +527,7 @@ DWindow {
                     if (titleTextinput.text != "" && !titleTextinput.inWarningState
                             && appComboBox.text != ""
                             && adjunctPanel.getDescriptionDetails() !== ""
-                            && adjunctPanel.isAllAttachmentsUploaded()
+                            && adjunctPanel.isAllAttachmentsUploaded
                             && isLegitEmail(emailTextinput.text)
                             && (!mainWindow.sending)){
                         textItem.color = textNormalColor

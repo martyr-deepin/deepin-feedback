@@ -19,6 +19,7 @@ Rectangle {
 
     property alias adjunctModel: adjunctView.model
     property var sysAdjunctModel: ListModel{}
+    property bool available: false
 
     signal adjunctAdded()
     signal adjunctRemoved()
@@ -28,12 +29,14 @@ Rectangle {
         return AdjunctUploader.isInUploadedList(filePath)
     }
 
-    function isAllAdjunctUploaded(){
+    function checkAdjunctState(){
         for (var i = 0; i < adjunctView.model.count; i ++){
-            if (!adjunctView.model.get(i).uploadFinish)
-                return false
+            if (!adjunctView.model.get(i).uploadFinish) {
+                available = false;
+                return;
+            }
         }
-        return true
+        available = true;
     }
 
     function getBucketUrl(filePath){
@@ -91,6 +94,7 @@ Rectangle {
 
             AdjunctUploader.cancelUpload(filePath)
         }
+        checkAdjunctState()
     }
 
     function getMimeTypeByPath(filePath){
@@ -159,6 +163,7 @@ Rectangle {
                     adjunctView.model.setProperty(tmpIndex,"bucketUrl",bucketUrl)
                 }
             }
+            checkAdjunctState()
         }
         onUploadFailed: {
             if (isBackendGenerateResult(filePath)){
@@ -170,6 +175,7 @@ Rectangle {
                 adjunctView.model.setProperty(tmpIndex,"gotError",true)
                 adjunctView.model.setProperty(tmpIndex,"bucketUrl","")
             }
+            checkAdjunctState()
         }
     }
     function getStringPixelSize(preText,fontPixelSize){
