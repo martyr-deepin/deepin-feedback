@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=deepin-feedback
+Exec=gvfs-open http://feedback.deepin.org/feedback
 Name=Deepin User Feedback
 Icon=deepin-feedback
 Name[zh_CN]=深度用户反馈
