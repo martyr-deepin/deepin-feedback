@@ -24,6 +24,8 @@ install-mo:
 
 install: install-mo
 	install -dm0755 ${DESTDIR}${PREFIX}/bin/
+	mkdir -p ${DESTDIR}/var/lib/deepin-feedback/
+	cp -rf feedback_logpath.json ${DESTDIR}/var/lib/deepin-feedback/feedback_logpath.json
 	install -m0755 cli/deepin-feedback-cli.sh ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
 	install -m0755 gui/deepin-feedback ${DESTDIR}${PREFIX}/bin/deepin-feedback
 	install -dm0755 ${DESTDIR}${PREFIX}/lib/deepin-feedback
@@ -41,6 +43,7 @@ install: install-mo
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
+	rm -f /var/lib/deepin-feedback/feedback_logpath.json
 	rm -f ${DESTDIR}${PREFIX}/bin/deepin-feedback
 	rm -f ${DESTDIR}${PREFIX}/lib/deepin-feedback/deepin-feedback-daemon
 	rmdir ${DESTDIR}${PREFIX}/lib/deepin-feedback

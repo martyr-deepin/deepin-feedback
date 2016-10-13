@@ -107,6 +107,17 @@ run() {
 }
 
 # collect_file <category> <files...>
+get_log_path() {
+    local _dir="${1}"; shift
+    length=`jq --arg _dir $_dir "."$_dir"|length" /var/lib/deepin-feedback/feedback_logpath.json`
+    _length=`expr $length - 1`
+    for (( i=0; i<=$_length; i++  ))
+    do
+        path=`jq -r --arg _dir $_dir --arg i $i "."$_dir"[$i]" /var/lib/deepin-feedback/feedback_logpath.json`
+        collect_file $_dir $path
+    done
+}
+
 collect_file() {
     local category="${1}"; shift
     for f in ${@}; do
@@ -455,17 +466,17 @@ subcategory_background() {
     include_syslog_keyword "daemon/appearance"
 }
 subcategory_dde-desktop() {
-    collect_file "desktop" "~/.cache/deepin/dde-desktop/dde-desktop.log"
+    get_log_path "desktop"
 }
 subcategory_dde-dock() {
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/dock"
-    collect_file "dock" "~/.cache/deepin/dde-dock/dde-dock.log"
+    get_log_path "dock"
 }
 subcategory_dde-launcher() {
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/launcher-daemon"
-    collect_file "launcher" "~/.cache/deepin/dde-launcher/dde-launcher.log"
+    get_log_path "launcher"
 }
 
 category_dde-control-center() {
@@ -483,7 +494,7 @@ category_dde-control-center() {
     include_sliceinfo "device"
     include_sliceinfo "fonts"
     include_sliceinfo "gsettings"
-    collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
+    get_log_path "dde_control_center"
 }
 subcategory_bootmgr() {
     if [ ! "${arg_privacymode}" ]; then
@@ -492,16 +503,14 @@ subcategory_bootmgr() {
     include_sliceinfo "bootmgr"
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/grub"
-    collect_file "bootmgr" /etc/default/grub
-    collect_file "bootmgr" /boot/grub/grub.cfg
-    collect_file "bootmgr" /var/cache/deepin/grub2.json
+    get_log_path "bootmgr"
 }
 subcategory_display() {
     include_sliceinfo "video"
     include_sliceinfo "syslog"
     include_syslog_keyword "startdde"
     include_syslog_keyword "daemon/display"
-    collect_file "display" "~/.config/deepin_monitors.json"
+    get_log_path "display"
 }
 subcategory_bluetooth() {
     include_sliceinfo "bluetooth"
@@ -510,7 +519,7 @@ subcategory_bluetooth() {
     include_sliceinfo "syslog"
     include_syslog_keyword "daemon/bluetooth"
     include_syslog_keyword "bluetooth"
-    collect_file "bluetooth" "~/.config/deepin/bluetooth.json"
+    get_log_path "bluetooth"
 }
 subcategory_network() {
     include_sliceinfo "network"
@@ -523,7 +532,7 @@ subcategory_network() {
     include_syslog_keyword "dhclient"
     include_syslog_keyword "dnsmasq"
     include_syslog_keyword "avahi-daemon"
-    collect_file "network" "~/.config/deepin/network.json"
+    get_log_path "network"
 }
 subcategory_pkglog() {
     if [ "${arg_privacymode}" ]; then
@@ -534,15 +543,12 @@ subcategory_pkglog() {
 
     # debian
     if is_cmd_exists apt; then
-        collect_file "pkglog" /var/log/apt/history.log.1.gz
-        collect_file "pkglog" /var/log/apt/history.log
-        collect_file "pkglog" /var/log/apt/term.log.1.gz
-        collect_file "pkglog" /var/log/apt/term.log
+        get_log_path "pkglog"
     fi
 
     # archlinux
     if is_cmd_exists pacman; then
-        collect_file "pkglog" /var/log/pacman.log
+        get_log_path "pkglog"
     fi
 }
 
@@ -561,65 +567,58 @@ subcategory_login() {
     include_syslog_keyword "startdde"
     include_syslog_keyword "daemon/display"
     if [ ! "${arg_privacymode}" ]; then
-        collect_file "login" "~/.xsession-errors"
-        collect_file "login" "/etc/lightdm/lightdm.conf"
-        collect_file "login" "/var/log/Xorg."*
-        collect_file "login" "/var/log/lightdm" # need root permission
+        get_log_path "login"
     fi
 }
 
 category_deepin-installer() {
-    collect_file "deepin-installer" "/var/log/deepin-installer.log"
+    get_log_path "deepin_installer"
     if [ ! "${arg_privacymode}" ]; then
         include_sliceinfo "disk"
     fi
 }
 category_deepin-store() {
     subcategory_pkglog
-    collect_file "deepin-store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache | grep -v tree)
-    collect_file "deepin-store" "/etc/apt"
-    collect_file "deepin-store" "/var/log/lastore"
-    collect_file "dde-control-center" "~/.cache/deepin/dde-control-center/dde-control-center.log"
+    collect_file "deepin_store" $(find /var/lib/lastore/ -type f 2>/dev/null | grep -v safecache | grep -v tree)
+    get_log_path "deepin_store"
+    get_log_path "dde_control_center"
 }
 category_deepin-music() {
-    collect_file "deepin-music" "~/.config/deepin-music-player/config"
+    get_log_path "deepin_music"
     include_sliceinfo "audio"
     include_sliceinfo "driver"
     include_sliceinfo "kernel"
 }
 category_deepin-movie() {
-    collect_file "deepin-movie" "~/.config/deepin-movie/config.ini"
+    get_log_path "deepin_movie"
     include_sliceinfo "video"
     include_sliceinfo "driver"
     include_sliceinfo "kernel"
 }
 
 category_deepin-screenshot() {
-    collect_file "deepin-screenshot" "~/.config/deepin-screenshot/config.ini"
+    get_log_path "deepin_screenshot"
 }
 category_deepin-terminal() {
-    collect_file "deepin-terminal" "~/.config/deepin/deepin-terminal/config.conf"
-    collect_file "deepin-terminal" "~/.config/deepin/deepin-terminal/server-config.conf"
-    collect_file "deepin-terminal" "~/.cache/deepin/deepin-terminal/deepin-terminal.log"
+    get_log_path "deepin_terminal"
 }
 category_deepin-translator() {
-    collect_file "deepin-translator" "~/.config/deepin-translator/config.ini"
+    get_log_path "deepin_translator"
 }
 category_deepin-cloud-print() {
-    collect_file "deepin-cloud-print" "/var/log/cups/dcp_log"
+    get_log_path "deepin_cloud_print"
 }
 category_deepin-cloud-scan() {
-    collect_file "deepin-cloud-scan" "~/.cache/deepin/deepin-cloud-scan-config-helper/deepin-cloud-scan-config-helper.log"
-    collect_file "deepin-cloud-scan" "~/.cache/deepin/deepin-cloud-scan/deepin-cloud-scan.log"
+    get_log_path "deepin_cloud_scan"
 }
 category_deepin-file-manager() {
-    collect_file "deepin-file-manager" "~/.cache/deepin/dde-file-manager/dde-file-manager.log"
+    get_log_path "dde_file_manager"
 }
 category_deepin-image-viewer() {
-    collect_file "deepin-image-viewer" "~/.cache/deepin/deepin-image-viewer/deepin-image-viewer.log"
+    get_log_path "deepin_image_viewer"
 }
 category_deepin-remote-assistance() {
-    collect_file "deepin-remote-assistance" "~/.cache/deepin/deepin-remote-assistance/deepin-remote-assistance.log"
+    get_log_path "deepin_remote_assistance"
 }
 ###* Main
 
@@ -795,11 +794,3 @@ if [ "${arg_category}" ]; then
     msg2 "https://bugzilla.deepin.io/"
     exit
 fi
-
-
-# Local Variables:
-# mode: sh
-# mode: orgstruct
-# orgstruct-heading-prefix-regexp: "^\s*###"
-# sh-basic-offset: 4
-# End:
