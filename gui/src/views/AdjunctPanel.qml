@@ -20,6 +20,7 @@ FocusScope{
 
     property alias backgroundColor: adjunctRec.color
     property alias contentText: contentTextEdit.text
+    property bool isAllAttachmentsUploaded: adjunctTray.available
     property bool canAddAdjunct: adjunctTray.adjunctModel.count < maxAdjunctCount && enableInput
     property bool showAddAdjunct: false
     property int addingCount: 0
@@ -87,9 +88,9 @@ FocusScope{
         return adjunctTray.getAdjunctList()
     }
 
-    function isAllAttachmentsUploaded(){
-        return adjunctTray.isAllAdjunctUploaded()
-    }
+//    function isAllAttachmentsUploaded(){
+//        return adjunctTray.available
+//    }
 
     onWarningChanged: {
         if (warning)
