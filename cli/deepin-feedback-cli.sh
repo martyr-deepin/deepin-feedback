@@ -791,6 +791,6 @@ if [ "${arg_category}" ]; then
     fi
 
     msg "Finished, please report a bug to Deepin team with ${result_archive} in current folder as an attachment:"
-    msg2 "https://bugzilla.deepin.io/"
+    msg2 "http://feedback.deepin.org/feedback"
     exit
 fi

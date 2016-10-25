@@ -10,6 +10,7 @@ endif
 build: check configure
 	(cd daemon; ${GOBUILD} -o deepin-feedback-daemon)
 	(cd gui; qmake; make)
+	(cd cli; go build feedbackserver.go)
 
 configure:
 	sed "s=@PREFIX@=${PREFIX}=" misc/com.deepin.Feedback.service.in > misc/com.deepin.Feedback.service
@@ -27,6 +28,8 @@ install: install-mo
 	mkdir -p ${DESTDIR}/var/lib/deepin-feedback/
 	cp -rf feedback_logpath.json ${DESTDIR}/var/lib/deepin-feedback/feedback_logpath.json
 	install -m0755 cli/deepin-feedback-cli.sh ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli
+	install -m0755 cli/feedbackserver ${DESTDIR}${PREFIX}/bin/
+	install -m0755 deepin-feedback ${DESTDIR}${PREFIX}/bin/
 	install -dm0755 ${DESTDIR}${PREFIX}/lib/deepin-feedback
 	install -m0755 daemon/deepin-feedback-daemon ${DESTDIR}${PREFIX}/lib/deepin-feedback/
 	install -dm0755 ${DESTDIR}/etc/dbus-1/system.d/

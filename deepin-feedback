@@ -1,0 +1,13 @@
+#!/bin/bash
+killall feedbackserver
+feedbackserver generating &
+if [ x$LANG = xzh_CN.UTF-8 ]
+then
+    gvfs-open "http://feedback.deepin.org/feedback?isapp=1&language=zh-cn"
+else
+    gvfs-open "http://feedback.deepin.org/feedback?isapp=1&language=en"
+fi
+output_name=`gksu deepin-feedback-cli 2>&1 |grep Finished`
+file_name=`echo $output_name |sed -e 's/==> Finished, please report a bug to Deepin team with \(.*\) in current folder as an attachment:/\1/'`
+killall feedbackserver
+feedbackserver $file_name &
