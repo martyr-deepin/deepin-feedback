@@ -14,7 +14,7 @@ func ServeFeedbackFileName(w http.ResponseWriter, r *http.Request) {
 }
 
 func ServeFeedbackFile(w http.ResponseWriter, r *http.Request){
-    w.Header().Set("Acess-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Origin", "*")
     name := os.Args[1]
     http.ServeFile(w, r, name)
 }
