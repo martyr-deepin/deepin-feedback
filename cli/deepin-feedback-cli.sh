@@ -780,6 +780,7 @@ if [ "${arg_category}" ]; then
     msg "Archive files..."
     dest_files=$(ls -1 "${dest_dir}" | tr "\n" " ")
     tar -cvzf "${result_archive}" -h -C "${dest_dir}" ${dest_files}
+    rm -rf ${dest_dir}
 
     # split archive file if need
     archive_size="$(stat -c "%s" "${result_archive}")"
