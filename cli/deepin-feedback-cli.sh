@@ -360,6 +360,8 @@ sliceinfo_disk() {
 
     msg_title "Disk Partition Table"
     msg_code "$(run lsblk)"
+	msg_title "Disk Partition Information"
+	msg_code "$(run df -h)"
 }
 
 sliceinfo_fonts() {
