@@ -457,6 +457,7 @@ category_dde() {
     subcategory_dde-desktop
     subcategory_dde-dock
     subcategory_dde-launcher
+    subcategory_dde-offline-upgrader
 }
 subcategory_startdde() {
     include_sliceinfo "syslog"
@@ -552,6 +553,11 @@ subcategory_pkglog() {
     if is_cmd_exists pacman; then
         get_log_path "pkglog"
     fi
+}
+
+subcategory_dde-offline-upgrader() {
+    include_sliceinfo "syslog"
+    get_log_path "dde_offline_upgrader"
 }
 
 category_system() {

@@ -20,5 +20,6 @@
     "deepin_cloud_scan":["~/.cache/deepin/deepin-cloud-scan-config-helper/deepin-cloud-scan-config-helper.log","~/.cache/deepin/deepin-cloud-scan/deepin-cloud-scan.log"],
     "dde_file_manager":["~/.cache/deepin/dde-file-manager/dde-file-manager.log"],
     "deepin_image_viewer":["~/.cache/deepin/deepin-image-viewer/deepin-image-viewer.log"],
-    "deepin_remote_assistance":["~/.cache/deepin/deepin-remote-assistance/deepin-remote-assistance.log"]
+    "deepin_remote_assistance":["~/.cache/deepin/deepin-remote-assistance/deepin-remote-assistance.log"],
+    "dde_offline_upgrader":["~/.cache/deepin/dde-offline-upgrader/dde-offline-upgrader.log"]
 }
