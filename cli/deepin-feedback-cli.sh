@@ -603,7 +603,9 @@ category_deepin-movie() {
     include_sliceinfo "driver"
     include_sliceinfo "kernel"
 }
-
+category_deepin-boot-maker() {
+    get_log_path "deepin_boot_maker"
+}
 category_deepin-screenshot() {
     get_log_path "deepin_screenshot"
 }
