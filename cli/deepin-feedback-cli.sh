@@ -261,6 +261,24 @@ sliceinfo_audio() {
     msg_code "$(run pulseaudio --dump-resample-methods)"
 }
 
+show_prop() {
+    echo -n "$1: "
+    cat $1
+}
+
+sliceinfo_backlight(){
+    for i in /sys/class/backlight/* ;do
+        cd $i
+	echo Backlight $(basename $i)
+	for p in actual_brightness brightness max_brightness type bl_power; do
+	    show_prop $p
+	done
+	# show EDID
+	echo EDID:
+	xxd device/edid
+    done
+}
+
 sliceinfo_video() {
     msg_title "Video Devices"
     msg_code "$(run lspci -vvnn | grep_block 'VGA ')"
@@ -271,6 +289,8 @@ sliceinfo_video() {
 
     msg_title "Xrandr Infromation"
     msg_code "$(run xrandr --verbose)"
+    msg_title "Backlight Info"
+    msg_code "$(sliceinfo_backlight)"
 }
 
 sliceinfo_network() {
