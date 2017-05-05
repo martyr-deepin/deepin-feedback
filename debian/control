@@ -7,20 +7,9 @@ Build-Depends: debhelper (>= 9),
  golang-dlib-dev,
  dde-go-dbus-factory(>= 0.6.1),
  pkg-config,
- qt5-qmake,
- qt5-default,
- libqt5qml5,
- libqt5quick5,
- libqt5widgets5,
- libqt5gui5,
- libqt5dbus5,
- libqt5network5,
- qtdeclarative5-dev,
- pkg-config,
  libx11-dev,
  libxtst-dev,
- deepin-gettext-tools,
- libgtk2.0-dev
+ deepin-gettext-tools
 Standards-Version: 3.9.5
 
 Package: deepin-feedback
@@ -28,5 +17,5 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  rfkill, lshw,
  wireless-tools, gzip, efibootmgr, dmidecode,
- boot-info-script, jq
+ boot-info-script, jq, gksu
 Description: report crash information to deepin for debugging
