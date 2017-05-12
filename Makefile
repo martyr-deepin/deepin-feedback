@@ -27,6 +27,8 @@ install:
 	install -m0755 deepin-feedback.desktop ${DESTDIR}${PREFIX}/share/applications/
 	install -dm0755 ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps
 	install -m0644 misc/deepin-feedback.svg ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/
+	install -dm0755 ${DESTDIR}${PREFIX}/share/polkit-1/actions/
+	install -m0644 com.deepin.deepin-feedback.policy ${DESTDIR}${PREFIX}/share/polkit-1/actions/
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/deepin-feedback-cli

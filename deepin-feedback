@@ -7,7 +7,8 @@ then
 else
     gvfs-open "http://feedback.deepin.org/feedback?isapp=1&language=en"
 fi
-output_name=`gksu deepin-feedback-cli 2>&1 |grep Finished`
-file_name=`echo $output_name |sed -e 's/==> Finished, please report a bug to Deepin team with \(.*\) in current folder as an attachment:/\1/'`
+result_tag="deepin-feedback-all-$(date "+%Y%m%d-%H%M%S")"
+output_path=${PWD}/${result_tag}.tar.gz
+pkexec deepin-feedback-cli -o ${output_path}
 killall feedbackserver
-feedbackserver $file_name &
+feedbackserver ${result_tag}.tar.gz &
