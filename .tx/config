@@ -3,8 +3,14 @@ host = https://www.transifex.com
 minimum_perc = 80
 mode = developer
 
-[deepin-feedback.deepin-feedbackpot]
-file_filter = locale/<lang>.po
-source_file = locale/deepin-feedback.pot
+[deepin-feedback-1.policyts]
+file_filter = misc/ts/com.deepin.deepin-feedback.policy/policy_<lang>.ts
+source_file = misc/ts/com.deepin.deepin-feedback.policy/policy.ts
 source_lang = en
-type = PO
+type = QT
+
+[deepin-feedback-1.desktopts]
+file_filter = misc/ts/deepin-feedback.desktop/desktop_<lang>.ts
+source_file = misc/ts/deepin-feedback.desktop/desktop.ts
+source_lang = en
+type = QT

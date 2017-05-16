@@ -8,13 +8,11 @@
   <action id="com.deepin.deepin-feedback-cli">
     <description>Authentication is required to collect system log</description>
     <message>Syslog will be collected, and the current operation may reveal sensitive information.</message>
-    <description xml:lang="zh_CN">使用超级权限收集当前系统日志</description>
-    <message xml:lang="zh_CN">即将开始收集系统日志信息，请注意当前操作可能导致敏感信息泄露。</message>
     <icon_name>deepin-feedback</icon_name>
     <defaults>
       <allow_any>no</allow_any>
       <allow_inactive>no</allow_inactive>
-      <allow_active>auth_admin_keep</allow_active>
+      <allow_active>auth_admin</allow_active>
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/deepin-feedback-cli</annotate>
   </action>
