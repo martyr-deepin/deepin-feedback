@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE policyconfig PUBLIC
- "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
- "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN" "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
 <policyconfig>
-  <vendor/>
-  <vendor_url/>
+  <vendor>LinuxDeepin</vendor>
+  <vendor_url>https://www.deepin.com/</vendor_url>
   <action id="com.deepin.deepin-feedback-cli">
     <description>Authentication is required to collect system log</description>
     <message>Syslog will be collected, and the current operation may reveal sensitive information.</message>
@@ -16,5 +14,4 @@
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/deepin-feedback-cli</annotate>
   </action>
-
 </policyconfig>
