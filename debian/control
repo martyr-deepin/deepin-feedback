@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9),
  pkg-config,
  libx11-dev,
  libxtst-dev,
- deepin-gettext-tools
+ deepin-gettext-tools, deepin-icon-theme-tools
 Standards-Version: 3.9.5
 
 Package: deepin-feedback

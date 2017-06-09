@@ -12,6 +12,7 @@ build: check
 	(cd cli; go build -o ../build/feedbackserver feedbackserver.go)
 	deepin-policy-ts-convert ts2policy misc/com.deepin.deepin-feedback.policy.in misc/ts/com.deepin.deepin-feedback.policy build/com.deepin.deepin-feedback.policy
 	deepin-desktop-ts-convert ts2desktop misc/deepin-feedback.desktop.in misc/ts/deepin-feedback.desktop build/deepin-feedback.desktop
+	deepin-svg2png-batch -o 'build/icons/hicolor/<size2>/apps' misc/deepin-feedback.svg
 
 ts:
 	deepin-policy-ts-convert policy2ts misc/com.deepin.deepin-feedback.policy.in misc/ts/com.deepin.deepin-feedback.policy
@@ -26,8 +27,7 @@ install:
 	install -m0755 deepin-feedback ${DESTDIR}${PREFIX}/bin/
 	install -dm0755 ${DESTDIR}${PREFIX}/share/applications
 	install -m0755 build/deepin-feedback.desktop ${DESTDIR}${PREFIX}/share/applications/
-	install -dm0755 ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps
-	install -m0644 misc/deepin-feedback.svg ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/
+	cp -rf build/icons ${DESTDIR}${PREFIX}/share/
 	install -dm0755 ${DESTDIR}${PREFIX}/share/polkit-1/actions/
 	install -m0644 build/com.deepin.deepin-feedback.policy ${DESTDIR}${PREFIX}/share/polkit-1/actions/
 
