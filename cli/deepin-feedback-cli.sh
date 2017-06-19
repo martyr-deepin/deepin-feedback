@@ -14,7 +14,11 @@ app_file="${0}"
 app_name="$(basename $0)"
 
 real_home="${HOME}"
-if [ "${SUDO_USER}" ]; then
+if [ "${PKEXEC_UID}" ]; then
+    SUDO_USER=`getent passwd ${PKEXEC_UID}| cut -d: -f1`
+fi
+
+if [ "${SUDO_USER}"  ]; then
     real_home="/home/${SUDO_USER}"
 fi
 
@@ -389,7 +393,7 @@ sliceinfo_fonts() {
 }
 
 sliceinfo_gsettings() {
-    gsettings list-recursively | grep com.deepin
+    pkexec --user $SUDO_USER gsettings list-recursively | grep com.deepin
 }
 
 sliceinfo_syslog() {
