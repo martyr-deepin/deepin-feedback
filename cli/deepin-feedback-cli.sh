@@ -283,6 +283,26 @@ sliceinfo_backlight(){
     done
 }
 
+sliceinfo_battery(){
+    msg_title "Battery Info"
+    for dir in `ls /sys/class/power_supply/`
+    do
+        if [ -d /sys/class/power_supply/$dir ]
+        then
+            if [ -f /sys/class/power_supply/$dir/uevent ]
+            then
+                msg_code "/sys/class/power_supply/$dir/uevent"
+                msg_code "$(run cat /sys/class/power_supply/$dir/uevent)"
+                msg_code "        "
+            fi
+        fi
+    done
+    msg_code "$(run upower -d)"
+    msg_code "        "
+    gdbus call -y -d com.deepin.system.Power -o /com/deepin/system/Power -m com.deepin.system.Power.GetBatteries
+    msg_code "$(run gdbus introspect -y -d com.deepin.system.Power -o /com/deepin/system/Power -rp)"
+
+}
 sliceinfo_video() {
     msg_title "Video Devices"
     msg_code "$(run lspci -vvnn | grep_block 'VGA ')"
@@ -590,6 +610,7 @@ category_system() {
     include_sliceinfo "driver"
     include_sliceinfo "kernel"
     include_sliceinfo "video"
+    include_sliceinfo "battery"
     if [ ! "${arg_privacymode}" ]; then
         include_sliceinfo "service"
     fi
