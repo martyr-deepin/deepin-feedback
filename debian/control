@@ -17,5 +17,5 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  rfkill, lshw,
  wireless-tools, gzip, efibootmgr, dmidecode,
- boot-info-script, jq, gksu
+ boot-info-script, jq, dde-polkit-agent
 Description: report crash information to deepin for debugging
