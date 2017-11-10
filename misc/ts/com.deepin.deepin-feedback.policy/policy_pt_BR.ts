@@ -3,8 +3,8 @@
 		<name>policy</name>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!message" line="0"/>
-			<source>Syslog will be collected, and the current operation may reveal sensitive information.</source>
-			<translation>O log do sistema será coletado, e a operação atual pode revelar informações sensíveis.</translation>
+			<source>To better solve system problems, log files will be collected for debugging, but user sensitive information will not be involved.</source>
+			<translation type="unfinished"/>
 		</message>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!description" line="0"/>

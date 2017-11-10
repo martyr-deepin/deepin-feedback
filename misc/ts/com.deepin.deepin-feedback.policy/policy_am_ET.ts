@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ms" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="am_ET" version="2.1">
 	<context>
 		<name>policy</name>
 		<message>
@@ -9,7 +9,7 @@
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!description" line="0"/>
 			<source>Authentication is required to collect system log</source>
-			<translation>Pengesahihan diperlukan untuk mengutip log sistem</translation>
+			<translation>የ ስርአት መግቢያ ለ መሰብሰብ ማረጋገጫ ያስፈልጋል</translation>
 		</message>
 	</context>
 </TS>

@@ -3,13 +3,13 @@
 		<name>policy</name>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!message" line="0"/>
-			<source>Syslog will be collected, and the current operation may reveal sensitive information.</source>
-			<translation>將收集系統紀錄，此作業可能涉及敏感訊息。</translation>
+			<source>To better solve system problems, log files will be collected for debugging, but user sensitive information will not be involved.</source>
+			<translation type="unfinished"/>
 		</message>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!description" line="0"/>
 			<source>Authentication is required to collect system log</source>
-			<translation>收集系統紀錄需驗證</translation>
+			<translation>需要驗證</translation>
 		</message>
 	</context>
 </TS>
