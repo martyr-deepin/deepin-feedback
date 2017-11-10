@@ -416,6 +416,16 @@ sliceinfo_gsettings() {
     pkexec --user $SUDO_USER gsettings list-recursively | grep com.deepin
 }
 
+sliceinfo_fprint() {
+    msg_title "Fprint Packages"
+    msg_code "$(run dpkg -l | grep fprint)"
+
+    msg_title "Fprint Devices"
+    if [ -f /usr/lib/fprintd/fprintd ]; then
+        msg_code "$(run qdbus --system --literal net.reactivated.Fprint /net/reactivated/Fprint/Manager net.reactivated.Fprint.Manager.GetDevices)"
+    fi
+}
+
 sliceinfo_syslog() {
     # user journalctl firstly
     if is_cmd_exists journalctl; then
@@ -474,6 +484,7 @@ exec_sliceinfo_funcs() {
             "sliceinfo_fonts")     "${f}"   >> "${file_fonts}";;
             "sliceinfo_kernel")    "${f}"   >> "${file_kernel}";;
             "sliceinfo_syslog")    "${f}"   >> "${file_syslog}";;
+            "sliceinfo_fprint")    "${f}"   >> "${file_fprint}";;
             *)                     "${f}"   >> "${file_master}";;
         esac
     done
@@ -614,6 +625,7 @@ category_system() {
     if [ ! "${arg_privacymode}" ]; then
         include_sliceinfo "service"
     fi
+    include_sliceinfo "fprint"
 }
 subcategory_login() {
     include_sliceinfo "syslog"
@@ -816,6 +828,7 @@ if [ "${arg_category}" ]; then
     file_fonts="${dest_dir}/fonts"
     file_kernel="${dest_dir}/dmesg"
     file_gsettings="${dest_dir}/gsettings.md"
+    file_fprint="${dest_dir}/fprint.md"
 
     msg "Collecting system information and this will take several seconds..."
 
