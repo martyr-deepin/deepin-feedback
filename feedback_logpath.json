@@ -8,7 +8,7 @@
     "bluetooth":["~/.config/deepin/bluetooth.json"],
     "network":["~/.config/deepin/network.json"],
     "pkglog":["/var/log/apt/history.log.1.gz","/var/log/apt/history.log","/var/log/apt/term.log.1.gz","/var/log/apt/term.log","/var/log/pacman.log"],
-    "login":["~/.xsession-errors","/etc/lightdm/lightdm.conf","/var/log/Xorg.*","/var/log/lightdm"],
+    "login":["~/.xsession-errors","~/.xsession-errors.old","/etc/lightdm/lightdm.conf","/var/log/Xorg.*","/var/log/lightdm"],
     "deepin_installer":["/var/log/deepin-installer.log"],
     "deepin_store":["/etc/apt","/var/log/lastore"],
     "dde_control_center":["~/.cache/deepin/dde-control-center/dde-control-center.log"],
