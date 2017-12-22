@@ -5,7 +5,7 @@
 		<name>policy</name>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!message" line="0" />
-			<source>Syslog will be collected, and the current operation may reveal sensitive information.</source>
+			<source>To better solve system problems, log files will be collected for debugging, but user sensitive information will not be involved.</source>
 			<translation type="unfinished" />
 		</message>
 		<message>
