@@ -40,7 +40,7 @@ msg2() {
 
 warning() {
     local mesg=${1}; shift
-    printf "${YELLOW}==> $(gettext "WARNING:")${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}\n" "${@}" >&2
+    printf "${YELLOW}==> WARNING:${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}\n" "${@}" >&2
 }
 
 msg_title() {
@@ -730,6 +730,7 @@ arg_complete_opt=
 arg_distro_name=
 arg_distro_release=
 arg_help=
+apostrophe="'"
 
 show_usage() {
     cat <<EOF
@@ -740,7 +741,7 @@ Options:
     -d, --dump, print system slice information, the type coulde be:
 $(get_sliceinfo_funcs)
     -o, --output, customize the output file
-    -m, --maxsize, set single archive file's maximize size
+    -m, --maxsize, set single archive file${apostrophe}s maximize size
     --distro-name, print current distributor name
     --distro-release, print current distributor release version
     -h, --help, show this message
@@ -859,7 +860,10 @@ if [ "${arg_category}" ]; then
         rm -f "${result_archive}"
     fi
 
-    msg "Finished, please report a bug to Deepin team with ${result_archive} in current folder as an attachment:"
-    msg2 "http://feedback.deepin.org/feedback"
+    export TEXTDOMAIN=deepin-feedback
+    uploadPrompt=$(gettext "Please report the bug by uploading %s as an attachment to deepin feedback: %s, so that deepin team can locate and solve the problem.")
+    uploadPrompt=$(printf "$uploadPrompt\n" $(pwd)/$result_archive "http://feedback.deepin.org/feedback")
+    msg "$uploadPrompt"
+
     exit
 fi

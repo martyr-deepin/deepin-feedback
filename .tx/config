@@ -14,3 +14,9 @@ file_filter = misc/ts/deepin-feedback.desktop/desktop_<lang>.ts
 source_file = misc/ts/deepin-feedback.desktop/desktop.ts
 source_lang = en
 type = QT
+
+[deepin-feedback-1.deepinfeedbackpot]
+file_filter = misc/po/<lang>.po
+source_file = misc/po/deepin-feedback-cli.pot
+source_lang = en
+type = PO
