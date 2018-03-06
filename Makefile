@@ -29,6 +29,8 @@ ts:
 
 pot:
 	xgettext -LShell --keyword=gettext -o misc/po/deepin-feedback-cli.pot cli/deepin-feedback-cli.sh
+	# set charset to UTF-8
+	sed -i 's/CHARSET/UTF-8/'  misc/po/deepin-feedback-cli.pot
 
 install:
 	install -dm0755 ${DESTDIR}${PREFIX}/bin/
