@@ -4,12 +4,12 @@
         <message>
             <location filename="Desktop Entry]Name" line="0"/>
             <source>Deepin User Feedback</source>
-            <translation>Deepin User Feedback</translation>
+            <translation>Opinião do Utilizador Deepin</translation>
         </message>
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Feedback tools for Deepin users.</source>
-            <translation>Ferramentas de feedback para os utilizadores Deepin.</translation>
+            <translation>Ferramentas de &apos;Opinião&apos; para os utilizadores Deepin.</translation>
         </message>
     </context>
 </TS>

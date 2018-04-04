@@ -4,7 +4,7 @@
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!message" line="0"/>
 			<source>To better solve system problems, log files will be collected for debugging, but user sensitive information will not be involved.</source>
-			<translation type="unfinished"/>
+			<translation>Para resolver mejor los problemas del sistema, se recopilarán los archivos de registro para la depuración, pero no se involucrará la información sensible del usuario.</translation>
 		</message>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!description" line="0"/>
