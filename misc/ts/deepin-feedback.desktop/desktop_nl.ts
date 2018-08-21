@@ -9,7 +9,7 @@
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Feedback tools for Deepin users.</source>
-            <translation>Feedbackhulpmiddelen voor Deepin gebruikers</translation>
+            <translation>Feedbackhulpmiddelen voor Deepin-gebruikers</translation>
         </message>
     </context>
 </TS>

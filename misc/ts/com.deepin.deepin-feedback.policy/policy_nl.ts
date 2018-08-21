@@ -4,12 +4,12 @@
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!message" line="0"/>
 			<source>To better solve system problems, log files will be collected for debugging, but user sensitive information will not be involved.</source>
-			<translation type="unfinished"/>
+			<translation>Voor het oplossen van systeemproblemen worden logbestanden verzameld. Deze bevatten geen gevoelige gebruikersinformatie.</translation>
 		</message>
 		<message>
 			<location filename="com.deepin.deepin-feedback-cli!description" line="0"/>
 			<source>Authentication is required to collect system log</source>
-			<translation>Authenticatie is vereist om systeemlog op te halen</translation>
+			<translation>Authenticatie vereist om systeemlogbestanden te verzamelen</translation>
 		</message>
 	</context>
 </TS>
