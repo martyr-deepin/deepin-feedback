@@ -16,6 +16,7 @@ Package: deepin-feedback
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  rfkill, lshw,
- wireless-tools, gzip, efibootmgr, dmidecode,
+ wireless-tools, gzip,
  boot-info-script, jq, dde-polkit-agent
+Recommends: efibootmgr, dmidecode
 Description: report crash information to deepin for debugging
