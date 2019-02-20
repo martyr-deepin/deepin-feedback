@@ -23,5 +23,6 @@
     "dde_file_manager":["~/.cache/deepin/dde-file-manager/dde-file-manager.log"],
     "deepin_image_viewer":["~/.cache/deepin/deepin-image-viewer/deepin-image-viewer.log"],
     "deepin_remote_assistance":["~/.cache/deepin/deepin-remote-assistance/deepin-remote-assistance.log"],
-    "dde_offline_upgrader":["~/.cache/deepin/dde-offline-upgrader/dde-offline-upgrader.log"]
+    "dde_offline_upgrader":["~/.cache/deepin/dde-offline-upgrader/dde-offline-upgrader.log"],
+    "deepin_graphics_driver_manager":["~/.cache/deepin/deepin-graphics-driver-manager/deepin-graphics-driver-manager.log","~/.cache/deepin/deepin-graphics-driver-manager-installer/deepin-graphics-driver-manager-installer.log","/var/log/dgradvrmgr.log"]
 }

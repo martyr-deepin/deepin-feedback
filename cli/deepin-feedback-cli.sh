@@ -687,6 +687,9 @@ category_deepin-image-viewer() {
 category_deepin-remote-assistance() {
     get_log_path "deepin_remote_assistance"
 }
+category_deepin-graphics-driver-manager() {
+    get_log_path "deepin_graphics_driver_manager"
+}
 ###* Main
 
 # override variables
