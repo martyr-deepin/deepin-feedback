@@ -1,3 +1,8 @@
+[1.0.19] 2019-02-25
+*   add: deepin-graphics-manager log
+*   chore(deb): change efibootmgr and dmidecode to recommended
+*   auto sync po files from transifex
+
 <a name="1.0.18"></a>
 ### 1.0.18 (2018-11-23)
 
