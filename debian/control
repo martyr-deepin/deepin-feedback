@@ -18,5 +18,5 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  rfkill, lshw,
  wireless-tools, gzip,
  boot-info-script, jq, dde-polkit-agent
-Recommends: efibootmgr, dmidecode
+Recommends: efibootmgr [amd64 i386 arm64], dmidecode [amd64 i386 arm64]
 Description: report crash information to deepin for debugging
