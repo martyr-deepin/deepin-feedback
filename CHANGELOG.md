@@ -1,3 +1,6 @@
+[1.0.20] 2019-04-16
+*   refactor: recommend efibootmgr/dmidecode only on x86/arm platform
+
 [1.0.19] 2019-02-25
 *   add: deepin-graphics-manager log
 *   chore(deb): change efibootmgr and dmidecode to recommended
