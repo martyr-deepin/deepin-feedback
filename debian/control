@@ -4,8 +4,6 @@ Priority: optional
 Maintainer: Deepin Sysdev <sysdev@deepin.com>
 Build-Depends: debhelper (>= 9),
  golang,
- golang-dlib-dev,
- dde-go-dbus-factory(>= 0.6.1),
  pkg-config,
  libx11-dev,
  libxtst-dev,
